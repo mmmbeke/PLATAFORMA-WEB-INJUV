@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Header — INJUV</title>
+  <link rel="stylesheet" href="Kit_Gobierno/typography.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:var(--font-body);line-height:1.6;color:#333;overflow-x:hidden;background:#f6f7fb}
+
+    .header{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      background:rgba(255,255,255,.97);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(0,0,0,.08);
+      z-index:1000;
+      transition:all 0.3s ease;
+    }
+
+    /* Efecto sombra al hacer scroll */
+    .header.scrolled{
+      box-shadow:0 4px 20px rgba(0,0,0,0.1);
+      background:rgba(255,255,255,0.98);
+    }
+
+    .header-content{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      max-width:1400px;
+      margin:0 auto;
+      padding:1rem 40px;
+    }
+
+     .logo img{
+       height:70px;
+       width:auto;
+       border-radius:6px;
+       object-fit:contain;
+       transition: all 0.3s ease;
+       cursor: pointer;
+     }
+     
+     .logo a:hover img{
+       transform: scale(1.05);
+       opacity: 0.9;
+     }
+
+    .main-nav{flex:1;margin-left:3rem;white-space:nowrap;}
+    .nav-menu{display:flex;list-style:none;gap:2rem;flex-wrap:nowrap;}
+    .nav-item{position:relative;white-space:nowrap;}
+    .nav-link{display:flex;align-items:center;gap:.5rem;padding:.75rem 1rem;color:#333;text-decoration:none;font-weight:500;transition:all .25s ease;border-radius:6px;white-space:nowrap;}
+    .nav-link:hover{background:#f8f9fa;color:#0066CC}
+
+    .dropdown-menu{position:absolute;top:100%;left:0;background:#fff;min-width:250px;box-shadow:0 10px 30px rgba(0,0,0,.1);border-radius:8px;opacity:0;visibility:hidden;transform:translateY(-10px);transition:all .25s ease;z-index:1000;list-style:none;padding:.5rem 0}
+    .nav-item:hover .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
+    .dropdown-menu a{display:block;padding:.75rem 1.25rem;color:#333;text-decoration:none}
+    .dropdown-menu a:hover{background:#f8f9fa;color:#0066CC}
+
+    .header-actions{
+      display:flex;
+      align-items:center;
+      gap:1rem;
+      margin-left:auto;
+      justify-content:flex-end;
+    }
+
+    .btn-login, .btn-register {
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      width:160px;
+      padding:0.8rem 0;
+      border-radius:12px;
+      font-weight:700;
+      font-size:0.95rem;
+      text-decoration:none;
+      transition:all 0.3s ease;
+    }
+
+    .btn-login {
+      background: linear-gradient(90deg, #0052CC, #007BFF);
+      color:#fff;
+      border:none;
+      box-shadow:0 4px 12px rgba(0,102,204,0.3);
+    }
+
+    .btn-login:hover {
+      transform:translateY(-2px);
+      box-shadow:0 8px 18px rgba(0,102,204,0.35);
+    }
+
+    .btn-register {
+      background:transparent;
+      color:#0052CC;
+      border:2px solid #0052CC;
+    }
+
+    .btn-register:hover {
+      background:#0052CC;
+      color:#fff;
+    }
+
+    @media (max-width:992px){.main-nav{display:none}}
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header-content">
+       <div class="logo">
+         <a href="index.html" style="display: block; text-decoration: none;">
+           <img src="https://www.injuv.gob.cl/sites/default/files/logo_injuv_2021_portal.png?v=3" alt="INJUV Logo" />
+         </a>
+       </div>
+
+      <nav class="main-nav" aria-label="Navegación principal">
+        <ul class="nav-menu">
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link">INJUV <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Quiénes Somos</a></li>
+              <li><a href="#">Dirección Nacional</a></li>
+              <li><a href="#">Estudios</a></li>
+              <li><a href="#">Noticias</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link">Voluntariado <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="#explore">Oportunidades</a></li>
+              <li><a href="#how-it-works">Cómo funciona</a></li>
+              <li><a href="#features">Características</a></li>
+              <li><a href="#pricing">Planes</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link">Participación <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Compromiso Joven</a></li>
+              <li><a href="#">Espacios de participación</a></li>
+              <li><a href="#">COSOC</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#news" class="nav-link">Noticias</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link">Atención Ciudadana <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Trámites INJUV</a></li>
+              <li><a href="#">Gobierno Transparente</a></li>
+              <li><a href="#">OIRS</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="inicio de sesion/login.html" class="btn-login">Iniciar sesión</a>
+        <a class="btn-register" href="#">Registrarse</a>
+      </div>
+    </div>
+  </header>
+
+  <script>
+    // Detectar scroll para agregar efecto de sombra
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > 20){
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>

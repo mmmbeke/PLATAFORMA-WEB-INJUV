@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - INJUV</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding-top: 90px;
+            background-color: #0f172a;
+        }
+
+        .register-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(1200px 600px at 80% -20%, rgba(30,64,175,0.2), transparent),
+                        radial-gradient(800px 400px at 10% 110%, rgba(34,211,238,0.13), transparent);
+            background-color: #0f172a;
+            color: #f1f5f9;
+            font-family: 'Inter', sans-serif;
+            padding: 1.5rem;
+        }
+        
+        .register-container main {
+            width: 100%;
+            max-width: 32rem;
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid #475569;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+        
+        .register-container header {
+            text-align: center;
+            padding: 1.5rem 1.5rem 0.75rem;
+            border-bottom: 1px solid #475569;
+        }
+        
+        .register-container header img {
+            margin: 0 auto 0.75rem;
+            width: 8rem;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+        }
+        
+        .register-container h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 0.25rem;
+        }
+        
+        .register-container p {
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+        
+        .register-container section {
+            padding: 1.5rem;
+        }
+        
+        .register-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .register-container label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #cbd5e1;
+            margin-bottom: 0.25rem;
+        }
+        
+        .register-container input,
+        .register-container select {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid #475569;
+            color: #f1f5f9;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+        
+        .register-container input:focus,
+        .register-container select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .register-container input::placeholder {
+            color: #64748b;
+        }
+        
+        .register-container .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        
+        .register-container button[type="submit"] {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background: #3b82f6;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .register-container button[type="submit"]:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+        
+        .register-container button[type="submit"]:disabled {
+            background: #475569;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .register-container footer {
+            text-align: center;
+            font-size: 0.875rem;
+            color: #94a3b8;
+            padding: 1.5rem;
+        }
+        
+        .register-container footer a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+        
+        .register-container footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .success-message {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #86efac;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+    <main class="w-full max-w-md bg-slate-800/70 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden">
+        <header class="text-center px-6 pt-6 pb-3 border-b border-slate-700">
+            <img
+                src="https://www.injuv.gob.cl/sites/default/files/logo_injuv_2021_portal.png?v=3"
+                alt="INJUV"
+                class="mx-auto w-32 mb-3 drop-shadow"
+            />
+            <h1 class="text-2xl font-bold">Crear cuenta</h1>
+            <p class="text-slate-400 text-sm">Regístrate para comenzar a participar</p>
+        </header>
+
+        <section class="p-6">
+            <div id="errorMessage" class="error-message"></div>
+            <div id="successMessage" class="success-message"></div>
+            
+            <form id="registerForm" class="space-y-4">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label for="nombre" class="block text-sm font-medium text-slate-300 mb-1">
+                            Nombre
+                        </label>
+                        <input
+                            id="nombre"
+                            type="text"
+                            required
+                            placeholder="Tu nombre"
+                            autocomplete="off"
+                            class="w-full px-3 py-2 rounded-lg bg-slate-900/60 border border-slate-600 focus:ring-2 focus:ring-blue-500 outline-none"
+                        />
+                    </div>
+                    <div>
+                        <label for="apellido" class="block text-sm font-medium text-slate-300 mb-1">
+                            Apellido
+                        </label>
+                        <input
+                            id="apellido"
+                            type="text"
+                            required
+                            placeholder="Tu apellido"
+                            autocomplete="off"
+                            class="w-full px-3 py-2 rounded-lg bg-slate-900/60 border border-slate-600 focus:ring-2 focus:ring-blue-500 outline-none"
+                        />
+                    </div>
+                </div>
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-slate-300 mb-1">
+                        Correo electrónico
+                    </label>
+                    <input
+                        id="email"
+                        type="email"
+                        required
+                        placeholder="tuname@dominio.cl"
+                        autocomplete="off"
+                        class="w-full px-3 py-2 rounded-lg bg-slate-900/60 border border-slate-600 focus:ring-2 focus:ring-blue-500 outline-none"
+                    />
+                </div>
+
+                <div>
+                    <label for="rut" class="block text-sm font-medium text-slate-300 mb-1">
+                        RUT
+                    </label>
+                    <input
+                        id="rut"
+                        type="text"
+                        required
+                        placeholder="12345678-9"
+                        maxlength="12"
+                        autocomplete="off"
+                        class="w-full px-3 py-2 rounded-lg bg-slate-900/60 border border-slate-600 focus:ring-2 focus:ring-blue-500 outline-none"
+                    />
+                    <p class="text-xs text-slate-400 mt-1">Formato: 12345678-9 (con guion y dígito verificador)</p>
+                </div>
+
+                <div>
+                    <label for="fechaNacimiento" class="block text-sm font-medium text-slate-300 mb-1">
+                        Fecha de nacimiento
+                    </label>
+                    <input
+                        id="fechaNacimiento"
+                        type="date"
+                        required
+                        autocomplete="off"
+                        class="w-full px-3 py-2 rounded-lg bg-slate-900/60 border border-slate-600 focus:ring-2 focus:ring-blue-500 outline-none"
+                    />
+                    <p class="text-xs text-slate-400 mt-1">Debes tener al menos 15 años para registrarte.</p>
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-slate-300 mb-1">
+                        Contraseña
+                    </label>
+                    <input
+                        id="password"
+                        type="password"
+                        required
+                        minlength="8"
+                        placeholder="Mínimo 8 caracteres"
+                        autocomplete="off"
+                        class="w-full px-3 py-2 rounded-lg bg-slate-900/60 border border-slate-600 focus:ring-2 focus:ring-blue-500 outline-none"
+                    />
+                    <p class="text-xs text-slate-400 mt-1">Mínimo 8 caracteres.</p>
+                </div>
+
+                <div>
+                    <label for="confirmPassword" class="block text-sm font-medium text-slate-300 mb-1">
+                        Confirmar contraseña
+                    </label>
+                    <input
+                        id="confirmPassword"
+                        type="password"
+                        required
+                        minlength="8"
+                        placeholder="Repite tu contraseña"
+                        autocomplete="off"
+                        class="w-full px-3 py-2 rounded-lg bg-slate-900/60 border border-slate-600 focus:ring-2 focus:ring-blue-500 outline-none"
+                    />
+                </div>
+
+                <button
+                    type="submit"
+                    class="w-full py-2 rounded-lg bg-blue-600 hover:bg-blue-700 font-semibold text-white transition shadow-md"
+                >
+                    Registrarse
+                </button>
+                
+                <div class="text-center mt-4 pt-4 border-t border-slate-600">
+                    <p class="text-sm text-slate-400 mb-2">¿Ya tienes una cuenta?</p>
+                    <a href="login.html" class="text-blue-400 hover:text-blue-300 font-semibold text-sm transition">
+                        Inicia sesión aquí
+                    </a>
+                </div>
+            </form>
+        </section>
+
+        <footer class="text-center text-sm text-slate-400 px-6 pb-6">
+            <span class="text-xs opacity-75">Al registrarte aceptas nuestros términos y condiciones</span>
+        </footer>
+    </main>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'https://injuv.onrender.com/api';
+        
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            const successDiv = document.getElementById('successMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            successDiv.style.display = 'none';
+        }
+        
+        function showSuccess(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+            errorDiv.style.display = 'none';
+        }
+        
+        function hideMessages() {
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            hideMessages();
+            
+            const nombre = document.getElementById('nombre').value.trim();
+            const apellido = document.getElementById('apellido').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const rut = document.getElementById('rut').value.trim().toUpperCase();
+            const fechaNacimiento = document.getElementById('fechaNacimiento').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Validaciones
+            if (!nombre || !apellido || !email || !rut || !fechaNacimiento || !password || !confirmPassword) {
+                showError('Por favor, completa todos los campos.');
+                return;
+            }
+            
+            // Validar formato de RUT chileno
+            const rutRegex = /^(\d{1,2}\.?\d{3}\.?\d{3}-[\dkK])|(\d{7,8}-[\dkK])$/;
+            if (!rutRegex.test(rut)) {
+                showError('El RUT debe tener el formato correcto (ejemplo: 12345678-9 o 12.345.678-9)');
+                return;
+            }
+            
+            // Limpiar RUT (remover puntos) para guardarlo
+            const rutLimpio = rut.replace(/\./g, '').replace(/-/g, '');
+            if (rutLimpio.length < 8 || rutLimpio.length > 9) {
+                showError('El RUT debe tener entre 7 y 8 dígitos más el dígito verificador.');
+                return;
+            }
+            
+            // Validar edad mínima (15 años)
+            const fechaNac = new Date(fechaNacimiento);
+            const hoy = new Date();
+            let edad = hoy.getFullYear() - fechaNac.getFullYear();
+            const mes = hoy.getMonth() - fechaNac.getMonth();
+            if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNac.getDate())) {
+                edad--;
+            }
+            
+            if (edad < 15) {
+                showError('Debes tener al menos 15 años para registrarte.');
+                return;
+            }
+            
+            if (edad > 120) {
+                showError('Por favor, ingresa una fecha de nacimiento válida.');
+                return;
+            }
+            
+            if (password.length < 8) {
+                showError('La contraseña debe tener al menos 8 caracteres.');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showError('Las contraseñas no coinciden.');
+                return;
+            }
+            
+            // Mostrar estado de carga
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            submitButton.disabled = true;
+            submitButton.textContent = 'Registrando...';
+            
+            try {
+                // Llamar al API de registro
+                const response = await fetch(`${API_BASE_URL}/auth/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password,
+                        nombre: nombre,
+                        apellido: apellido,
+                        rut: rut.replace(/\./g, ''), // Enviar sin puntos
+                        fecha_nacimiento: fechaNacimiento
+                        // El rol se asignará automáticamente como 'user' por defecto en el backend
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success && data.user) {
+                    showSuccess('¡Cuenta creada exitosamente! Iniciando sesión automáticamente...');
+                    
+                    // Autenticar automáticamente al usuario después del registro
+                    const user = data.user;
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('userId', user.id);
+                    localStorage.setItem('userEmail', user.email || email);
+                    localStorage.setItem('userNombre', user.nombre || '');
+                    localStorage.setItem('userApellido', user.apellido || '');
+                    localStorage.setItem('userRol', user.rol || 'user');
+                    
+                    // Redirigir a la página principal después de 1.5 segundos
+                    setTimeout(() => {
+                        if (typeof window.redirectTo === 'function') {
+                            window.redirectTo('../index.html');
+                        } else {
+                            window.location.href = '../index.html';
+                        }
+                    }, 1500);
+                } else {
+                    showError(data.error || 'Error al registrar. Por favor, intenta nuevamente.');
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalText;
+                }
+            } catch (error) {
+                console.error('Error al registrar:', error);
+                showError('Error de conexión con el servidor. Verifica que el backend esté corriendo.');
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+            }
+        });
+        
+        // Formatear RUT automáticamente mientras se escribe
+        document.getElementById('rut').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\./g, '').replace(/-/g, '').replace(/[^0-9kK]/g, '');
+            
+            if (value.length > 1) {
+                // Agregar guion antes del último carácter (dígito verificador)
+                value = value.slice(0, -1) + '-' + value.slice(-1);
+            }
+            
+            // Agregar puntos cada 3 dígitos (solo a la parte antes del guion)
+            if (value.includes('-')) {
+                const parts = value.split('-');
+                let numero = parts[0];
+                const dv = parts[1];
+                
+                if (numero.length > 3) {
+                    numero = numero.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                }
+                
+                value = numero + '-' + dv;
+            }
+            
+            e.target.value = value.toUpperCase();
+        });
+        
+        // Formatear RUT automáticamente mientras se escribe
+        document.getElementById('rut').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\./g, '').replace(/-/g, '').replace(/[^0-9kK]/g, '');
+            
+            if (value.length > 1) {
+                // Agregar guion antes del último carácter (dígito verificador)
+                value = value.slice(0, -1) + '-' + value.slice(-1);
+            }
+            
+            // Agregar puntos cada 3 dígitos (solo a la parte antes del guion)
+            if (value.includes('-')) {
+                const parts = value.split('-');
+                let numero = parts[0];
+                const dv = parts[1];
+                
+                if (numero.length > 3) {
+                    numero = numero.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                }
+                
+                value = numero + '-' + dv;
+            }
+            
+            e.target.value = value.toUpperCase();
+        });
+        
+        // Cargar email si viene del login
+        window.addEventListener('DOMContentLoaded', function() {
+            const registeredEmail = localStorage.getItem('registeredEmail');
+            if (registeredEmail) {
+                document.getElementById('email').value = registeredEmail;
+                localStorage.removeItem('registeredEmail');
+            }
+        });
+    </script>
+</body>
+</html>
+

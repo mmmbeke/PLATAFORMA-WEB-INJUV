@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Header — INJUV</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',sans-serif;line-height:1.6;color:#333;overflow-x:hidden;background:#f6f7fb}
+
+    .header{
+      position:fixed;top:0;left:0;width:100%;
+      background:#fff;
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid #e5e7eb;
+      z-index:1000;transition:all .3s ease;
+      box-shadow:0 1px 3px rgba(0,0,0,.04);
+    }
+    .header.scrolled{box-shadow:0 4px 12px rgba(0,0,0,.08)}
+
+    /* #header sube la especificidad por encima de template/styles.css */
+    /* Tres franjas: espacio + banda central 1400px (como el header antes) + espacio; logo alineado al inicio de esa banda, perfil al borde derecho del viewport */
+    #header .header-content{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(0,1400px) minmax(0,1fr);
+      align-items:center;
+      width:100%;
+      max-width:none;
+      margin:0;
+      padding:.35rem max(1rem, env(safe-area-inset-right, 0px)) .35rem max(1rem, env(safe-area-inset-left, 0px));
+      column-gap:0;
+      row-gap:0.5rem;
+      min-height:72px;
+      box-sizing:border-box;
+    }
+
+    /* Banda central: logo + menú como en el header max-width 1400px centrado */
+    #header .header-center-band{
+      grid-column:2;
+      display:flex;
+      align-items:center;
+      gap:1rem;
+      min-width:0;
+      padding:0 2rem;
+      box-sizing:border-box;
+    }
+    #header .header-center-band .logo{
+      flex:0 0 auto;
+      display:flex;
+      align-items:center;
+      flex-shrink:0;
+    }
+    #header .logo img{height:68px;width:auto;max-height:68px;border-radius:6px;object-fit:contain;transition:.3s;cursor:pointer}
+    #header .logo a:hover img{transform:scale(1.03);opacity:.92}
+
+    #header .header-center-band .main-nav{
+      flex:1 1 auto;
+      align-self:center;
+      white-space:nowrap;
+      display:flex;
+      justify-content:center;
+      min-width:0;
+      max-width:100%;
+      margin:0;
+    }
+    .nav-menu{display:flex;list-style:none;gap:.25rem;flex-wrap:nowrap;justify-content:center;align-items:center;margin:0;padding:0}
+    .nav-item{position:relative;white-space:nowrap;flex-shrink:0}
+    .nav-link{display:flex;align-items:center;gap:.4rem;padding:.5rem .85rem;color:#374151;text-decoration:none;font-weight:600;font-size:.875rem;transition:.2s;border-radius:8px;white-space:nowrap;letter-spacing:.01em}
+    .nav-link:hover{background:#f1f5f9;color:#0066CC}
+
+    .dropdown-menu{position:absolute;top:100%;left:0;background:#fff;min-width:250px;box-shadow:0 10px 40px rgba(0,0,0,.12);border-radius:10px;border:1px solid #e5e7eb;opacity:0;visibility:hidden;transform:translateY(-8px);transition:.2s;z-index:1000;list-style:none;padding:.4rem 0}
+    .nav-item:hover .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
+    .dropdown-menu a{display:block;padding:.65rem 1.25rem;color:#374151;text-decoration:none;font-weight:500;font-size:.875rem}
+    .dropdown-menu a:hover{background:#f1f5f9;color:#0066CC}
+
+    .volunteer-filter > li{list-style:none}
+    .volunteer-filter{min-width:700px;padding:0;display:flex;background:#fff;border-radius:8px;overflow:hidden}
+    .volunteer-filter-section{flex:1;padding:1.5rem}
+    .volunteer-filter-section:first-child{border-right:1px solid #e0e0e0}
+    .section-title{font-weight:600;font-size:1rem;color:#333;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid #e0e0e0}
+    .destinations-list,.experiences-list{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;list-style:none;margin:0;padding:0}
+    .destination-item,.experience-item{margin:0}
+    .destination-item a,.experience-item a{display:flex;align-items:center;gap:.5rem;padding:.75rem;text-decoration:none;color:#333;transition:.2s;border-radius:6px;font-size:.9rem}
+    .destination-item a:hover,.experience-item a:hover{background:#f0f7ff;color:#0066CC}
+    .experience-item a i{font-size:1.1rem;color:#0066CC;width:20px;text-align:center}
+    .view-all-link{margin-top:1rem;padding-top:1rem;border-top:1px solid #e0e0e0}
+    .view-all-link a{color:#0066CC;font-weight:500;text-decoration:none;font-size:.9rem;transition:color .2s}
+    .view-all-link a:hover{color:#0052CC;text-decoration:underline}
+
+    #header .header-actions{
+      grid-column:3;
+      justify-self:end;
+      align-self:center;
+      display:flex;
+      align-items:center;
+      gap:.5rem;
+      flex-shrink:0;
+      justify-content:flex-end;
+      position:relative;
+      z-index:1001;
+      margin:0;
+      padding-left:1rem;
+    }
+    .btn-login{display:inline-flex;justify-content:center;align-items:center;min-width:120px;padding:.6rem 1.2rem;border-radius:8px;font-weight:600;font-size:.875rem;text-decoration:none;transition:.2s;white-space:nowrap;cursor:pointer;position:relative;z-index:1002;pointer-events:auto;background:linear-gradient(135deg,#0052CC,#0066CC);color:#fff;border:none;box-shadow:0 2px 8px rgba(0,102,204,.25)}
+    .btn-login:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,102,204,.35)}
+    
+    /* Estilos para el botón de perfil */
+    .user-profile-menu{position:relative;display:none !important}
+    .user-profile-menu.active{display:block !important}
+    .btn-profile{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#0052CC,#0066CC);color:#fff;border:none;cursor:pointer;transition:.2s;box-shadow:0 2px 8px rgba(0,102,204,.25);font-size:1.1rem;position:relative;z-index:1002}
+    .btn-profile:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,102,204,.35)}
+    .btn-profile i{font-size:1.1rem}
+    .profile-dropdown{position:absolute;top:calc(100% + 8px);right:0;background:#fff;min-width:200px;box-shadow:0 10px 40px rgba(0,0,0,.12);border-radius:10px;border:1px solid #e5e7eb;opacity:0;visibility:hidden;transform:translateY(-8px);transition:.2s;z-index:1003;padding:.4rem 0;overflow:hidden;pointer-events:none}
+    .profile-dropdown.active{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+    .profile-dropdown-header{padding:1rem;border-bottom:1px solid #e5e7eb;background:#f8fafc}
+    .profile-dropdown-header .user-name{font-weight:600;color:#1f2937;font-size:.95rem;margin-bottom:.25rem}
+    .profile-dropdown-header .user-email{font-size:.85rem;color:#6b7280}
+    .profile-dropdown-item{display:block;padding:.75rem 1.25rem;color:#374151;text-decoration:none;transition:.2s;font-size:.9rem;border:none;background:none;width:100%;text-align:left;cursor:pointer}
+    .profile-dropdown-item:hover{background:#f3f4f6;color:#0052CC}
+    .profile-dropdown-item.logout{color:#dc2626;border-top:1px solid #e5e7eb;margin-top:.5rem}
+    .profile-dropdown-item.logout:hover{background:#fee2e2;color:#b91c1c}
+    .profile-dropdown-item i{margin-right:.75rem;width:18px;text-align:center}
+
+    #header .menu-toggle{grid-column:2;justify-self:end;display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.5rem}
+    .menu-toggle span{width:26px;height:2px;background:#1f2937;border-radius:2px;transition:transform .3s ease,opacity .3s ease}
+    .menu-toggle.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .menu-toggle.active span:nth-child(2){opacity:0}
+    .menu-toggle.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+    @media (max-width:768px){
+      .volunteer-filter{min-width:320px;flex-direction:column}
+      .volunteer-filter-section:first-child{border-right:none;border-bottom:1px solid #e0e0e0}
+      .destinations-list,.experiences-list{grid-template-columns:1fr}
+    }
+
+    .nav-item.dropdown:last-child .dropdown-menu{right:0;left:auto}
+    @media (max-width:1200px){
+      #header .header-content{padding-block:.35rem;padding-inline:max(1rem, env(safe-area-inset-left, 0px)) max(1rem, env(safe-area-inset-right, 0px))}
+    }
+
+    @media (max-width:1024px){
+      #header .header-content{display:flex;flex-wrap:wrap;gap:1rem;width:100%;max-width:none}
+      #header .header-center-band{display:contents}
+      #header .logo{grid-column:auto;justify-self:auto}
+      #header .menu-toggle{display:flex;margin-left:auto;grid-column:auto;justify-self:auto}
+      #header .main-nav{grid-column:auto;justify-self:auto;order:3;width:100%;display:none;justify-content:flex-start;flex-direction:column;gap:.75rem;background:#fff;border-radius:12px;box-shadow:0 20px 40px rgba(15,23,42,.12);padding:1rem 1.25rem;max-height:calc(100vh - 120px);overflow-y:auto}
+      #header .main-nav.active{display:flex}
+      #header .nav-menu{flex-direction:column;align-items:stretch;gap:.5rem}
+      #header .nav-item{width:100%}
+      #header .nav-link{width:100%;justify-content:space-between}
+      #header .header-actions{grid-column:auto;justify-self:auto;order:2;width:auto;margin-left:auto;justify-content:flex-end;gap:.75rem}
+      #header .dropdown-menu{position:static;transform:none;box-shadow:none;padding:.5rem 0;display:none;opacity:1;visibility:visible;border-radius:0;border-top:1px solid #e5e7eb;margin-top:.5rem}
+      #header .nav-item.open>.dropdown-menu{display:block}
+      #header .nav-item.dropdown i{transition:transform .3s ease}
+      #header .nav-item.open>.nav-link i{transform:rotate(180deg)}
+    }
+
+    @media (max-width:640px){
+      #header .header-actions{flex-direction:column;align-items:stretch}
+      #header .btn-login{width:100%}
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header-content">
+      <div class="header-center-band">
+        <div class="logo">
+          <a href="#" id="logo-link" onclick="goToHome(event); return false;" style="display:block;text-decoration:none">
+            <img src="https://www.injuv.gob.cl/sites/default/files/logo_injuv_2021_portal.png?v=3" alt="INJUV Logo" />
+          </a>
+        </div>
+
+        <nav class="main-nav" aria-label="Navegación principal">
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="#" id="how-it-works-link" class="nav-link" onclick="goToHowItWorks(event); return false;">¿Cómo funciona?</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a href="#" id="oportunidades-voluntariado-link" class="nav-link">Oportunidades de Voluntariado <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+            <ul class="dropdown-menu volunteer-filter">
+              <li class="volunteer-filter-section">
+                <div class="section-title">Destinos destacados</div>
+                <ul class="destinations-list">
+                  <li class="destination-item"><a href="#" data-location="santiago">Región Metropolitana</a></li>
+                  <li class="destination-item"><a href="#" data-location="valparaiso">Valparaíso</a></li>
+                  <li class="destination-item"><a href="#" data-location="concepcion">Bío Bío</a></li>
+                  <li class="destination-item"><a href="#" data-location="temuco">Araucanía</a></li>
+                  <li class="destination-item"><a href="#" data-location="puerto-varas">Los Lagos</a></li>
+                  <li class="destination-item"><a href="#" data-location="atacama">Atacama</a></li>
+                  <li class="destination-item"><a href="#" data-location="coquimbo">Coquimbo</a></li>
+                  <li class="destination-item"><a href="#" data-location="maule">Maule</a></li>
+                  <li class="destination-item"><a href="#" data-location="ohiggins">O'Higgins</a></li>
+                  <li class="destination-item"><a href="#" data-location="arica">Arica y Parinacota</a></li>
+                </ul>
+                <div class="view-all-link"><a href="#" onclick="goToAllOpportunities(event); return false;">Mira todas las oportunidades de voluntariado</a></div>
+              </li>
+
+              <li class="volunteer-filter-section">
+                <div class="section-title">¿Qué tipo de experiencias estás buscando?</div>
+                <ul class="experiences-list">
+                  <li class="experience-item"><a href="#" data-area="Educación"><i class="fas fa-chalkboard-teacher"></i><span>Educación</span></a></li>
+                  <li class="experience-item"><a href="#" data-area="Comunidad"><i class="fas fa-users"></i><span>Comunidad</span></a></li>
+                  <li class="experience-item"><a href="#" data-area="Medio Ambiente"><i class="fas fa-leaf"></i><span>Medio Ambiente</span></a></li>
+                  <li class="experience-item"><a href="#" data-area="Salud"><i class="fas fa-heart"></i><span>Salud</span></a></li>
+                  <li class="experience-item"><a href="#" data-area="Deporte"><i class="fas fa-running"></i><span>Deporte</span></a></li>
+                  <li class="experience-item"><a href="#" data-area="Cultura"><i class="fas fa-theater-masks"></i><span>Cultura</span></a></li>
+                  <li class="experience-item"><a href="#" data-area="Emergencia"><i class="fas fa-ambulance"></i><span>Emergencia</span></a></li>
+                  <li class="experience-item"><a href="#" data-area="Desarrollo Social"><i class="fas fa-hands-helping"></i><span>Desarrollo Social</span></a></li>
+                  <li class="experience-item"><a href="#" data-area="Tecnología"><i class="fas fa-laptop-code"></i><span>Tecnología</span></a></li>
+                  <li class="experience-item"><a href="#" data-area="Arte"><i class="fas fa-palette"></i><span>Arte</span></a></li>
+                  <li class="experience-item"><a href="#" data-area="Animales"><i class="fas fa-paw"></i><span>Animales</span></a></li>
+                  <li class="experience-item"><a href="#" data-area="Adultos Mayores"><i class="fas fa-user-friends"></i><span>Adultos Mayores</span></a></li>
+                  <li class="experience-item"><a href="#" data-area="Niños y Jóvenes"><i class="fas fa-child"></i><span>Niños y Jóvenes</span></a></li>
+                  <li class="experience-item"><a href="#" data-area="Discapacidad"><i class="fas fa-universal-access"></i><span>Discapacidad</span></a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" id="experiencias-link" class="nav-link" onclick="goToExperiencias(event); return false;">Experiencias de Voluntariado</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" id="news-link" class="nav-link" onclick="goToNoticias(event); return false;">Noticias</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" id="academia-link" class="nav-link" onclick="goToAcademia(event); return false;">Academia</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" id="biblioteca-link" class="nav-link" onclick="goToBiblioteca(event); return false;">Biblioteca</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="header-actions">
+        <a href="inicio de sesion/login.html" id="login-link" class="btn-login">Iniciar Sesión</a>
+        <div class="user-profile-menu" id="userProfileMenu">
+          <button class="btn-profile" id="profileButton" aria-label="Menú de perfil" aria-expanded="false" onclick="toggleProfileMenu(event)">
+            <i class="fas fa-user"></i>
+          </button>
+          <div class="profile-dropdown" id="profileDropdown">
+            <div class="profile-dropdown-header">
+              <div class="user-name" id="profileUserName">Usuario</div>
+              <div class="user-email" id="profileUserEmail">email@ejemplo.com</div>
+            </div>
+            <a href="#" id="profileLink" class="profile-dropdown-item" onclick="goToProfile(event)">
+              <i class="fas fa-user-circle"></i> Mi perfil
+            </a>
+            <a href="#" id="organizacionLink" class="profile-dropdown-item" onclick="goToOrganizacion(event)" style="display: none;">
+              <i class="fas fa-building"></i> Mi organización
+            </a>
+            <a href="#" id="panelLink" class="profile-dropdown-item" onclick="goToPanel(event)" style="display: none;">
+              <i class="fas fa-tachometer-alt"></i> Mi panel
+            </a>
+            <button class="profile-dropdown-item logout" id="logoutButton" onclick="handleLogout(event)">
+              <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <script>
+    // Función para obtener la ruta base según la ubicación actual
+    function getBasePath() {
+      const currentPath = window.location.pathname;
+      
+      if (currentPath.includes('Roles/Perfil_organizacion') || 
+          currentPath.includes('Roles/Perfil_usuario') || 
+          currentPath.includes('Roles/Admin') ||
+          currentPath.includes('Roles/Formulario')) {
+        return '../../';
+      } else if (currentPath.includes('Perfil_organizacion') || 
+                 currentPath.includes('Perfil_usuario') || 
+                 currentPath.includes('Admin') ||
+                 currentPath.includes('Formulario')) {
+        return '../';
+      } else if (currentPath.includes('visualizacion-vd') || 
+                 currentPath.includes('noticias') ||
+                 currentPath.includes('organizaciones') ||
+                 currentPath.includes('academia') ||
+                 currentPath.includes('Biblioteca') ||
+                 currentPath.includes('biblioteca') ||
+                 currentPath.includes('inicio de sesion')) {
+        return '../';
+      } else if (currentPath.includes('/template/')) {
+        return '';
+      } else {
+        return 'template/';
+      }
+    }
+    
+    // Función helper para construir rutas de manera consistente
+    window.buildPath = function(relativePath) {
+      // Si la ruta ya es absoluta, retornarla
+      if (relativePath.startsWith('http://') || relativePath.startsWith('https://')) {
+        return relativePath;
+      }
+      
+      // Si la ruta comienza con ../, construir la ruta relativa correctamente
+      if (relativePath.startsWith('../')) {
+        const currentPath = window.location.pathname;
+        
+        // Obtener el directorio actual (sin el archivo HTML)
+        const currentDir = currentPath.substring(0, currentPath.lastIndexOf('/'));
+        
+        // Contar cuántos niveles subir
+        const upLevels = (relativePath.match(/\.\.\//g) || []).length;
+        const pathWithoutUp = relativePath.replace(/^(\.\.\/)+/, '');
+        
+        // Construir la ruta subiendo los niveles necesarios
+        const dirParts = currentDir.split('/').filter(p => p);
+        const newDirParts = dirParts.slice(0, dirParts.length - upLevels);
+        const finalPath = '/' + newDirParts.join('/') + '/' + pathWithoutUp;
+        
+        return window.location.origin + finalPath;
+      }
+      
+      // Si la ruta no tiene ../, usar getBasePath
+      const basePath = getBasePath();
+      const normalizedPath = relativePath.replace(/^\.\//, '');
+      // Si estamos bajo /template/ basePath es ''. No anteponer '/' o el navegador
+      // resolverá desde el origen (p. ej. /noticias/...) y se pierde /template/.
+      if (basePath === '') {
+        return normalizedPath;
+      }
+      const separator = basePath.endsWith('/') ? '' : '/';
+      return basePath + separator + normalizedPath;
+    }
+    
+    // Función helper para redirecciones consistentes
+    window.redirectTo = function(path, useReplace = false) {
+      const finalPath = window.buildPath(path);
+      console.log('Redirigiendo a:', finalPath);
+      if (useReplace) {
+        window.location.replace(finalPath);
+      } else {
+        window.location.href = finalPath;
+      }
+    }
+    
+    // Función para ir a la página principal
+    window.goToHome = function(event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      
+      const basePath = getBasePath();
+      const homeUrl = basePath + 'index.html';
+      
+      console.log('Redirigiendo a página principal:', homeUrl);
+      window.location.href = homeUrl;
+    };
+    
+    // Ir a la sección "Oportunidades destacadas" del inicio (#explore)
+    window.goToOportunidadesSection = function(event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      const basePath = getBasePath();
+      const currentPath = window.location.pathname;
+      if (currentPath.includes('index.html') || currentPath.endsWith('/template/') || currentPath.endsWith('/template')) {
+        const section = document.getElementById('explore');
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+      }
+      const url = basePath + 'index.html#explore';
+      window.location.href = url;
+    };
+
+    // Función para ir a "¿Cómo funciona?"
+    window.goToHowItWorks = function(event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      
+      const basePath = getBasePath();
+      const currentPath = window.location.pathname;
+      
+      // Si ya estamos en index.html, hacer scroll
+      if (currentPath.includes('index.html') || currentPath.endsWith('/template/') || currentPath.endsWith('/template')) {
+        const section = document.getElementById('how-it-works');
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+      }
+      
+      // Si no, ir a index.html#how-it-works
+      const url = basePath + 'index.html#how-it-works';
+      console.log('Redirigiendo a ¿Cómo funciona?:', url);
+      window.location.href = url;
+    };
+    
+    // Función para ir a "Experiencias de Voluntariado"
+    window.goToExperiencias = function(event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      
+      const basePath = getBasePath();
+      const currentPath = window.location.pathname;
+      
+      // Si ya estamos en index.html, hacer scroll
+      if (currentPath.includes('index.html') || currentPath.endsWith('/template/') || currentPath.endsWith('/template')) {
+        const section = document.getElementById('experiencias-voluntariado');
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+      }
+      
+      // Desde voluntariados u otras vistas: ir al carrusel "Experiencias" del inicio
+      const url = basePath + 'index.html#experiencias-voluntariado';
+      console.log('Redirigiendo a Experiencias:', url);
+      window.location.href = url;
+    };
+    
+    // Función para ir a la sección "Noticias" del inicio (#news)
+    window.goToNoticias = function(event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      
+      const basePath = getBasePath();
+      const currentPath = window.location.pathname;
+      
+      if (currentPath.includes('index.html') || currentPath.endsWith('/template/') || currentPath.endsWith('/template')) {
+        const section = document.getElementById('news');
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+      }
+      
+      window.location.href = basePath + 'index.html#news';
+    };
+
+    // Función para ir a "Academia de voluntariado"
+    window.goToAcademia = function(event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      
+      const basePath = getBasePath();
+      const currentPath = window.location.pathname;
+      
+      // Si estamos en index.html, hacer scroll a la sección
+      if (currentPath.includes('index.html') || currentPath.endsWith('/template/') || currentPath.endsWith('/template')) {
+        const section = document.getElementById('academia-voluntariado');
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+      }
+      
+      // Si estamos en otra página, redirigir a index.html#academia-voluntariado
+      const url = basePath + 'index.html#academia-voluntariado';
+      console.log('Redirigiendo a Academia:', url);
+      window.location.href = url;
+    };
+
+    // Función para ir a la sección "Biblioteca / estudios" del inicio (#biblioteca-estudios)
+    window.goToBiblioteca = function(event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      
+      const basePath = getBasePath();
+      const currentPath = window.location.pathname;
+      
+      if (currentPath.includes('index.html') || currentPath.endsWith('/template/') || currentPath.endsWith('/template')) {
+        const section = document.getElementById('biblioteca-estudios');
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+      }
+      
+      window.location.href = basePath + 'index.html#biblioteca-estudios';
+    };
+
+    // Función para ir a "Organizaciones"
+    window.goToOrganizaciones = function(event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      if (typeof window.redirectTo === 'function') {
+        window.redirectTo('organizaciones/organizaciones.html');
+      } else {
+        const basePath = getBasePath();
+        window.location.href = basePath + 'organizaciones/organizaciones.html';
+      }
+    };
+    
+    // Función para ir a todas las oportunidades de voluntariado
+    window.goToAllOpportunities = function(event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      
+      // Usar redirectTo/buildPath para que funcione desde cualquier carpeta
+      if (typeof window.redirectTo === 'function') {
+        window.redirectTo('visualizacion-vd/index.html');
+      } else {
+        const basePath = getBasePath();
+        window.location.href = basePath + 'visualizacion-vd/index.html';
+      }
+    };
+    
+    // Funciones globales para el menú de perfil
+    function toggleProfileMenu(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      
+      const profileDropdown = document.getElementById('profileDropdown');
+      const profileButton = document.getElementById('profileButton');
+      
+      if (!profileDropdown || !profileButton || !profileDropdown.classList) return;
+      
+      const isActive = profileDropdown.classList.contains('active');
+      
+      // Cerrar otros dropdowns
+      document.querySelectorAll('.profile-dropdown.active').forEach(dropdown => {
+        if (dropdown && dropdown !== profileDropdown && dropdown.classList) {
+          dropdown.classList.remove('active');
+        }
+      });
+      
+      // Toggle del dropdown actual
+      if (isActive) {
+        profileDropdown.classList.remove('active');
+        profileButton.setAttribute('aria-expanded', 'false');
+      } else {
+        profileDropdown.classList.add('active');
+        profileButton.setAttribute('aria-expanded', 'true');
+      }
+    }
+    
+    // Hacer las funciones globales para que estén disponibles cuando se inserta dinámicamente
+    window.goToProfile = function(event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      
+      // Cerrar el menú
+      const profileDropdown = document.getElementById('profileDropdown');
+      if (profileDropdown && profileDropdown.classList) {
+        profileDropdown.classList.remove('active');
+      }
+      
+      // Construir ruta absoluta siempre desde la raíz
+      const baseUrl = window.location.origin;
+      const currentPath = window.location.pathname;
+      
+      // Si ya estamos en el perfil de usuario, solo recargar
+      if (currentPath.includes('Perfil_usuario') && currentPath.endsWith('index.html')) {
+        window.location.reload();
+        return;
+      }
+      
+      // Construir ruta absoluta al perfil de usuario
+      const profileUrl = baseUrl + '/template/Roles/Perfil_usuario/index.html';
+      
+      console.log('=== Redirección a Mi Perfil ===');
+      console.log('Ruta actual:', currentPath);
+      console.log('Base URL:', baseUrl);
+      console.log('URL final:', profileUrl);
+      console.log('================================');
+      
+      window.location.href = profileUrl;
+    };
+    
+    window.goToOrganizacion = function(event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      
+      // Cerrar el menú
+      const profileDropdown = document.getElementById('profileDropdown');
+      if (profileDropdown && profileDropdown.classList) {
+        profileDropdown.classList.remove('active');
+      }
+      
+      // Construir ruta absoluta siempre desde la raíz
+      const baseUrl = window.location.origin;
+      const currentPath = window.location.pathname;
+      
+      // Si ya estamos en el perfil de organización, solo recargar
+      if (currentPath.includes('Perfil_organizacion') && currentPath.endsWith('index.html')) {
+        window.location.reload();
+        return;
+      }
+      
+      // Construir ruta absoluta al perfil de organización
+      const organizacionUrl = baseUrl + '/template/Roles/Perfil_organizacion/index.html';
+      
+      console.log('=== Redirección a Mi Organización ===');
+      console.log('Ruta actual:', currentPath);
+      console.log('Base URL:', baseUrl);
+      console.log('URL final:', organizacionUrl);
+      console.log('=====================================');
+      
+      window.location.href = organizacionUrl;
+    };
+    
+    window.goToPanel = function(event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      
+      // Cerrar el menú
+      const profileDropdown = document.getElementById('profileDropdown');
+      if (profileDropdown && profileDropdown.classList) {
+        profileDropdown.classList.remove('active');
+      }
+      
+      // Obtener el rol del usuario
+      const loggedUser = localStorage.getItem('loggedUser');
+      let userRol = null;
+      
+      if (loggedUser) {
+        try {
+          const userData = JSON.parse(loggedUser);
+          userRol = userData.rol;
+        } catch (e) {
+          console.error('Error parseando loggedUser:', e);
+        }
+      }
+      
+      if (!userRol) {
+        userRol = localStorage.getItem('userRol') || localStorage.getItem('userRole') || 
+                  sessionStorage.getItem('userRol') || sessionStorage.getItem('userRole');
+      }
+      
+      console.log('Rol del usuario:', userRol);
+      
+      // Determinar la ruta según la ubicación actual y el rol
+      const currentPath = window.location.pathname;
+      let panelUrl = '';
+      
+      // Construir ruta absoluta siempre desde la raíz
+      const baseUrl = window.location.origin;
+      
+      if (userRol === 'admin') {
+        // Panel de administración - siempre usar ruta absoluta
+        panelUrl = baseUrl + '/template/Roles/Admin/admin-modern.html';
+      } else if (userRol === 'organizacion') {
+        // Dashboard de organización - siempre usar ruta absoluta
+        panelUrl = baseUrl + '/template/Roles/Perfil_organizacion/dashboard.html';
+      } else {
+        // Usuario normal - no tiene panel, redirigir al perfil
+        window.goToProfile(event);
+        return;
+      }
+      
+      console.log('=== Redirección a Mi Panel ===');
+      console.log('Ruta actual:', currentPath);
+      console.log('Base URL:', baseUrl);
+      console.log('Rol:', userRol);
+      console.log('URL final:', panelUrl);
+      console.log('================================');
+      
+      window.location.href = panelUrl;
+    };
+    
+    // Mantener compatibilidad con funciones no globales
+    function goToProfile(event) { return window.goToProfile(event); }
+    function goToOrganizacion(event) { return window.goToOrganizacion(event); }
+    function goToPanel(event) { return window.goToPanel(event); }
+    
+    function handleLogout(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      
+      if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+        // Limpiar completamente localStorage
+        localStorage.clear();
+        
+        // Limpiar completamente sessionStorage
+        sessionStorage.clear();
+        
+        // Construir ruta al login de manera robusta
+        const currentPath = window.location.pathname;
+        const currentUrl = window.location.origin;
+        let loginUrl = '';
+        
+        // Determinar la ruta base
+        if (currentPath.includes('/Roles/')) {
+          // Estamos en una carpeta de Roles (Admin, Perfil_usuario, Perfil_organizacion, etc.)
+          loginUrl = currentUrl + '/template/inicio de sesion/login.html';
+        } else if (currentPath.includes('/template/')) {
+          // Estamos dentro de template
+          if (currentPath.includes('/inicio de sesion/')) {
+            // Ya estamos en inicio de sesion, no hacer nada o recargar
+            loginUrl = currentUrl + '/template/inicio de sesion/login.html';
+          } else {
+            // Estamos en otra parte de template
+            loginUrl = currentUrl + '/template/inicio de sesion/login.html';
+          }
+        } else {
+          // Estamos en la raíz
+          loginUrl = currentUrl + '/template/inicio de sesion/login.html';
+        }
+        
+        console.log('Redirigiendo al login:', loginUrl);
+        window.location.href = loginUrl;
+      }
+    }
+    
+    // Cerrar menú al hacer clic fuera
+    document.addEventListener('click', function(e) {
+      const profileDropdown = document.getElementById('profileDropdown');
+      const profileButton = document.getElementById('profileButton');
+      
+      if (profileDropdown && profileButton) {
+        if (profileDropdown && profileDropdown.classList && profileButton &&
+            !profileButton.contains(e.target) && !profileDropdown.contains(e.target)) {
+          profileDropdown.classList.remove('active');
+          profileButton.setAttribute('aria-expanded', 'false');
+        }
+      }
+    });
+    
+    // Función para verificar si el usuario está logueado
+    function isUserLoggedIn() {
+      if (localStorage.getItem('isLoggedIn') === 'true' ||
+          sessionStorage.getItem('isLoggedIn') === 'true') {
+        return true;
+      }
+      const uid = localStorage.getItem('userId') || sessionStorage.getItem('userId');
+      if (uid != null && String(uid).trim() !== '' && String(uid) !== '0') {
+        return true;
+      }
+      if (localStorage.getItem('loggedUser') || sessionStorage.getItem('loggedUser')) {
+        return true;
+      }
+      return false;
+    }
+    
+    // Función para obtener información del usuario
+    function getUserInfo() {
+      if (!isUserLoggedIn()) return null;
+      
+      let nombre = localStorage.getItem('userNombre') || '';
+      let apellido = localStorage.getItem('userApellido') || '';
+      let email = localStorage.getItem('userEmail') || sessionStorage.getItem('userEmail');
+      let rol = localStorage.getItem('userRol') || localStorage.getItem('userRole') ||
+                sessionStorage.getItem('userRol') || sessionStorage.getItem('userRole');
+      const raw = localStorage.getItem('loggedUser') || sessionStorage.getItem('loggedUser');
+      if (raw) {
+        try {
+          const u = JSON.parse(raw);
+          if (u && typeof u === 'object') {
+            if (!email && u.email) email = u.email;
+            if (!nombre && u.nombre) nombre = u.nombre;
+            if (!apellido && u.apellido) apellido = u.apellido;
+            if (!rol && u.rol) rol = u.rol;
+          }
+        } catch (e) { /* ignore */ }
+      }
+      return {
+        id: localStorage.getItem('userId') || sessionStorage.getItem('userId'),
+        email: email || '',
+        nombre: nombre || '',
+        apellido: apellido || '',
+        rol: rol || 'user'
+      };
+    }
+    
+      // Función para actualizar el header según el estado de sesión
+    function updateHeaderAuth() {
+      const loginLink = document.getElementById('login-link');
+      const userProfileMenu = document.getElementById('userProfileMenu');
+      const profileUserName = document.getElementById('profileUserName');
+      const profileUserEmail = document.getElementById('profileUserEmail');
+      const panelLink = document.getElementById('panelLink');
+      const organizacionLink = document.getElementById('organizacionLink');
+      
+      const loggedIn = isUserLoggedIn();
+      
+      if (loggedIn) {
+        // Ocultar botón de login
+        if (loginLink) {
+          loginLink.style.display = 'none';
+          loginLink.style.visibility = 'hidden';
+        }
+        
+        // Mostrar menú de perfil
+        if (userProfileMenu) {
+          userProfileMenu.style.display = 'block';
+          if (userProfileMenu && userProfileMenu.classList) {
+            userProfileMenu.classList.add('active');
+          }
+          
+          // Actualizar información del usuario
+          const userInfo = getUserInfo();
+          if (userInfo) {
+            console.log('UserInfo obtenido:', userInfo);
+            console.log('Rol del usuario:', userInfo.rol);
+            
+            const nombreCompleto = `${userInfo.nombre} ${userInfo.apellido}`.trim() || 'Usuario';
+            if (profileUserName) {
+              profileUserName.textContent = nombreCompleto;
+            }
+            if (profileUserEmail) {
+              profileUserEmail.textContent = userInfo.email || '';
+            }
+            
+            // Obtener el rol (verificar múltiples fuentes)
+            let userRol = userInfo.rol || 
+                           localStorage.getItem('userRol') || 
+                           localStorage.getItem('userRole') ||
+                           sessionStorage.getItem('userRol') ||
+                           sessionStorage.getItem('userRole');
+            
+            // Normalizar el rol (trim y lowercase)
+            if (userRol) {
+              userRol = String(userRol).trim().toLowerCase();
+            }
+            
+            console.log('Rol final para mostrar/ocultar:', userRol);
+            console.log('Todos los valores de rol:', {
+              userInfoRol: userInfo.rol,
+              localStorageUserRol: localStorage.getItem('userRol'),
+              localStorageUserRole: localStorage.getItem('userRole'),
+              sessionStorageUserRol: sessionStorage.getItem('userRol'),
+              sessionStorageUserRole: sessionStorage.getItem('userRole')
+            });
+            
+            // Mostrar/ocultar enlaces según el rol
+            if (panelLink) {
+              if (userRol === 'admin' || userRol === 'organizacion') {
+                panelLink.style.display = 'block';
+                panelLink.style.visibility = 'visible';
+                console.log('Panel link mostrado para rol:', userRol);
+              } else {
+                panelLink.style.display = 'none';
+                panelLink.style.visibility = 'hidden';
+                console.log('Panel link ocultado para rol:', userRol);
+              }
+            } else {
+              console.warn('panelLink no encontrado en el DOM');
+            }
+            
+            // Mostrar/ocultar enlace de organización solo para rol 'organizacion'
+            if (organizacionLink) {
+              if (userRol === 'organizacion') {
+                organizacionLink.style.display = 'block';
+                organizacionLink.style.visibility = 'visible';
+                console.log('Organización link mostrado para rol:', userRol);
+              } else {
+                organizacionLink.style.display = 'none';
+                organizacionLink.style.visibility = 'hidden';
+                console.log('Organización link ocultado para rol:', userRol);
+              }
+            } else {
+              console.warn('organizacionLink no encontrado en el DOM');
+            }
+          } else {
+            console.warn('No se pudo obtener userInfo');
+          }
+        }
+      } else {
+        // Mostrar botón de login
+        if (loginLink) {
+          loginLink.style.display = 'inline-flex';
+          loginLink.style.visibility = 'visible';
+        }
+        
+        // Ocultar menú de perfil
+        if (userProfileMenu) {
+          userProfileMenu.style.display = 'none';
+          if (userProfileMenu && userProfileMenu.classList) {
+            userProfileMenu.classList.remove('active');
+          }
+        }
+        
+        // Ocultar enlace de panel
+        if (panelLink) {
+          panelLink.style.display = 'none';
+        }
+      }
+    }
+    window.updateHeaderAuth = updateHeaderAuth;
+    
+    // Función para cerrar sesión
+    function logout() {
+      // Limpiar completamente localStorage
+      localStorage.clear();
+      
+      // Limpiar completamente sessionStorage
+      sessionStorage.clear();
+      
+      // Actualizar header
+      updateHeaderAuth();
+      
+      // Construir ruta al login de manera robusta
+      const currentPath = window.location.pathname;
+      const currentUrl = window.location.origin;
+      let loginUrl = '';
+      
+      // Determinar la ruta base
+      if (currentPath.includes('/Roles/')) {
+        // Estamos en una carpeta de Roles (Admin, Perfil_usuario, Perfil_organizacion, etc.)
+        loginUrl = currentUrl + '/template/inicio de sesion/login.html';
+      } else if (currentPath.includes('/template/')) {
+        // Estamos dentro de template
+        loginUrl = currentUrl + '/template/inicio de sesion/login.html';
+      } else {
+        // Estamos en la raíz
+        loginUrl = currentUrl + '/template/inicio de sesion/login.html';
+      }
+      
+      console.log('Cerrando sesión y redirigiendo al login:', loginUrl);
+      window.location.href = loginUrl;
+    }
+    
+    // Función de inicialización que se puede llamar desde cualquier lugar
+    window.initHeaderAuth = function() {
+      // Verificar que los elementos existan antes de actualizar
+      const loginLink = document.getElementById('login-link');
+      const userProfileMenu = document.getElementById('userProfileMenu');
+      
+      if (!loginLink && !userProfileMenu) {
+        // Los elementos aún no están en el DOM, reintentar después
+        setTimeout(window.initHeaderAuth, 100);
+        return;
+      }
+      
+      updateHeaderAuth();
+      
+      // Configurar enlace de login según la ubicación
+      if (loginLink) {
+        const currentPath = window.location.pathname;
+        const currentUrl = window.location.href;
+        
+        // Función para calcular la ruta al login usando ruta absoluta
+        function getLoginUrl() {
+          // Usar ruta absoluta para evitar problemas con espacios en nombres de carpetas
+          const origin = window.location.origin;
+          return origin + '/template/inicio de sesion/login.html';
+        }
+        
+        const loginUrl = getLoginUrl();
+        
+        // Actualizar el href
+        loginLink.setAttribute('href', loginUrl);
+        
+        // Asegurar que el clic funcione correctamente
+        loginLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          window.location.href = loginUrl;
+          return false;
+        }, true);
+      }
+      
+      // Configurar enlace de perfil según la ubicación
+      const profileLink = document.getElementById('profileLink');
+      if (profileLink) {
+        const currentPath = window.location.pathname;
+        if (currentPath.includes('Perfil_usuario')) {
+          profileLink.href = 'index.html';
+        } else if (currentPath.includes('template')) {
+          profileLink.href = 'Roles/Perfil_usuario/index.html';
+        } else {
+          profileLink.href = 'template/Roles/Perfil_usuario/index.html';
+        }
+      }
+      
+      // Configurar enlace de panel según la ubicación y rol
+      const panelLink = document.getElementById('panelLink');
+      if (panelLink) {
+        const userInfo = getUserInfo();
+        if (userInfo && (userInfo.rol === 'admin' || userInfo.rol === 'organizacion')) {
+          const currentPath = window.location.pathname;
+          if (userInfo.rol === 'admin') {
+            if (currentPath.includes('Admin')) {
+              panelLink.href = 'admin-modern.html';
+            } else if (currentPath.includes('template')) {
+              panelLink.href = 'Roles/Admin/admin-modern.html';
+            } else {
+              panelLink.href = 'template/Roles/Admin/admin-modern.html';
+            }
+          } else if (userInfo.rol === 'organizacion') {
+            // "Mi panel" siempre debe ir al dashboard, no al perfil (index.html)
+            if (currentPath.includes('Perfil_organizacion')) {
+              panelLink.href = 'dashboard.html';
+            } else if (currentPath.includes('template')) {
+              panelLink.href = 'Roles/Perfil_organizacion/dashboard.html';
+            } else {
+              panelLink.href = 'template/Roles/Perfil_organizacion/dashboard.html';
+            }
+          }
+        }
+      }
+      
+      // Configurar eventos del menú de perfil
+      if (typeof setupProfileMenu === 'function') {
+        setupProfileMenu();
+      }
+      
+      // Configurar eventos para filtros de área de voluntariado
+      setupVolunteerAreaFilters();
+    };
+    
+    // Función para configurar los filtros de área de voluntariado
+    function setupVolunteerAreaFilters() {
+      // Obtener todos los links con data-area
+      const areaLinks = document.querySelectorAll('a[data-area]');
+      const locationLinks = document.querySelectorAll('a[data-location]');
+      const viewAllLink = document.querySelector('.view-all-link a');
+      
+      // Función para obtener la ruta correcta a visualizacion-vd
+      function getVisualizationPath() {
+        const currentPath = window.location.pathname;
+        if (currentPath.includes('visualizacion-vd')) {
+          return 'index.html';
+        }
+        const base = getBasePath();
+        const rest = 'visualizacion-vd/index.html';
+        if (base === '') {
+          return rest;
+        }
+        const separator = base.endsWith('/') ? '' : '/';
+        return base + separator + rest;
+      }
+      
+      // Agregar event listeners a los links de área
+      areaLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const area = this.getAttribute('data-area');
+          const path = getVisualizationPath();
+          window.location.href = `${path}?area=${encodeURIComponent(area)}`;
+        });
+      });
+      
+      // Agregar event listeners a los links de ubicación
+      locationLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const location = this.getAttribute('data-location');
+          // Mapeo de ubicaciones a regiones
+          const regionMap = {
+            'santiago': 'Región Metropolitana de Santiago',
+            'valparaiso': 'Valparaíso',
+            'concepcion': 'Bío Bío',
+            'temuco': 'Araucanía',
+            'puerto-varas': 'Los Lagos',
+            'atacama': 'Atacama',
+            'coquimbo': 'Coquimbo',
+            'maule': 'Maule',
+            'ohiggins': 'O\'Higgins',
+            'arica': 'Arica y Parinacota'
+          };
+          const region = regionMap[location] || location;
+          const path = getVisualizationPath();
+          window.location.href = `${path}?region=${encodeURIComponent(region)}`;
+        });
+      });
+      
+      // Link para ver todas las oportunidades
+      if (viewAllLink) {
+        viewAllLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          const path = getVisualizationPath();
+          window.location.href = path;
+        });
+      }
+    }
+    
+    // Función para ejecutar la inicialización de manera robusta
+    function executeInit() {
+      // Esperar a que los elementos estén en el DOM
+      const checkElements = setInterval(function() {
+        const loginLink = document.getElementById('login-link');
+        const userProfileMenu = document.getElementById('userProfileMenu');
+        
+        if (loginLink || userProfileMenu) {
+          clearInterval(checkElements);
+          initHeaderAuth();
+        }
+      }, 50);
+      
+      // Timeout de seguridad después de 1 segundo
+      setTimeout(function() {
+        clearInterval(checkElements);
+        initHeaderAuth();
+      }, 1000);
+    }
+    
+    // Inicializar cuando se carga el DOM o cuando el header se inserta dinámicamente
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', executeInit);
+    } else {
+      // Si el DOM ya está cargado, ejecutar inmediatamente
+      executeInit();
+    }
+    
+    // También ejecutar después de delays para cuando se carga dinámicamente
+    setTimeout(executeInit, 100);
+    setTimeout(executeInit, 300);
+    setTimeout(executeInit, 500);
+    
+    // Función para configurar el menú de perfil
+    function setupProfileMenu() {
+      const profileButton = document.getElementById('profileButton');
+      const profileDropdown = document.getElementById('profileDropdown');
+      
+      if (!profileButton || !profileDropdown) {
+        console.log('Elementos del menú de perfil no encontrados');
+        return;
+      }
+      
+      // Remover cualquier listener anterior
+      const newProfileButton = profileButton.cloneNode(true);
+      profileButton.parentNode.replaceChild(newProfileButton, profileButton);
+      
+      // Agregar evento de clic al botón de perfil
+      newProfileButton.onclick = function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        console.log('Botón de perfil clickeado');
+        
+        if (!profileDropdown || !profileDropdown.classList) return;
+        
+        const isActive = profileDropdown.classList.contains('active');
+        
+        // Cerrar otros dropdowns si existen
+        document.querySelectorAll('.profile-dropdown.active').forEach(dropdown => {
+          if (dropdown && dropdown !== profileDropdown && dropdown.classList) {
+            dropdown.classList.remove('active');
+          }
+        });
+        
+        // Toggle del dropdown actual
+        if (isActive) {
+          profileDropdown.classList.remove('active');
+          newProfileButton.setAttribute('aria-expanded', 'false');
+        } else {
+          profileDropdown.classList.add('active');
+          newProfileButton.setAttribute('aria-expanded', 'true');
+        }
+      };
+      
+      // Cerrar dropdown al hacer clic fuera
+      const closeDropdownHandler = function(e) {
+        if (profileDropdown && profileDropdown.classList && newProfileButton && 
+            !newProfileButton.contains(e.target) && !profileDropdown.contains(e.target)) {
+          profileDropdown.classList.remove('active');
+          newProfileButton.setAttribute('aria-expanded', 'false');
+        }
+      };
+      
+      // Agregar listener para cerrar al hacer clic fuera
+      setTimeout(() => {
+        document.addEventListener('click', closeDropdownHandler);
+      }, 100);
+      
+      // Manejar clic en cerrar sesión
+      const logoutButton = document.getElementById('logoutButton');
+      if (logoutButton) {
+        logoutButton.onclick = function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+            logout();
+          }
+        };
+      }
+      
+      // Agregar event listeners directos a los enlaces de navegación
+      const profileLink = document.getElementById('profileLink');
+      if (profileLink) {
+        profileLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          window.goToProfile(e);
+        });
+      }
+      
+      const organizacionLink = document.getElementById('organizacionLink');
+      if (organizacionLink) {
+        organizacionLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          window.goToOrganizacion(e);
+        });
+      }
+      
+      const panelLink = document.getElementById('panelLink');
+      if (panelLink) {
+        panelLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          window.goToPanel(e);
+        });
+      }
+      
+      // Configurar enlace del logo
+      const logoLink = document.getElementById('logo-link');
+      if (logoLink) {
+        logoLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (window.goToHome) {
+            window.goToHome(e);
+          }
+        });
+      }
+      
+      // Configurar enlaces de navegación principal
+      const howItWorksLink = document.getElementById('how-it-works-link');
+      if (howItWorksLink) {
+        howItWorksLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (window.goToHowItWorks) {
+            window.goToHowItWorks(e);
+          }
+        });
+      }
+      
+      const experienciasLink = document.getElementById('experiencias-link');
+      if (experienciasLink) {
+        experienciasLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (window.goToExperiencias) {
+            window.goToExperiencias(e);
+          }
+        });
+      }
+
+      const oportunidadesNavLink = document.getElementById('oportunidades-voluntariado-link');
+      if (oportunidadesNavLink) {
+        oportunidadesNavLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (window.goToOportunidadesSection) {
+            window.goToOportunidadesSection(e);
+          }
+        });
+      }
+      
+      const newsLink = document.getElementById('news-link');
+      if (newsLink) {
+        newsLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (window.goToNoticias) {
+            window.goToNoticias(e);
+          }
+        });
+      }
+
+      const bibliotecaLink = document.getElementById('biblioteca-link');
+      if (bibliotecaLink) {
+        bibliotecaLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (window.goToBiblioteca) {
+            window.goToBiblioteca(e);
+          }
+        });
+      }
+      
+      // Configurar enlace "Mira todas las oportunidades"
+      const viewAllLink = document.querySelector('.view-all-link a');
+      if (viewAllLink) {
+        viewAllLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (window.goToAllOpportunities) {
+            window.goToAllOpportunities(e);
+          }
+        });
+      }
+      
+      console.log('Menú de perfil configurado correctamente');
+    }
+    
+    // Hacer la función disponible globalmente
+    window.setupProfileMenu = setupProfileMenu;
+    
+    // Event delegation como respaldo - funciona incluso si el script se carga después
+    document.addEventListener('click', function(e) {
+      // Si se hace clic en el botón de perfil
+      if (e.target.closest('#profileButton') || e.target.closest('.btn-profile')) {
+        const profileDropdown = document.getElementById('profileDropdown');
+        const profileButton = document.getElementById('profileButton');
+        
+        if (profileDropdown && profileButton && profileDropdown.classList) {
+          e.stopPropagation();
+          e.preventDefault();
+          
+          const isActive = profileDropdown.classList.contains('active');
+          
+          // Cerrar otros dropdowns
+          document.querySelectorAll('.profile-dropdown.active').forEach(dropdown => {
+            if (dropdown && dropdown !== profileDropdown && dropdown.classList) {
+              dropdown.classList.remove('active');
+            }
+          });
+          
+          // Toggle del dropdown actual
+          if (isActive) {
+            profileDropdown.classList.remove('active');
+            profileButton.setAttribute('aria-expanded', 'false');
+          } else {
+            profileDropdown.classList.add('active');
+            profileButton.setAttribute('aria-expanded', 'true');
+          }
+        }
+      }
+      
+      // Si se hace clic en el logo
+      if (e.target.closest('#logo-link') || (e.target.closest('.logo') && e.target.tagName === 'IMG')) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (window.goToHome) {
+          window.goToHome(e);
+        }
+      }
+      
+      // Si se hace clic en "¿Cómo funciona?"
+      if (e.target.closest('#how-it-works-link')) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (window.goToHowItWorks) {
+          window.goToHowItWorks(e);
+        }
+      }
+      
+      // Si se hace clic en "Experiencias de Voluntariado"
+      if (e.target.closest('#experiencias-link')) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (window.goToExperiencias) {
+          window.goToExperiencias(e);
+        }
+      }
+
+      if (e.target.closest('#oportunidades-voluntariado-link')) {
+        const t = e.target;
+        if (t && t.closest && t.closest('i.fa-chevron-down')) {
+          const item = t.closest('.nav-item.dropdown');
+          if (item && window.innerWidth <= 1024) {
+            e.preventDefault();
+            e.stopPropagation();
+            item.classList.toggle('open');
+            return;
+          }
+        }
+        e.preventDefault();
+        e.stopPropagation();
+        if (window.goToOportunidadesSection) {
+          window.goToOportunidadesSection(e);
+        }
+      }
+      
+      // Si se hace clic en "Noticias"
+      if (e.target.closest('#news-link')) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (window.goToNoticias) {
+          window.goToNoticias(e);
+        }
+      }
+
+      if (e.target.closest('#biblioteca-link')) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (window.goToBiblioteca) {
+          window.goToBiblioteca(e);
+        }
+      }
+      
+      // Si se hace clic en "Mira todas las oportunidades"
+      if (e.target.closest('.view-all-link a')) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (window.goToAllOpportunities) {
+          window.goToAllOpportunities(e);
+        }
+      }
+      
+      // Si se hace clic en los enlaces de navegación
+      if (e.target.closest('#profileLink')) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (window.goToProfile) {
+          window.goToProfile(e);
+        }
+      }
+      
+      if (e.target.closest('#organizacionLink')) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (window.goToOrganizacion) {
+          window.goToOrganizacion(e);
+        }
+      }
+      
+      if (e.target.closest('#panelLink')) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (window.goToPanel) {
+          window.goToPanel(e);
+        }
+      }
+      
+      // Si se hace clic en cerrar sesión
+      if (e.target.closest('#logoutButton') || (e.target.closest('.logout') && e.target.closest('.profile-dropdown-item'))) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+          logout();
+        }
+      }
+    }, true);
+    
+    // También actualizar cuando cambie el storage (por si se inicia sesión en otra pestaña)
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'isLoggedIn') {
+        updateHeaderAuth();
+      }
+    });
+    
+    // Ejecutar updateHeaderAuth periódicamente para asegurar que se actualice
+    // Esto es útil cuando se carga el header dinámicamente
+    setInterval(function() {
+      const loginLink = document.getElementById('login-link');
+      const userProfileMenu = document.getElementById('userProfileMenu');
+      if (loginLink || userProfileMenu) {
+        updateHeaderAuth();
+      }
+    }, 1000);
+  </script>
+</body>
+</html>

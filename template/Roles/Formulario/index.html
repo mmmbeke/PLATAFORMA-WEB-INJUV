@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formulario de Organización — INJUV</title>
+  <link rel="stylesheet" href="../../typography.css" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Header Principal -->
+  <div id="header-container"></div>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-icon" aria-hidden="true">🏢</div>
+        <h1>Formulario de Organización</h1>
+        <p>Complete toda la información de su organización para participar en el programa de voluntariado</p>
+      </div>
+    </section>
+
+    <div class="progress">
+      <div class="progress-bar" style="width: 0%" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <span>Progreso: 0%</span>
+      </div>
+    </div>
+
+    <!-- IDENTIFICACIÓN -->
+    <section class="card">
+      <header class="card-header">
+        <div class="card-title">
+          <span class="icon" aria-hidden="true">🧾</span>
+          <h2>Identificación</h2>
+        </div>
+      </header>
+      <div class="grid two">
+        <div class="field">
+          <label>Nombre legal de la organización <span class="req">*</span></label>
+          <input type="text" id="nombre-organizacion" placeholder="" autocomplete="off" required />
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente (nombre corto o comp)</label>
+        </div>
+        <div class="field">
+          <label>Nombre corto / Sigla</label>
+          <input type="text" autocomplete="off" />
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+
+        <div class="field">
+          <label>Tipo de organización</label>
+          <select>
+            <option>Seleccione...</option>
+            <option>Fundación</option>
+            <option>Corporación</option>
+            <option>ONG</option>
+            <option>Agrupación</option>
+          </select>
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+        <div class="field">
+          <label>RUT / Número de registro legal</label>
+          <input type="text" id="rut-organizacion" placeholder="12.345.678-9" autocomplete="off" />
+          <p class="hint private"><span class="dot"></span> Solo visible para organización y administradores</p>
+        </div>
+
+        <div class="field">
+          <label>Fecha de fundación <span class="req">*</span></label>
+          <div class="date-input-wrapper">
+            <i class="fas fa-calendar-alt date-icon"></i>
+            <input type="date" id="fecha-creacion" class="date-input-styled" autocomplete="off" required />
+            <span class="date-placeholder">Seleccione una fecha</span>
+          </div>
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+        <div class="field">
+          <label>Documentos legales (estatutos, FECU social, etc)</label>
+          <input type="file" multiple />
+          <p class="hint private"><span class="dot"></span> Solo visible para organización y administradores</p>
+          <div class="notice sensitive">⚠ Información sensible — Este campo solo será visible para miembros de su organización y administradores del sistema.</div>
+        </div>
+
+        <div class="field">
+          <label>Región <span class="req">*</span></label>
+          <select id="region-organizacion" required>
+            <option value="">Seleccione una región</option>
+          </select>
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+        <div class="field">
+          <label>Ciudad <span class="req">*</span></label>
+          <select id="ciudad-organizacion" required disabled>
+            <option value="">Primero seleccione una región</option>
+          </select>
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+        <div class="field">
+          <label>Comuna <span class="req">*</span></label>
+          <select id="comuna-organizacion" required disabled>
+            <option value="">Primero seleccione una ciudad</option>
+          </select>
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+          <div class="tip">📍 Ubicación importante — Esta información ayudará a los voluntarios a encontrar oportunidades cercanas.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCIA Y CONFIANZA -->
+    <section class="card">
+      <header class="card-header">
+        <div class="card-title">
+          <span class="icon" aria-hidden="true">🧾</span>
+          <h2>Experiencia y Confianza</h2>
+        </div>
+      </header>
+      <div class="grid three">
+        <div class="field">
+          <label>Experiencia previa (años en voluntariado)</label>
+          <input type="number" min="0" autocomplete="off" />
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+        <div class="field">
+          <label>Número anual de voluntarios movilizados estimado (rango)</label>
+          <select>
+            <option>Seleccione...</option>
+            <option>1–20</option>
+            <option>21–100</option>
+            <option>101–500</option>
+            <option>500+</option>
+          </select>
+          <p class="hint private"><span class="dot"></span> Solo visible para organización y administradores</p>
+        </div>
+        <div class="field">
+          <label>Principales proyectos realizados</label>
+          <textarea></textarea>
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+
+        <div class="field col-span-2">
+          <label>Certificaciones o reconocimientos (opcional)</label>
+          <div class="file-upload-wrapper">
+            <input type="file" id="certificaciones-archivos" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" />
+            <label for="certificaciones-archivos" class="file-upload-label">
+              <div class="file-upload-content">
+                <i class="fas fa-cloud-upload-alt file-upload-icon"></i>
+                <div class="file-upload-text">
+                  <span class="file-upload-title">Haga clic para adjuntar o arrastre archivos aquí</span>
+                  <span class="file-upload-subtitle">Formatos aceptados: PDF, JPG, PNG, DOC, DOCX (máx. 10MB por archivo)</span>
+                </div>
+              </div>
+            </label>
+            <div id="certificaciones-lista" class="file-list"></div>
+          </div>
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+          <div class="tip">🏅 Reconocimientos — Adjunte certificaciones, premios o reconocimientos que haya recibido su organización.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMAGEN Y PRESENTACIÓN -->
+    <section class="card">
+      <header class="card-header">
+        <div class="card-title">
+          <span class="icon" aria-hidden="true">🧾</span>
+          <h2>Imagen y Presentación</h2>
+        </div>
+      </header>
+      <div class="grid three">
+        <div class="field">
+          <label>Logotipo</label>
+          <input type="file" />
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+        <div class="field">
+          <label>Imagen de portada/banner</label>
+          <input type="file" />
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+        <div class="field">
+          <label>Descripción breve (máx. 500 caracteres) <span class="req">*</span></label>
+          <textarea id="descripcion-organizacion" maxlength="500" placeholder="" required></textarea>
+          <div class="counter">500 caracteres restantes</div>
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+
+        <div class="field col-span-2">
+          <label>Descripción extendida (misión, visión, historia)</label>
+          <textarea rows="4"></textarea>
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+
+        <div class="field">
+          <label>Áreas de trabajo / Causas</label>
+          <select>
+            <option>Seleccione...</option>
+            <option>Educación</option>
+            <option>Salud</option>
+            <option>Medio Ambiente</option>
+            <option>Derechos Humanos</option>
+            <option>Lucha contra la Pobreza</option>
+            <option>Inclusión</option>
+            <option>Deportes</option>
+            <option>Cultura</option>
+            <option>Otra</option>
+          </select>
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRESENCIA DIGITAL -->
+    <section class="card">
+      <header class="card-header">
+        <div class="card-title">
+          <span class="icon" aria-hidden="true">🌐</span>
+          <h2>Presencia Digital</h2>
+        </div>
+      </header>
+      <div class="grid two">
+        <div class="field">
+          <label>Sitio web</label>
+          <input type="url" id="sitio-web" placeholder="https://www.ejemplo.org" autocomplete="off" />
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+        <div class="field">
+          <label>Redes sociales</label>
+          <textarea id="redes-sociales" rows="3" placeholder="Instagram: @ejemplo&#10;Facebook: /ejemplo&#10;Twitter: @ejemplo" autocomplete="off"></textarea>
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+          <div class="tip">💡 Puedes incluir múltiples redes sociales, una por línea.</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" type="button" id="btn-enviar-formulario">📄 Enviar Formulario de Organización</button>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p id="footer-message">Complete todos los campos obligatorios y haga clic en "Enviar Formulario de Organización"</p>
+    </footer>
+  </main>
+  
+  <script>
+    // Cargar header y configurar enlaces
+    fetch('../../header.html')
+        .then(response => response.text())
+        .then(data => {
+            // Extraer scripts y estilos del header
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data, 'text/html');
+            const headerContent = doc.querySelector('header');
+            const styles = doc.querySelector('style');
+            const scripts = doc.querySelectorAll('script');
+            
+            // Insertar estilos si existen
+            if (styles) {
+              const styleElement = document.createElement('style');
+              styleElement.textContent = styles.textContent;
+              document.head.appendChild(styleElement);
+            }
+            
+            // Insertar el header
+            if (headerContent) {
+              document.getElementById('header-container').innerHTML = headerContent.outerHTML;
+            } else {
+              document.getElementById('header-container').innerHTML = data;
+            }
+            
+            // Ejecutar los scripts del header manualmente
+            scripts.forEach(oldScript => {
+              const newScript = document.createElement('script');
+              if (oldScript.src) {
+                newScript.src = oldScript.src;
+              } else {
+                newScript.textContent = oldScript.textContent;
+              }
+              document.body.appendChild(newScript);
+            });
+            
+            setTimeout(() => {
+              // Verificar estado de sesión y actualizar header
+              const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true' || 
+                               sessionStorage.getItem('isLoggedIn') === 'true';
+              const loginLink = document.getElementById('login-link');
+              const userProfileMenu = document.getElementById('userProfileMenu');
+              const profileUserName = document.getElementById('profileUserName');
+              const profileUserEmail = document.getElementById('profileUserEmail');
+              
+              if (isLoggedIn) {
+                if (loginLink) {
+                  loginLink.style.display = 'none';
+                  loginLink.style.visibility = 'hidden';
+                }
+                if (userProfileMenu) {
+                  userProfileMenu.style.display = 'block';
+                  userProfileMenu.classList.add('active');
+                  const userEmail = localStorage.getItem('userEmail') || sessionStorage.getItem('userEmail');
+                  const userNombre = localStorage.getItem('userNombre') || '';
+                  const userApellido = localStorage.getItem('userApellido') || '';
+                  if (profileUserName) {
+                    profileUserName.textContent = `${userNombre} ${userApellido}`.trim() || 'Usuario';
+                  }
+                  if (profileUserEmail) {
+                    profileUserEmail.textContent = userEmail || '';
+                  }
+                }
+              } else {
+                if (loginLink) {
+                  loginLink.style.display = 'inline-flex';
+                  loginLink.style.visibility = 'visible';
+                }
+                if (userProfileMenu) {
+                  userProfileMenu.style.display = 'none';
+                  userProfileMenu.classList.remove('active');
+                }
+              }
+              
+              // Ejecutar funciones del header si existen
+              if (typeof window.initHeaderAuth === 'function') {
+                window.initHeaderAuth();
+              }
+              if (typeof window.updateHeaderAuth === 'function') {
+                window.updateHeaderAuth();
+              }
+              
+              // Configurar enlaces
+              // Logo - va a página principal
+              const logo = document.getElementById('logo-link');
+              if (logo) logo.href = '../../index.html';
+              
+              // Enlaces - van a página principal con hash
+              const howWorks = document.getElementById('how-it-works-link');
+              if (howWorks) howWorks.href = '../../index.html#how-it-works';
+              
+              const experiencias = document.getElementById('experiencias-link');
+              if (experiencias) experiencias.href = '../../index.html#experiencias-voluntariado';
+              
+              const noticias = document.getElementById('news-link');
+              if (noticias) {
+                noticias.href = '../../index.html#news';
+                noticias.onclick = function(e) {
+                  if (window.goToNoticias) {
+                    window.goToNoticias(e);
+                  } else {
+                    e.preventDefault();
+                    window.location.href = '../../index.html#news';
+                  }
+                  return false;
+                };
+              }
+
+              const academiaNav = document.getElementById('academia-link');
+              if (academiaNav) {
+                academiaNav.href = '../../index.html#academia-voluntariado';
+                academiaNav.onclick = function(e) {
+                  if (window.goToAcademia) {
+                    window.goToAcademia(e);
+                  } else {
+                    e.preventDefault();
+                    window.location.href = '../../index.html#academia-voluntariado';
+                  }
+                  return false;
+                };
+              }
+
+              const bibliotecaNav = document.getElementById('biblioteca-link');
+              if (bibliotecaNav) {
+                bibliotecaNav.href = '../../index.html#biblioteca-estudios';
+                bibliotecaNav.onclick = function(e) {
+                  if (window.goToBiblioteca) {
+                    window.goToBiblioteca(e);
+                  } else {
+                    e.preventDefault();
+                    window.location.href = '../../index.html#biblioteca-estudios';
+                  }
+                  return false;
+                };
+              }
+              
+              const login = document.getElementById('login-link');
+              if (login) login.href = '../../inicio de sesion/login.html';
+            }, 100);
+        })
+        .catch(error => console.error('Error:', error));
+  </script>
+  <script src="../../script.js"></script>
+  <script src="formulario.js"></script>
+</body>
+</html>

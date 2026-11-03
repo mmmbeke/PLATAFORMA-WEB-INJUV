@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Plataforma de Voluntariados INJUV</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- CSS propio -->
+  <link rel="stylesheet" href="../../Kit_Gobierno/typography.css" />
+  <link rel="stylesheet" href="../../Kit_Gobierno/grid-system.css" />
+  <link rel="stylesheet" href="../../Kit_Gobierno/buttons-system.css" />
+  <link rel="stylesheet" href="custom.css" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="../../chatbot/styles_bot.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      padding-top: 80px;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gray-50 text-gray-900">
+
+  <!-- HEADER -->
+  <div id="header-container"></div>
+
+  <!-- PERFIL (banner + avatar + nombre) -->
+  <section class="max-w-7xl mx-auto mt-6 rounded-2xl overflow-hidden shadow-sm">
+    <!-- Banner azul -->
+    <div id="profileBanner" class="relative bg-blue-700 h-40">
+      <!-- Input de color de banner (oculto) -->
+      <input id="bannerColorInput" type="color" class="hidden" value="#1e40af">
+    </div>
+
+    <!-- Franja blanca con nombre -->
+    <div class="relative bg-white">
+      <!-- Botón editar perfil -->
+      <button id="editProfileBtn"
+        class="absolute right-4 top-3 inline-flex items-center gap-2 px-3 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 cursor-pointer text-sm shadow">
+        ✎ Editar perfil
+      </button>
+
+      <!-- Avatar superpuesto -->
+      <div id="avatarContainer" class="absolute -top-12 left-8 h-28 w-28 rounded-full ring-4 ring-white overflow-hidden bg-white avatar-default">
+        <img id="avatarCard"
+          src="avatar-default.png"
+          alt="Foto de perfil"
+          class="w-full h-full object-cover object-center">
+      </div>
+
+      <!-- Nombre y meta -->
+      <div class="pl-40 pr-4 py-4 flex items-center justify-between">
+        <div>
+          <h2 id="profileName" class="text-2xl font-semibold text-gray-900">María Alejandra González</h2>
+          <div class="mt-1 text-sm text-gray-600 flex flex-wrap gap-x-6 gap-y-1">
+            <span id="profileHours">⏱ 157 horas de voluntariado</span>
+            <span>🎂 <span id="profileAge">27</span> años</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="max-w-7xl mx-auto px-4 py-6">
+    <main class="grid grid-cols-1 lg:grid-cols-3 gap-6" style="padding-bottom: 80px; margin-bottom: 40px;">
+
+      <!-- COLUMNA IZQUIERDA -->
+      <section class="lg:col-span-2 space-y-6">
+
+        <!-- INFORMACIÓN DE CONTACTO -->
+        <div class="bg-white rounded-xl shadow-sm border p-6 section-card">
+          <h3 class="text-xl font-semibold mb-4">Información de Contacto</h3>
+
+          <div id="contactView" class="space-y-2 text-gray-700">
+            <p>📧 <span id="contactEmail">maria.gonzalez@email.com</span></p>
+            <p>📞 <span id="contactPhone">+56 9 8765 4321</span></p>
+            <p>📍 <span id="contactLocation">Santiago, Región Metropolitana</span></p>
+          </div>
+        </div>
+
+        <!-- ACERCA DE MÍ -->
+        <div class="bg-white rounded-xl shadow-sm border p-6 section-card">
+          <h3 class="text-xl font-semibold mb-3">Acerca de Mí</h3>
+
+          <p id="aboutText" class="text-gray-700 leading-relaxed">
+            Soy una persona comprometida con el servicio comunitario y el desarrollo social.
+            Me apasiona ayudar a otros y contribuir al bienestar de mi comunidad a través del voluntariado.
+          </p>
+        </div>
+
+        <!-- EXPERIENCIA -->
+        <div class="bg-white rounded-xl shadow-sm border p-6">
+          <h3 class="text-xl font-semibold mb-4">Experiencia de Voluntariados</h3>
+
+          <article class="border border-gray-200 rounded-lg p-4 mb-4 hover:shadow-sm transition">
+            <h4 class="font-semibold text-gray-900">Apoyo Educacional</h4>
+            <p class="text-blue-600 font-medium">Fundación Educación para Todos</p>
+            <p class="text-sm text-gray-600">Enero 2024 – Presente</p>
+            <p class="text-gray-700 mt-2">Refuerzo para estudiantes de educación básica.</p>
+            <div class="flex items-center mt-3 gap-4">
+              <span class="text-sm text-green-600 font-medium">45 horas completadas</span>
+              <span class="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-800">Plataforma</span>
+            </div>
+          </article>
+
+          <article class="border border-gray-200 rounded-lg p-4 hover:shadow-sm transition">
+            <h4 class="font-semibold text-gray-900">Cuidado de Adultos Mayores</h4>
+            <p class="text-blue-600 font-medium">Hogar San José</p>
+            <p class="text-sm text-gray-600">Agosto 2023 – Diciembre 2023</p>
+            <p class="text-gray-700 mt-2">Acompañamiento y apoyo en actividades diarias.</p>
+            <div class="flex items-center mt-3 gap-4">
+              <span class="text-sm text-green-600 font-medium">30 horas completadas</span>
+              <span class="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-800">Manual</span>
+            </div>
+          </article>
+        </div>
+
+        <!-- RESEÑAS Y REFERENCIAS -->
+        <section class="bg-white rounded-xl shadow-sm border p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-xl">⭐</span>
+            <h3 class="text-xl font-semibold">Reseñas y Referencias</h3>
+          </div>
+
+          <div id="reviewsContainer">
+            <!-- Las reseñas se cargarán dinámicamente aquí -->
+          </div>
+
+          <!-- Botones de paginación -->
+          <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-200">
+            <button id="prevReviewsBtn" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition" disabled>
+              ← Anterior
+            </button>
+            <span id="reviewsPageInfo" class="text-sm text-gray-600">Página <span id="currentReviewsPage">1</span> de <span id="totalReviewsPages">1</span></span>
+            <button id="nextReviewsBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition">
+              Siguiente →
+            </button>
+          </div>
+        </section>
+      </section>
+
+      <!-- COLUMNA DERECHA -->
+      <aside class="space-y-6">
+        <!-- ESTADÍSTICAS -->
+        <div class="bg-white rounded-xl shadow-sm border p-6">
+          <h3 class="text-xl font-semibold mb-4">Estadísticas de Voluntariado</h3>
+          <div class="grid grid-cols-3 gap-3">
+            <div class="rounded-lg bg-blue-50 p-4 text-center">
+              <div class="text-3xl font-bold text-blue-700">157</div>
+              <div class="text-xs text-blue-800 mt-1">Horas Totales</div>
+            </div>
+            <div class="rounded-lg bg-green-50 p-4 text-center">
+              <div class="text-3xl font-bold text-green-700">2</div>
+              <div class="text-xs text-green-800 mt-1">Proyectos</div>
+            </div>
+            <div class="rounded-lg bg-yellow-50 p-4 text-center">
+              <div class="text-3xl font-bold text-yellow-700">2</div>
+              <div class="text-xs text-yellow-800 mt-1">Certificados</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- HABILIDADES (limpio y editable) -->
+        <div class="bg-white rounded-xl shadow-sm border p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+              <span class="text-xl">◎</span>
+              <h3 class="text-xl font-semibold">Habilidades</h3>
+            </div>
+          </div>
+
+          <ul id="skillsBars" class="space-y-5">
+            <li class="space-y-2" data-id="team" data-level="50">
+              <div class="flex items-center justify-between">
+                <span class="text-sm md:text-base text-gray-900">Trabajo en Equipo</span>
+              </div>
+              <div class="bar-track"><div class="bar-fill"></div></div>
+            </li>
+
+            <li class="space-y-2" data-id="comm" data-level="50">
+              <div class="flex items-center justify-between">
+                <span class="text-sm md:text-base text-gray-900">Comunicación Efectiva</span>
+              </div>
+              <div class="bar-track"><div class="bar-fill"></div></div>
+            </li>
+
+            <li class="space-y-2" data-id="lead" data-level="50">
+              <div class="flex items-center justify-between">
+                <span class="text-sm md:text-base text-gray-900">Liderazgo</span>
+              </div>
+              <div class="bar-track"><div class="bar-fill"></div></div>
+            </li>
+
+            <li class="space-y-2" data-id="empathy" data-level="50">
+              <div class="flex items-center justify-between">
+                <span class="text-sm md:text-base text-gray-900">Empatía</span>
+              </div>
+              <div class="bar-track"><div class="bar-fill"></div></div>
+            </li>
+
+            <li class="space-y-2" data-id="solve" data-level="50">
+              <div class="flex items-center justify-between">
+                <span class="text-sm md:text-base text-gray-900">Resolución de Problemas</span>
+              </div>
+              <div class="bar-track"><div class="bar-fill"></div></div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- CERTIFICADOS -->
+        <div class="bg-white rounded-xl shadow-sm border p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-semibold">Certificados</h3>
+            <button id="openModalBtn" class="px-3 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">Subir</button>
+          </div>
+          <div class="space-y-3">
+            <div class="border border-gray-200 rounded-lg p-3">
+              <h4 class="font-medium text-gray-900 text-sm">Antecedentes</h4>
+              <p class="text-xs text-gray-600">Registro Civil</p>
+              <p class="text-xs text-gray-500 mt-1">Emitido: 2025-02-01</p>
+              <span class="text-xs px-2 py-1 rounded-full bg-green-100 text-green-800">Obtenido</span>
+            </div>
+            <div class="border border-gray-200 rounded-lg p-3">
+              <h4 class="font-medium text-gray-900 text-sm">Inhabilidades</h4>
+              <p class="text-xs text-gray-600">Registro Civil</p>
+              <p class="text-xs text-gray-500 mt-1">Emitido: 2025-03-10</p>
+              <span class="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-800">Subido</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <!-- MODAL SUBIR CERTIFICADOS -->
+  <div id="modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+    <div class="w-full max-w-2xl rounded-2xl bg-white p-6 shadow-xl">
+      <div class="flex items-start justify-between">
+        <h2 class="text-xl font-semibold">Subir Certificados (≤ 6 meses)</h2>
+        <button id="closeModalBtn" class="rounded-lg px-3 py-1 text-sm hover:bg-gray-100">✕</button>
+      </div>
+
+      <div id="errors" class="mt-4 hidden rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+        <ul class="list-disc pl-5"></ul>
+      </div>
+
+      <form id="certForm" class="mt-5 space-y-6" autocomplete="off">
+        <!-- Antecedentes -->
+        <section class="rounded-xl border p-4">
+          <h3 class="mb-3 font-medium">Certificado de Antecedentes</h3>
+          <div class="grid gap-3 md:grid-cols-2">
+            <div>
+              <label class="mb-1 block text-sm font-medium">Archivo (PDF)</label>
+              <input type="file" accept="application/pdf" id="antecedentesFile" class="w-full rounded-lg border p-2" required>
+              <p id="antecedentesName" class="mt-1 text-xs text-gray-600 hidden"></p>
+            </div>
+            <div>
+              <label class="mb-1 block text-sm font-medium">Fecha de emisión</label>
+              <input type="date" id="antecedentesDate" class="w-full rounded-lg border p-2" required>
+              <p id="antecedentesFlag" class="mt-1 text-xs"></p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Inhabilidades -->
+        <section class="rounded-xl border p-4">
+          <h3 class="mb-3 font-medium">Certificado de Inhabilidades</h3>
+          <div class="grid gap-3 md:grid-cols-2">
+            <div>
+              <label class="mb-1 block text-sm font-medium">Archivo (PDF)</label>
+              <input type="file" accept="application/pdf" id="inhabilidadesFile" class="w-full rounded-lg border p-2" required>
+              <p id="inhabilidadesName" class="mt-1 text-xs text-gray-600 hidden"></p>
+            </div>
+            <div>
+              <label class="mb-1 block text-sm font-medium">Fecha de emisión</label>
+              <input type="date" id="inhabilidadesDate" class="w-full rounded-lg border p-2" required>
+              <p id="inhabilidadesFlag" class="mt-1 text-xs"></p>
+            </div>
+          </div>
+        </section>
+
+        <div class="flex items-center justify-end gap-2">
+          <button type="button" id="cancelBtn" class="px-4 py-2 rounded-lg border">Cancelar</button>
+          <button type="submit" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL EDITAR PERFIL (ESTILO FACEBOOK) -->
+  <div id="editProfileModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+    <div class="w-full max-w-5xl h-[90vh] bg-white rounded-lg shadow-2xl flex flex-col overflow-hidden">
+      <!-- Header del Modal -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+        <h2 class="text-2xl font-bold text-gray-900">Editar perfil</h2>
+        <button id="closeEditProfileModal" class="text-gray-500 hover:text-gray-700 text-2xl leading-none">&times;</button>
+      </div>
+
+      <!-- Contenido del Modal -->
+      <div class="flex flex-1 overflow-hidden">
+        <!-- Sidebar Izquierdo - Menú de opciones -->
+        <div class="w-64 border-r border-gray-200 bg-gray-50 overflow-y-auto">
+          <div class="p-4">
+            <h3 class="text-sm font-semibold text-gray-500 uppercase mb-2 px-3">Información</h3>
+            <nav class="space-y-1">
+              <button data-section="photo" class="edit-profile-menu-item active w-full text-left px-3 py-2 rounded-lg hover:bg-gray-200 text-gray-700 flex items-center gap-2 transition">
+                <span>📷</span> Editar foto
+              </button>
+              <button data-section="banner" class="edit-profile-menu-item w-full text-left px-3 py-2 rounded-lg hover:bg-gray-200 text-gray-700 flex items-center gap-2 transition">
+                <span>🎨</span> Color del banner
+              </button>
+              <button data-section="contact" class="edit-profile-menu-item w-full text-left px-3 py-2 rounded-lg hover:bg-gray-200 text-gray-700 flex items-center gap-2 transition">
+                <span>📧</span> Información de contacto
+              </button>
+              <button data-section="about" class="edit-profile-menu-item w-full text-left px-3 py-2 rounded-lg hover:bg-gray-200 text-gray-700 flex items-center gap-2 transition">
+                <span>📝</span> Acerca de mí
+              </button>
+              <button data-section="skills" class="edit-profile-menu-item w-full text-left px-3 py-2 rounded-lg hover:bg-gray-200 text-gray-700 flex items-center gap-2 transition">
+                <span>◎</span> Habilidades
+              </button>
+              <button data-section="privacy" class="edit-profile-menu-item w-full text-left px-3 py-2 rounded-lg hover:bg-gray-200 text-gray-700 flex items-center gap-2 transition">
+                <span>🔒</span> Privacidad
+              </button>
+            </nav>
+          </div>
+        </div>
+
+        <!-- Panel Derecho - Contenido de edición -->
+        <div class="flex-1 overflow-y-auto bg-white">
+          <div class="p-6">
+            <!-- Sección: Editar Foto -->
+            <div id="section-photo" class="edit-profile-section hidden">
+              <h3 class="text-xl font-semibold mb-4">Editar foto</h3>
+              <div class="space-y-4">
+                <p class="text-gray-600">Cambia tu foto de perfil. La imagen será recortada de forma circular.</p>
+                
+                <!-- Zona de arrastre -->
+                <div id="photoDropZone" class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center transition-colors hover:border-blue-400 hover:bg-blue-50 cursor-pointer">
+                  <div class="flex flex-col items-center gap-3">
+                    <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    </svg>
+                    <div>
+                      <p class="text-sm text-gray-600">
+                        <span class="font-semibold text-blue-600">Haz clic para seleccionar</span> o arrastra una imagen aquí
+                      </p>
+                      <p class="text-xs text-gray-500 mt-1">PNG, JPG, GIF hasta 10MB</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <input id="avatarInput" type="file" accept="image/*" class="hidden">
+              </div>
+            </div>
+
+            <!-- Sección: Color del Banner -->
+            <div id="section-banner" class="edit-profile-section hidden">
+              <h3 class="text-xl font-semibold mb-4">Color del banner</h3>
+              <div class="space-y-4">
+                <p class="text-gray-600">Personaliza el color del banner de tu perfil.</p>
+                <div>
+                  <label class="block text-sm font-medium mb-2">Selecciona un color</label>
+                  <div class="flex items-center gap-4">
+                    <input type="color" id="bannerColorPicker" value="#1e40af" class="w-20 h-12 rounded cursor-pointer border border-gray-300">
+                    <input type="text" id="bannerColorHex" value="#1e40af" class="flex-1 border rounded-lg p-2 font-mono" placeholder="#1e40af">
+                  </div>
+                </div>
+                <div class="p-4 rounded-lg border bg-gray-50">
+                  <p class="text-sm text-gray-600 mb-2">Vista previa:</p>
+                  <div id="bannerPreview" class="h-20 rounded-lg" style="background-color: #1e40af;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sección: Información de Contacto -->
+            <div id="section-contact" class="edit-profile-section hidden">
+              <h3 class="text-xl font-semibold mb-4">Información de contacto</h3>
+              <form id="contactInfoForm" class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium mb-1">Correo electrónico</label>
+                  <input type="email" id="contactEmailInput" class="w-full border rounded-lg p-2" placeholder="Correo electrónico">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Teléfono</label>
+                  <input type="text" id="contactPhoneInput" class="w-full border rounded-lg p-2" placeholder="Teléfono">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Ubicación</label>
+                  <input type="text" id="contactLocationInput" class="w-full border rounded-lg p-2" placeholder="Ciudad, Región">
+                </div>
+              </form>
+            </div>
+
+            <!-- Sección: Acerca de Mí -->
+            <div id="section-about" class="edit-profile-section hidden">
+              <h3 class="text-xl font-semibold mb-4">Acerca de mí</h3>
+              <form id="aboutInfoForm" class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium mb-1">Descripción</label>
+                  <textarea id="aboutInput" rows="6" class="w-full border rounded-lg p-2" placeholder="Escribe una descripción sobre ti..."></textarea>
+                </div>
+              </form>
+            </div>
+
+            <!-- Sección: Habilidades -->
+            <div id="section-skills" class="edit-profile-section hidden">
+              <h3 class="text-xl font-semibold mb-4">Habilidades</h3>
+              <div class="space-y-4">
+                <div class="flex justify-between items-center mb-4">
+                  <p class="text-gray-600">Gestiona tus habilidades y su nivel de dominio.</p>
+                  <button id="addSkillBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2">
+                    <span>+</span> Agregar habilidad
+                  </button>
+                </div>
+                <ul id="skillsEditList" class="space-y-4">
+                  <!-- Las habilidades se cargarán dinámicamente aquí -->
+                </ul>
+              </div>
+            </div>
+
+            <!-- Sección: Privacidad -->
+            <div id="section-privacy" class="edit-profile-section hidden">
+              <h3 class="text-xl font-semibold mb-4">Privacidad</h3>
+              <p class="text-gray-600 mb-6">Controla qué información de tu perfil es visible para otros usuarios.</p>
+              
+              <div class="space-y-6">
+                <!-- Información Personal -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-gray-900 mb-3">Información Personal</h4>
+                  <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-sm font-medium text-gray-700">Horas de voluntariado</p>
+                        <p class="text-xs text-gray-500">Mostrar o ocultar las horas de voluntariado (incluyendo el ícono)</p>
+                      </div>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="privacy-hours" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-sm font-medium text-gray-700">Edad</p>
+                        <p class="text-xs text-gray-500">Mostrar o ocultar tu edad (incluyendo el ícono)</p>
+                      </div>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="privacy-age" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Información de Contacto -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-gray-900 mb-3">Información de Contacto</h4>
+                  <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-sm font-medium text-gray-700">Correo electrónico</p>
+                        <p class="text-xs text-gray-500">Controla la visibilidad de tu email</p>
+                      </div>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="privacy-email" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-sm font-medium text-gray-700">Teléfono</p>
+                        <p class="text-xs text-gray-500">Mostrar o ocultar tu número de teléfono</p>
+                      </div>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="privacy-phone" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-sm font-medium text-gray-700">Ubicación</p>
+                        <p class="text-xs text-gray-500">Mostrar o ocultar tu ubicación (incluyendo el ícono)</p>
+                      </div>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="privacy-location" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Contenido del Perfil -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-gray-900 mb-3">Contenido del Perfil</h4>
+                  <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-sm font-medium text-gray-700">Acerca de mí</p>
+                        <p class="text-xs text-gray-500">Mostrar o ocultar tu descripción personal</p>
+                      </div>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="privacy-about" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-sm font-medium text-gray-700">Experiencia de Voluntariados</p>
+                        <p class="text-xs text-gray-500">Mostrar o ocultar tu historial de voluntariados</p>
+                      </div>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="privacy-experience" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-sm font-medium text-gray-700">Habilidades</p>
+                        <p class="text-xs text-gray-500">Mostrar o ocultar tus habilidades</p>
+                      </div>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="privacy-skills" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-sm font-medium text-gray-700">Reseñas y Referencias</p>
+                        <p class="text-xs text-gray-500">Mostrar o ocultar las reseñas de organizaciones</p>
+                      </div>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="privacy-reviews" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer con botones -->
+          <div id="editProfileFooter" class="border-t border-gray-200 px-6 py-4 bg-gray-50 flex justify-end gap-3">
+            <button id="cancelEditProfile" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-100">Cancelar</button>
+            <button id="saveEditProfile" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL RECORTE AVATAR -->
+  <div id="cropper" class="hidden fixed inset-0 z-[60] flex items-center justify-center bg-black/40 p-4">
+    <div class="w-full max-w-xl rounded-2xl bg-white p-5 shadow-xl">
+      <h3 class="text-lg font-semibold">Recortar foto de perfil</h3>
+
+      <!-- Marco circular -->
+      <div id="cropFrame"
+        class="relative mx-auto my-4 h-64 w-64 rounded-full overflow-hidden ring-4 ring-white shadow-lg bg-gray-100">
+        <img id="cropImg" alt="Previsualización" class="absolute select-none cursor-move" draggable="false" />
+      </div>
+
+      <!-- Controles -->
+      <div class="flex items-center gap-3">
+        <span class="text-sm text-gray-600">Zoom</span>
+        <input id="cropZoom" type="range" min="0.5" max="3" step="0.01" value="1" class="w-full">
+        <button id="cropReset" class="px-3 py-1 rounded border text-sm">Reiniciar</button>
+        <div class="flex-1"></div>
+        <button id="cropCancel" class="px-3 py-2 rounded border">Cancelar</button>
+        <button id="cropSave" class="px-3 py-2 rounded bg-blue-600 text-white hover:bg-blue-700">Guardar</button>
+      </div>
+
+      <p class="text-xs text-gray-500 mt-2">Arrastra la imagen para centrarla y usa el control de zoom.</p>
+    </div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+    // Cargar header y configurar enlaces
+    fetch('../../header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header-container').innerHTML = data;
+        
+        setTimeout(() => {
+          // Logo - va a página principal
+          const logo = document.getElementById('logo-link');
+          if (logo) logo.href = '../../index.html';
+          
+          // Enlaces - van a página principal con hash
+          const howWorks = document.getElementById('how-it-works-link');
+          if (howWorks) howWorks.href = '../../index.html#how-it-works';
+          
+          const experiencias = document.getElementById('experiencias-link');
+          if (experiencias) experiencias.href = '../../index.html#experiencias-voluntariado';
+          
+          const noticias = document.getElementById('news-link');
+          if (noticias) noticias.href = '../../index.html#news';
+          
+          const login = document.getElementById('login-link');
+          if (login) login.href = '../../inicio de sesion/login.html';
+        }, 100);
+      })
+      .catch(error => console.error('Error:', error));
+  </script>
+  <!-- Footer -->
+  <footer class="footer">
+      <div class="footer-wrapper">
+          <!-- Barra superior -->
+          <div class="footer-top-bar">
+              <div class="footer-bar-blue"></div>
+              <div class="footer-bar-red"></div>
+          </div>
+          
+          <div class="footer-content">
+              <!-- Columna 1: Logos -->
+              <div class="footer-section footer-col1">
+                  <div class="footer-logos-container">
+                      <!-- Logo ClaveÚnica -->
+                      <div class="footer-logo-claveunica">
+                          <img src="../../Fotos_injuv/ClaveUnica.png" alt="ClaveÚnica" class="footer-logo-img claveunica-logo">
+                      </div>
+                      
+                      <p class="footer-admin-text">Servicio de autenticación administrado por:</p>
+                      
+                      <!-- Logo Secretaría de Gobierno Digital -->
+                      <div class="footer-logo-secretaria">
+                          <img src="../../Fotos_injuv/SecretariaGobiernoDigital.png" alt="Secretaría de Gobierno Digital" class="footer-logo-img secretaria-logo">
+                      </div>
+                      
+                      <p class="footer-collab-text">Con la colaboración de:</p>
+                      
+                      <!-- Logo Ministerio -->
+                      <div class="footer-logo-ministerio-small">
+                          <img src="../../Fotos_injuv/color_MinDesarrolloSocialYFamilia.jpg" alt="Ministerio de Desarrollo Social y Familia" class="footer-logo-img ministerio-small-logo">
+                      </div>
+                      
+                      <p class="footer-trademark">INJUV®</p>
+                  </div>
+              </div>
+              
+              <!-- Columna 2: Secciones -->
+              <div class="footer-section footer-col2">
+                  <h4>Secciones</h4>
+                  <ul>
+                      <li><a href="../../noticias/index.html">Noticias</a></li>
+                      <li><a href="../../inicio de sesion/login.html">Postular</a></li>
+                      <li><a href="../../organizaciones/index.html">Instituciones públicas</a></li>
+                      <li><a href="#">Términos y condiciones</a></li>
+                  </ul>
+              </div>
+              
+              <!-- Columna 3: Ayuda a Ciudadanos -->
+              <div class="footer-section footer-col3">
+                  <h4>Ayuda a Ciudadanos</h4>
+                  <a href="#" class="contact-link" id="faq-link">Preguntas frecuentes</a>
+                  <p class="contact-info">Horario: Lu - Vi / 9:00hrs - 18:00hrs</p>
+                  <a href="tel:+56226204700" class="contact-phone">+56 2 26204700</a>
+              </div>
+              
+              <!-- Columna 4: Ayuda a Instituciones -->
+              <div class="footer-section footer-col4">
+                  <h4>Ayuda a Instituciones</h4>
+                  <p class="contact-info">Horario: Lu - Vi / 9:00hrs - 18:00hrs</p>
+                  <a href="tel:+56226204700" class="contact-phone">+56 2 26204700</a>
+              </div>
+          </div>
+          
+          <!-- Barra inferior -->
+          <div class="footer-bottom-bar">
+              <div class="footer-bar-blue"></div>
+              <div class="footer-bar-red"></div>
+          </div>
+      </div>
+  </footer>
+
+  <link rel="stylesheet" href="../../styles.css">
+  <script src="../../script.js"></script>
+  <script src="app.js"></script>
+  <script src="../../chatbot/chatbot.js"></script>
+  
+  <script>
+      // Configurar enlace de "Preguntas frecuentes" para abrir el chatbot
+      window.addEventListener('load', () => {
+          const faqLink = document.getElementById('faq-link');
+          
+          if (faqLink) {
+              faqLink.addEventListener('click', (e) => {
+                  e.preventDefault();
+                  
+                  setTimeout(() => {
+                      const chatbotToggle = document.getElementById('chatbot-toggle');
+                      const chatbotContainer = document.getElementById('chatbot-container');
+                      
+                      if (chatbotContainer && chatbotToggle) {
+                          if (!chatbotContainer.classList.contains('chatbot-open')) {
+                              chatbotToggle.click();
+                          }
+                      }
+                  }, 300);
+              });
+          }
+      });
+  </script>
+
+  <!-- Chatbot de Preguntas Frecuentes -->
+  <div id="chatbot-container" class="chatbot-container">
+      <div class="chatbot-header">
+          <div class="chatbot-header-content">
+              <div class="chatbot-avatar">
+                  <img src="../../chatbot/imagenes/chatbot-icon.png" alt="Asistente INJUV" class="chatbot-avatar-img">
+              </div>
+              <div class="chatbot-info">
+                  <h3>Asistente INJUV</h3>
+                  <span class="chatbot-status">👉 Listo para ayudarte...</span>
+              </div>
+          </div>
+          <button id="chatbot-close" class="chatbot-close">
+              <i class="fas fa-times"></i>
+          </button>
+      </div>
+      <div id="chatbot-messages" class="chatbot-messages"></div>
+      <div class="chatbot-input-container">
+          <input 
+              type="text" 
+              id="chatbot-input" 
+              class="chatbot-input" 
+              placeholder="Escribe tu pregunta aquí..."
+              autocomplete="off"
+          >
+          <button type="button" id="chatbot-send" class="chatbot-send">
+              <img src="../../chatbot/imagenes/Chatbot-enviar.png" alt="Enviar" class="send-icon-img">
+          </button>
+      </div>
+  </div>
+  
+  <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Abrir chatbot">
+      <img src="../../chatbot/imagenes/chatbot-icon.png" alt="Chatbot" class="chatbot-toggle-icon">
+      <span class="chatbot-badge">?</span>
+  </button>
+
+  <script src="../../chatbot/chatbot.js"></script>
+</body>
+</html>

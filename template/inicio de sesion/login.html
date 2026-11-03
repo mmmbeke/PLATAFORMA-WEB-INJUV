@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - INJUV</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding-top: 90px;
+            background-color: #0f172a;
+        }
+
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(1200px 600px at 80% -20%, rgba(30,64,175,0.2), transparent),
+                        radial-gradient(800px 400px at 10% 110%, rgba(34,211,238,0.13), transparent);
+            background-color: #0f172a;
+            color: #f1f5f9;
+            font-family: 'Inter', sans-serif;
+            padding: 1.5rem;
+        }
+        
+        .login-container main {
+            width: 100%;
+            max-width: 32rem;
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid #475569;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+        
+        .login-container header {
+            text-align: center;
+            padding: 1.5rem 1.5rem 0.75rem;
+            border-bottom: 1px solid #475569;
+        }
+        
+        .login-container header img {
+            margin: 0 auto 0.75rem;
+            width: 8rem;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+        }
+        
+        .login-container h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin: 0;
+        }
+        
+        .login-container form {
+            padding: 2rem 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #cbd5e1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid #475569;
+            border-radius: 0.5rem;
+            color: #f1f5f9;
+            font-size: 1rem;
+            transition: all 0.2s;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .form-group input::placeholder {
+            color: #64748b;
+        }
+        
+        .btn-submit {
+            width: 100%;
+            padding: 0.875rem;
+            background: linear-gradient(135deg, #0052CC, #007BFF);
+            color: #fff;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.4);
+        }
+        
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+        
+        .error-message {
+            background: rgba(220, 38, 38, 0.1);
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            color: #fca5a5;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .success-message {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #86efac;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            display: none;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+        
+        .register-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #475569;
+        }
+        
+        .register-link p {
+            color: #cbd5e1;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .register-link a {
+            color: #60a5fa;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        
+        .register-link a:hover {
+            color: #3b82f6;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <main>
+            <header>
+                <img src="https://www.injuv.gob.cl/sites/default/files/logo_injuv_2021_portal.png?v=3" alt="INJUV Logo">
+                <h1>Iniciar Sesión</h1>
+            </header>
+            
+            <form id="loginForm">
+                <div class="error-message" id="errorMessage"></div>
+                <div class="success-message" id="successMessage"></div>
+                
+                <div class="form-group">
+                    <label for="email">Correo electrónico</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="tu@email.com" 
+                        required 
+                        autocomplete="off"
+                    />
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="••••••••" 
+                        required 
+                        autocomplete="off"
+                    />
+                </div>
+                
+                <button type="submit" class="btn-submit">
+                    Iniciar Sesión
+                </button>
+                
+                <div class="register-link">
+                    <p>¿No tienes una cuenta?</p>
+                    <a href="register.html">Regístrate aquí</a>
+                </div>
+            </form>
+        </main>
+    </div>
+    
+    <script>
+        const API_BASE_URL = 'https://injuv.onrender.com/api';
+        
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            const successDiv = document.getElementById('successMessage');
+            errorDiv.textContent = message;
+            errorDiv.classList.add('show');
+            successDiv.classList.remove('show');
+        }
+        
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            const errorDiv = document.getElementById('errorMessage');
+            successDiv.textContent = message;
+            successDiv.classList.add('show');
+            errorDiv.classList.remove('show');
+        }
+        
+        function hideMessages() {
+            document.getElementById('errorMessage').classList.remove('show');
+            document.getElementById('successMessage').classList.remove('show');
+        }
+        
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            hideMessages();
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                showError('Por favor, completa todos los campos');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({ error: 'Error desconocido' }));
+                    throw new Error(errorData.error || `Error HTTP: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                console.log('Respuesta del servidor:', data);
+                
+                if (data.success && data.user) {
+                    console.log('Usuario recibido:', data.user);
+                    console.log('Rol del usuario:', data.user.rol);
+                    
+                    showSuccess('¡Inicio de sesión exitoso! Redirigiendo...');
+                    
+                    // Guardar información del usuario
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('userId', data.user.id);
+                    localStorage.setItem('userEmail', data.user.email || email);
+                    localStorage.setItem('userNombre', data.user.nombre || '');
+                    localStorage.setItem('userApellido', data.user.apellido || '');
+                    const userRol = data.user.rol || 'user';
+                    localStorage.setItem('userRol', userRol);
+                    
+                    // Guardar objeto completo del usuario para compatibilidad
+                    localStorage.setItem('loggedUser', JSON.stringify(data.user));
+                    
+                    // Redirigir según el rol del usuario
+                    let redirectUrl = '';
+                    
+                    if (userRol === 'admin') {
+                        redirectUrl = '../Roles/Admin/admin-modern.html';
+                    } else if (userRol === 'organizacion') {
+                        redirectUrl = '../Roles/Perfil_organizacion/dashboard.html';
+                    } else {
+                        redirectUrl = '../index.html';
+                    }
+                    
+                    console.log('Redirigiendo usuario con rol:', userRol);
+                    console.log('Ruta de redirección:', redirectUrl);
+                    
+                    // Usar función helper si está disponible, sino usar ruta relativa
+                    setTimeout(() => {
+                        try {
+                            if (typeof window.redirectTo === 'function') {
+                                window.redirectTo(redirectUrl, true);
+                            } else {
+                                // Fallback: construir ruta absoluta manualmente
+                                const basePath = '../';
+                                const finalPath = basePath + redirectUrl.replace(/^(\.\.\/)+/, '');
+                                window.location.replace(finalPath);
+                            }
+                        } catch (error) {
+                            console.error('Error al redirigir:', error);
+                            // Fallback: intentar con href
+                            try {
+                                const basePath = '../';
+                                const finalPath = basePath + redirectUrl.replace(/^(\.\.\/)+/, '');
+                                window.location.href = finalPath;
+                            } catch (error2) {
+                                console.error('Error en fallback de redirección:', error2);
+                                showError('Error al redirigir. Por favor, navega manualmente.');
+                            }
+                        }
+                    }, 800);
+                } else {
+                    const errorMsg = data.error || 'Error al iniciar sesión. Por favor, intenta nuevamente.';
+                    console.error('Error en login:', errorMsg);
+                    console.error('Datos recibidos:', data);
+                    showError(errorMsg);
+                }
+            } catch (error) {
+                console.error('Error al iniciar sesión:', error);
+                let errorMessage = 'Error de conexión. ';
+                if (error.message.includes('fetch')) {
+                    errorMessage += 'No se pudo conectar al servidor. ';
+                    errorMessage += 'Por favor, asegúrate de que el servidor Flask esté ejecutándose en http://127.0.0.1:5000';
+                } else {
+                    errorMessage += error.message;
+                }
+                showError(errorMessage);
+            }
+        });
+    </script>
+</body>
+</html>
+

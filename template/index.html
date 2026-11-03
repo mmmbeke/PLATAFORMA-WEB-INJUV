@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INJUV - Juventud y Voluntariado</title>
+    <link rel="stylesheet" href="typography.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="chatbot/styles_bot.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .academia-doc-card-home .news-image { background: linear-gradient(135deg, #0d9488 0%, #0f766e 50%, #115e59 100%); }
+        .academia-doc-card-home .news-meta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+        .academia-doc-card-home .doc-download { color: #0066CC; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; }
+        .academia-doc-card-home .doc-download:hover { text-decoration: underline; }
+        .academia-doc-card-home .doc-meta-text { font-size: 0.875rem; color: #6b7280; }
+        /* Reseñas: una sola fila; estrella vacía (gris) vs llena/medio (amarillo) */
+        .testimonial-content .stars {
+            flex-wrap: nowrap;
+            align-items: center;
+        }
+        .testimonial-content .stars i { flex-shrink: 0; }
+        .testimonial-content .stars i.far.fa-star { color: #d1d5db; }
+        .testimonial-content .stars i.fas.fa-star-half-stroke { color: #fbbf24; }
+    </style>
+</head>
+<body>
+   
+    <!-- Header -->
+    <div id="header-container"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Voluntariado
+                    <span class="highlight">para Chile</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Conecta con oportunidades de voluntariado en más de 140 Comunas de Chile mientras desarrollas habilidades 
+                    y contribuyes al desarrollo sostenible. Más de 10,000 jóvenes ya han participado.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number" id="statUsuarios">0</span>
+                        <span class="stat-label">Usuarios Registrados</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="statOportunidades">0</span>
+                        <span class="stat-label">Oportunidades Subidas</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="Fotos_injuv/IMG_8906.JPG" alt="Jóvenes voluntarios de INJUV" class="hero-travel-image">
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Volunteering Carousel -->
+    <section class="volunteering-carousel" id="experiencias-voluntariado">
+        <div class="container">
+            <h2 class="section-title">Experiencias de Voluntariado</h2>
+            <p class="section-subtitle">Descubre las increíbles experiencias de nuestros voluntarios alrededor del mundo</p>
+            
+            <div class="carousel-container">
+                <div class="carousel-wrapper">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide active">
+                            <div class="slide-image">
+                                <img src="Fotos_injuv/54281547351_0aaa628927_b.jpg" alt="Experiencia de voluntariado INJUV">
+                                <div class="slide-overlay">
+                                    <h3>Experiencias de Voluntariado</h3>
+                                    <p>Jóvenes chilenos participando en proyectos de desarrollo</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <div class="slide-image">
+                                <img src="Fotos_injuv/54368589547_757eda7fe6_b.jpg" alt="Experiencia de voluntariado INJUV">
+                                <div class="slide-overlay">
+                                    <h3>Programas de Voluntariado</h3>
+                                    <p>Oportunidades de servicio comunitario e internacional</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <div class="slide-image">
+                                <img src="Fotos_injuv/54730068199_d866975486_b.jpg" alt="Experiencia de voluntariado INJUV">
+                                <div class="slide-overlay">
+                                    <h3>Compromiso Juvenil</h3>
+                                    <p>Jóvenes transformando comunidades a través del voluntariado</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <div class="slide-image">
+                                <img src="Fotos_injuv/54751927332_a8c92169f5_b.jpg" alt="Experiencia de voluntariado INJUV">
+                                <div class="slide-overlay">
+                                    <h3>Participación Activa</h3>
+                                    <p>Jóvenes comprometidos con el cambio social y comunitario</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <div class="slide-image">
+                                <img src="Fotos_injuv/54853109430_9945f5fb9c_b.jpg" alt="Experiencia de voluntariado INJUV">
+                                <div class="slide-overlay">
+                                    <h3>Desarrollo Comunitario</h3>
+                                    <p>Construyendo un futuro mejor para nuestras comunidades</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-progress-bar">
+                    <div class="carousel-progress-fill"></div>
+                </div>
+                
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev-btn" id="prevBtn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-btn next-btn" id="nextBtn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <div class="carousel-indicators">
+                    <span class="indicator active" data-slide="0"></span>
+                    <span class="indicator" data-slide="1"></span>
+                    <span class="indicator" data-slide="2"></span>
+                    <span class="indicator" data-slide="3"></span>
+                    <span class="indicator" data-slide="4"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news-section" id="news">
+        <div class="container">
+            <div class="section-header">
+                <h2>Noticias</h2>
+                <a href="noticias/noticias.html" class="view-all">Ver todas las noticias</a>
+            </div>
+            
+            <div class="news-grid" id="news-grid-home">
+                <!-- Las noticias se cargarán dinámicamente desde la base de datos -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Academia de voluntariado -->
+    <section class="news-section" id="academia-voluntariado">
+        <div class="container">
+            <div class="section-header">
+                <h2>Academia de voluntariado</h2>
+                <a href="academia/index.html" class="view-all">Ver todo</a>
+            </div>
+            
+            <div class="news-grid" id="academia-grid-home">
+                <!-- Se cargarán dinámicamente desde el backend cuando exista -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Biblioteca / estudios -->
+    <section class="news-section" id="biblioteca-estudios">
+        <div class="container">
+            <div class="section-header">
+                <h2>Biblioteca / estudios</h2>
+                <a href="biblioteca/index.html" class="view-all">Ver todo</a>
+            </div>
+            
+            <div class="news-grid" id="biblioteca-grid-home">
+                <!-- Se cargarán dinámicamente desde el backend cuando exista -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">¿Por qué elegir INJUV?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Apoyo Institucional</h3>
+                    <p>Contamos con el respaldo oficial del Instituto Nacional de la Juventud y alianzas estratégicas.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Red de Apoyo</h3>
+                    <p>Accede a una red de apoyo de jóvenes chilenos y mentores en destinos.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Desarrollo Sostenible</h3>
+                    <p>Contribuye a los Objetivos de Desarrollo Sostenible del gobierno mientras desarrollas habilidades.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">¿Cómo funciona?</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h3>1. Crea tu perfil</h3>
+                    <p>Regístrate gratis y completa tu perfil con tus habilidades e intereses</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>2. Encuentra oportunidades</h3>
+                    <p>Busca y filtra oportunidades de voluntariado que se adapten a ti</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>3. Postula a oportunidades</h3>
+                    <p>Envía tu postulación a las iniciativas que te interesen y recibe notificaciones sobre su estado.</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>4. ¡Vive y ayuda!</h3>
+                    <p>Disfruta de una experiencia única mientras contribuyes a una causa</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Organizations -->
+    <section class="popular-countries">
+        <div class="container">
+            <h2 class="section-title">Organizaciones</h2>
+            <div class="countries-grid" id="organizacionesContainer">
+                <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: #666;">
+                    <p>Cargando organizaciones...</p>
+                </div>
+            </div>
+            <div class="section-footer">
+                <a class="btn-outline btn-organizaciones" href="organizaciones/organizaciones.html">Ver todas las organizaciones</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured opportunities -->
+    <section class="featured-opportunities" id="explore">
+        <div class="container">
+            <h2 class="section-title">Oportunidades destacadas</h2>
+            <div class="opportunities-grid" id="featuredOpportunitiesContainer">
+                <!-- Las oportunidades se cargarán dinámicamente aquí -->
+                <div class="loading-message" style="text-align: center; padding: 2rem; color: #666;">
+                    <p>Cargando oportunidades destacadas...</p>
+                </div>
+            </div>
+            <div class="section-footer">
+                <a class="btn-outline" href="visualizacion-vd/index.html" onclick="goToAllOpportunities(event); return false;">Ver todas las oportunidades</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">Lo que dicen nuestros voluntarios(as)</h2>
+            <div class="testimonials-grid" id="testimonialsContainer">
+                <!-- Las reseñas se cargarán dinámicamente aquí -->
+                <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: #666;">
+                    <p>Cargando reseñas...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>¿Listo para tu próxima experiencia de voluntariado?</h2>
+                <p>Únete a miles de jóvenes que ya están cambiando el pais.</p>
+                <div class="cta-buttons">
+                    <a href="inicio de sesion/login.html" class="btn-primary btn-large">Postular ahora</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-wrapper">
+            <!-- Barra superior -->
+            <div class="footer-top-bar">
+                <div class="footer-bar-blue"></div>
+                <div class="footer-bar-red"></div>
+            </div>
+            
+            <div class="footer-content">
+                <!-- Columna 1: Logos -->
+                <div class="footer-section footer-col1">
+                    <div class="footer-logos-container">
+                        <!-- Logo ClaveÚnica -->
+                        <div class="footer-logo-claveunica">
+                            <img src="Fotos_injuv/ClaveUnica.png" alt="ClaveÚnica" class="footer-logo-img claveunica-logo">
+                        </div>
+                        
+                        <p class="footer-admin-text">Servicio de autenticación administrado por:</p>
+                        
+                        <!-- Logo Secretaría de Gobierno Digital -->
+                        <div class="footer-logo-secretaria">
+                            <img src="Fotos_injuv/SecretariaGobiernoDigital.png" alt="Secretaría de Gobierno Digital" class="footer-logo-img secretaria-logo">
+                        </div>
+                        
+                        <p class="footer-collab-text">Con la colaboración de:</p>
+                        
+                        <!-- Logo Ministerio -->
+                        <div class="footer-logo-ministerio-small">
+                            <img src="Fotos_injuv/color_MinDesarrolloSocialYFamilia.jpg" alt="Ministerio de Desarrollo Social y Familia" class="footer-logo-img ministerio-small-logo">
+                        </div>
+                        
+                        <p class="footer-trademark">INJUV®</p>
+                    </div>
+                </div>
+                
+                <!-- Columna 2: Secciones -->
+                <div class="footer-section footer-col2">
+                    <h4>Secciones</h4>
+                    <ul>
+                        <li><a href="noticias/noticias.html">Noticias</a></li>
+                        <li><a href="inicio de sesion/login.html">Postular</a></li>
+                        <li><a href="#organizaciones">Instituciones públicas</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Columna 3: Ayuda a Ciudadanos -->
+                <div class="footer-section footer-col3">
+                    <h4>Ayuda a Ciudadanos</h4>
+                    <a href="#" class="contact-link" id="faq-link">Preguntas frecuentes</a>
+                    <p class="contact-info">Horario: Lu - Vi / 9:00hrs - 18:00hrs</p>
+                    <a href="tel:+56226204700" class="contact-phone">+56 2 26204700</a>
+                </div>
+                
+                <!-- Columna 4: Ayuda a Instituciones -->
+                <div class="footer-section footer-col4">
+                    <h4>Ayuda a Instituciones</h4>
+                    <p class="contact-info">Horario: Lu - Vi / 9:00hrs - 18:00hrs</p>
+                    <a href="tel:+56226204700" class="contact-phone">+56 2 26204700</a>
+                </div>
+            </div>
+            
+            <!-- Barra inferior -->
+            <div class="footer-bottom-bar">
+                <div class="footer-bar-blue"></div>
+                <div class="footer-bar-red"></div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Cargar header y configurar enlaces
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                // Extraer solo el contenido del body (el header)
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, 'text/html');
+                const headerContent = doc.querySelector('header');
+                const styles = doc.querySelector('style');
+                const scripts = doc.querySelectorAll('script');
+                
+                // Insertar estilos si existen
+                if (styles) {
+                    const styleElement = document.createElement('style');
+                    styleElement.textContent = styles.textContent;
+                    document.head.appendChild(styleElement);
+                }
+                
+                // Insertar el header
+                if (headerContent) {
+                    document.getElementById('header-container').innerHTML = headerContent.outerHTML;
+                } else {
+                    // Fallback: extraer solo el contenido del body
+                    const bodyContent = doc.body.innerHTML;
+                    document.getElementById('header-container').innerHTML = bodyContent;
+                }
+                
+                // Ejecutar los scripts del header manualmente
+                scripts.forEach(oldScript => {
+                    const newScript = document.createElement('script');
+                    if (oldScript.src) {
+                        newScript.src = oldScript.src;
+                    } else {
+                        newScript.textContent = oldScript.textContent;
+                    }
+                    document.body.appendChild(newScript);
+                });
+                
+                // Ejecutar la inicialización del header después de insertarlo
+                // Esperar a que los scripts del header se ejecuten
+                setTimeout(() => {
+                    // Intentar ejecutar las funciones de autenticación del header
+                    if (typeof window.initHeaderAuth === 'function') {
+                        window.initHeaderAuth();
+                    }
+                    if (typeof window.updateHeaderAuth === 'function') {
+                        window.updateHeaderAuth();
+                    }
+                    
+                    // También verificar manualmente el estado de sesión
+                    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true' || 
+                                     sessionStorage.getItem('isLoggedIn') === 'true';
+                    const loginLink = document.getElementById('login-link');
+                    const userProfileMenu = document.getElementById('userProfileMenu');
+                    const profileUserName = document.getElementById('profileUserName');
+                    const profileUserEmail = document.getElementById('profileUserEmail');
+                    
+                    if (isLoggedIn) {
+                        // Ocultar botón de login
+                        if (loginLink) {
+                            loginLink.style.display = 'none';
+                            loginLink.style.visibility = 'hidden';
+                        }
+                        
+                        // Mostrar menú de perfil
+                        if (userProfileMenu) {
+                            userProfileMenu.style.display = 'block';
+                            userProfileMenu.classList.add('active');
+                            
+                            // Actualizar información del usuario
+                            const userId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
+                            const userEmail = localStorage.getItem('userEmail') || sessionStorage.getItem('userEmail');
+                            const userNombre = localStorage.getItem('userNombre') || '';
+                            const userApellido = localStorage.getItem('userApellido') || '';
+                            
+                            if (profileUserName) {
+                                const nombreCompleto = `${userNombre} ${userApellido}`.trim() || 'Usuario';
+                                profileUserName.textContent = nombreCompleto;
+                            }
+                            if (profileUserEmail) {
+                                profileUserEmail.textContent = userEmail || '';
+                            }
+                        }
+                    } else {
+                        // Mostrar botón de login
+                        if (loginLink) {
+                            loginLink.style.display = 'inline-flex';
+                            loginLink.style.visibility = 'visible';
+                        }
+                        
+                        // Ocultar menú de perfil
+                        if (userProfileMenu) {
+                            userProfileMenu.style.display = 'none';
+                            userProfileMenu.classList.remove('active');
+                        }
+                        
+                        // Mostrar sección CTA si no hay sesión
+                        const ctaSection = document.getElementById('cta-section');
+                        if (ctaSection) {
+                            ctaSection.style.display = 'block';
+                        }
+                    }
+                    
+                    // Ocultar sección CTA si hay sesión iniciada
+                    if (isLoggedIn) {
+                        const ctaSection = document.getElementById('cta-section');
+                        if (ctaSection) {
+                            ctaSection.style.display = 'none';
+                        }
+                    }
+                }, 300);
+                
+                // Configurar enlaces del header
+                setTimeout(() => {
+                    // Logo - va a página principal
+                    const logo = document.getElementById('logo-link');
+                    if (logo) logo.href = 'index.html';
+                    
+                    // ¿Cómo funciona? - scroll a sección
+                    const howWorks = document.getElementById('how-it-works-link');
+                    if (howWorks) {
+                        howWorks.href = '#how-it-works';
+                        howWorks.onclick = (e) => {
+                            e.preventDefault();
+                            document.getElementById('how-it-works').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        };
+                    }
+                    
+                    // Experiencias - scroll a sección
+                    const experiencias = document.getElementById('experiencias-link');
+                    if (experiencias) {
+                        experiencias.href = '#experiencias-voluntariado';
+                        experiencias.onclick = (e) => {
+                            e.preventDefault();
+                            document.getElementById('experiencias-voluntariado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        };
+                    }
+                    
+                    // Noticias — scroll a la sección del mismo index
+                    const noticias = document.getElementById('news-link');
+                    if (noticias) {
+                        noticias.href = '#news';
+                        noticias.onclick = (e) => {
+                            e.preventDefault();
+                            const section = document.getElementById('news');
+                            if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        };
+                    }
+
+                    const bibliotecaNav = document.getElementById('biblioteca-link');
+                    if (bibliotecaNav) {
+                        bibliotecaNav.href = '#biblioteca-estudios';
+                        bibliotecaNav.onclick = (e) => {
+                            e.preventDefault();
+                            const section = document.getElementById('biblioteca-estudios');
+                            if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        };
+                    }
+                    
+                    // Login
+                    const login = document.getElementById('login-link');
+                    if (login) login.href = 'inicio de sesion/login.html';
+                    
+                    // Menú móvil toggle
+                    const menuToggle = document.getElementById('menuToggle');
+                    const mainNav = document.querySelector('.main-nav');
+                    if (menuToggle && mainNav) {
+                        menuToggle.addEventListener('click', () => {
+                            menuToggle.classList.toggle('active');
+                            mainNav.classList.toggle('active');
+                            menuToggle.setAttribute('aria-expanded', menuToggle.classList.contains('active'));
+                        });
+                        
+                        // Cerrar menú al hacer clic en un enlace
+                        const navLinks = mainNav.querySelectorAll('.nav-link');
+                        navLinks.forEach(link => {
+                            link.addEventListener('click', () => {
+                                if (window.innerWidth <= 1024) {
+                                    menuToggle.classList.remove('active');
+                                    mainNav.classList.remove('active');
+                                    menuToggle.setAttribute('aria-expanded', 'false');
+                                }
+                            });
+                        });
+                    }
+                    
+                    // Dropdowns móviles
+                    const dropdownItems = document.querySelectorAll('.nav-item.dropdown');
+                    dropdownItems.forEach(item => {
+                        if (item.querySelector('.volunteer-filter')) return;
+                        const link = item.querySelector('.nav-link');
+                        if (link && window.innerWidth <= 1024) {
+                            link.addEventListener('click', (e) => {
+                                e.preventDefault();
+                                item.classList.toggle('open');
+                            });
+                        }
+                    });
+                    
+                    // Header scroll effect
+                    const header = document.getElementById('header');
+                    if (header) {
+                        window.addEventListener('scroll', () => {
+                            if (window.scrollY > 20) {
+                                header.classList.add('scrolled');
+                            } else {
+                                header.classList.remove('scrolled');
+                            }
+                        });
+                    }
+                    
+                    // Scroll automático si hay hash en la URL
+                    if (window.location.hash) {
+                        setTimeout(() => {
+                            const target = document.querySelector(window.location.hash);
+                            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 300);
+                    }
+                }, 100);
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+    <script src="script.js"></script>
+    
+    <!-- Script para cargar oportunidades destacadas -->
+    <script>
+        const API_BASE_URL = 'https://injuv.onrender.com/api';
+        let postulacionesUsuarioHome = [];
+
+        async function cargarPostulacionesUsuarioHome() {
+            const userId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
+            if (!userId) {
+                postulacionesUsuarioHome = [];
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/usuarios/${userId}/postulaciones`);
+                const data = await response.json();
+                if (data.success && Array.isArray(data.postulaciones)) {
+                    postulacionesUsuarioHome = data.postulaciones.map(post => post.oportunidad_id);
+                } else {
+                    postulacionesUsuarioHome = [];
+                }
+            } catch (error) {
+                console.error('Error al cargar postulaciones del usuario (home):', error);
+                postulacionesUsuarioHome = [];
+            }
+        }
+
+        function yaPostuloEnHome(oportunidadId) {
+            return postulacionesUsuarioHome.includes(oportunidadId);
+        }
+        
+        // Cargar reseñas públicas desde el backend
+        async function cargarReseñasPublicas() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/reseñas/publicas?limite=3`);
+                const data = await response.json();
+                
+                if (data.success && data.reseñas) {
+                    mostrarReseñas(data.reseñas);
+                } else {
+                    mostrarMensajeSinReseñas();
+                }
+            } catch (error) {
+                console.error('Error al cargar reseñas públicas:', error);
+                mostrarMensajeSinReseñas();
+            }
+        }
+        
+        function mostrarReseñas(reseñas) {
+            const container = document.getElementById('testimonialsContainer');
+            if (!container) return;
+            
+            if (reseñas.length === 0) {
+                mostrarMensajeSinReseñas();
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            reseñas.forEach(reseña => {
+                const card = crearCardReseña(reseña);
+                container.appendChild(card);
+            });
+        }
+        
+        function crearCardReseña(reseña) {
+            const card = document.createElement('div');
+            card.className = 'testimonial-card';
+            
+            const rawCal = reseña.calificacion;
+            const calificacion = (rawCal !== undefined && rawCal !== null && rawCal !== '')
+                ? Number(rawCal)
+                : null;
+            const estrellasHTML = generarEstrellas(calificacion);
+            const tituloEstrellas = (calificacion != null && !Number.isNaN(calificacion))
+                ? `Calificación: ${calificacion} de 5`
+                : 'Sin calificación';
+            
+            card.innerHTML = `
+                <div class="testimonial-content">
+                    <div class="stars" role="img" aria-label="${tituloEstrellas.replace(/"/g, '&quot;')}">
+                        ${estrellasHTML}
+                    </div>
+                    <p>"${reseña.reseña || 'Sin comentario'}"</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="author-info">
+                        <h4>${reseña.usuario_nombre || 'Usuario'}</h4>
+                        <span class="author-organization">${reseña.organizacion_nombre || 'Organización'}</span>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+        
+        function generarEstrellas(calificacion) {
+            if (calificacion == null || Number.isNaN(Number(calificacion))) {
+                let html = '';
+                for (let i = 1; i <= 5; i++) {
+                    html += '<i class="far fa-star" aria-hidden="true"></i>';
+                }
+                return html;
+            }
+            const cal = Math.max(0, Math.min(5, Number(calificacion)));
+            let html = '';
+            for (let i = 1; i <= 5; i++) {
+                if (cal >= i) {
+                    html += '<i class="fas fa-star" aria-hidden="true"></i>';
+                } else if (cal >= i - 0.5) {
+                    html += '<i class="fas fa-star-half-stroke" aria-hidden="true"></i>';
+                } else {
+                    html += '<i class="far fa-star" aria-hidden="true"></i>';
+                }
+            }
+            return html;
+        }
+        
+        function mostrarMensajeSinReseñas() {
+            const container = document.getElementById('testimonialsContainer');
+            if (container) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: #666;">
+                        <p>Próximamente estarán disponibles las reseñas de nuestros voluntarios.</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Cargar oportunidades destacadas desde el backend
+        async function cargarOportunidadesDestacadas() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/oportunidades?estado=activa`);
+                const data = await response.json();
+                
+                if (data.success && data.oportunidades) {
+                    // Filtrar oportunidades cerradas
+                    const oportunidadesActivas = data.oportunidades.filter(op => {
+                        const e = (op.estado || '').toString().toLowerCase();
+                        return e !== 'cerrada' && e !== 'cerrado';
+                    });
+                    // Tomar las primeras 3 oportunidades como destacadas
+                    const destacadas = oportunidadesActivas.slice(0, 3);
+                    mostrarOportunidadesDestacadas(destacadas);
+                } else {
+                    mostrarMensajeSinOportunidades();
+                }
+            } catch (error) {
+                console.error('Error al cargar oportunidades destacadas:', error);
+                mostrarMensajeError();
+            }
+        }
+        
+        function mostrarOportunidadesDestacadas(oportunidades) {
+            const container = document.getElementById('featuredOpportunitiesContainer');
+            if (!container) return;
+            
+            if (oportunidades.length === 0) {
+                mostrarMensajeSinOportunidades();
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            oportunidades.forEach(op => {
+                const card = crearCardOportunidadDestacada(op);
+                container.appendChild(card);
+            });
+        }
+        
+        function crearCardOportunidadDestacada(op) {
+            const card = document.createElement('div');
+            card.className = 'opportunity-card';
+            
+            // Determinar badge según el título o descripción
+            const badge = determinarBadge(op.titulo, op.descripcion);
+            
+            // Formatear fecha límite
+            const fechaLimite = op.fecha_limite_postulacion ? 
+                new Date(op.fecha_limite_postulacion).toLocaleDateString('es-CL', { 
+                    day: '2-digit', 
+                    month: '2-digit', 
+                    year: 'numeric' 
+                }) : 
+                'Sin fecha límite';
+            
+            // Ubicación - priorizar campos de la oportunidad, usar organización como fallback
+            let ubicacion = [];
+            if (op.comuna_opor) ubicacion.push(op.comuna_opor);
+            else if (op.organizacion_comuna) ubicacion.push(op.organizacion_comuna);
+            
+            if (op.ciudad_opor) ubicacion.push(op.ciudad_opor);
+            else if (op.organizacion_ciudad) ubicacion.push(op.organizacion_ciudad);
+            
+            if (op.region_opor) ubicacion.push(op.region_opor);
+            else if (op.organizacion_region) ubicacion.push(op.organizacion_region);
+            
+            const ubicacionTexto = ubicacion.length > 0 
+                ? ubicacion.join(', ') 
+                : 'Ubicación no especificada';
+            
+            card.innerHTML = `
+                <div class="card-content">
+                    <div class="theme-badge">${badge}</div>
+                    <h3>${op.titulo || 'Oportunidad de voluntariado'}</h3>
+                    <p class="description">
+                        ${op.descripcion ? (op.descripcion.length > 120 ? op.descripcion.substring(0, 120) + '...' : op.descripcion) : 'Descripción no disponible'}
+                    </p>
+                    <div class="organizer-badge">
+                        <i class="fas fa-home"></i>
+                        <span>${op.organizacion_nombre || 'Organización'}</span>
+                    </div>
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>${ubicacionTexto}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>${fechaLimite}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-users"></i>
+                            <span>${op.cupo_maximo || 'N/A'} cupos</span>
+                        </div>
+                    </div>
+                    <div class="card-buttons">
+                        ${yaPostuloEnHome(op.id)
+                            ? `<button class="btn-postular" disabled style="background:#9ca3af; cursor:not-allowed; opacity:.85;">✓ Ya postulaste</button>`
+                            : `<button class="btn-postular" onclick="postularDesdeDestacadas(${op.id})">Postular</button>`
+                        }
+                        <button class="btn-detalles" onclick="verDetallesDesdeDestacadas(${op.id})">Ver detalles</button>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+        
+        function determinarBadge(titulo, descripcion) {
+            const texto = (titulo + ' ' + descripcion).toLowerCase();
+            
+            if (texto.includes('eco') || texto.includes('ambiental') || texto.includes('reforestación') || texto.includes('verde')) {
+                return 'Eco Friendly';
+            } else if (texto.includes('educación') || texto.includes('enseñanza') || texto.includes('tutoría') || texto.includes('apoyo escolar')) {
+                return 'Educación';
+            } else if (texto.includes('salud') || texto.includes('médico') || texto.includes('hospital')) {
+                return 'Salud';
+            } else if (texto.includes('comunidad') || texto.includes('social') || texto.includes('ayuda')) {
+                return 'Comunidad';
+            } else if (texto.includes('deporte') || texto.includes('recreación') || texto.includes('actividad física')) {
+                return 'Deporte';
+            } else {
+                return 'Voluntariado';
+            }
+        }
+        
+        function mostrarMensajeSinOportunidades() {
+            const container = document.getElementById('featuredOpportunitiesContainer');
+            if (container) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #666;">
+                        <p style="font-size: 1.1rem; margin-bottom: 0;">No hay oportunidades destacadas disponibles en este momento.</p>
+                    </div>
+                `;
+            }
+        }
+        
+        function mostrarMensajeError() {
+            const container = document.getElementById('featuredOpportunitiesContainer');
+            if (container) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #666;">
+                        <p style="font-size: 1.1rem; margin-bottom: 0;">Error al cargar las oportunidades. Por favor, intenta más tarde.</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Funciones para los botones
+        window.postularDesdeDestacadas = function(oportunidadId) {
+            const userId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
+            if (!userId) {
+                alert('Debes iniciar sesión para postular a una oportunidad');
+                if (typeof window.redirectTo === 'function') {
+                    window.redirectTo('inicio de sesion/login.html');
+                } else {
+                    window.location.href = 'inicio de sesion/login.html';
+                }
+                return;
+            }
+            if (yaPostuloEnHome(oportunidadId)) {
+                alert('Ya has postulado a esta oportunidad');
+                return;
+            }
+            // Redirigir con URL robusta para evitar rutas mal construidas
+            const redirectUrl = new URL(`visualizacion-vd/index.html?postular=${oportunidadId}`, window.location.href).href;
+            window.location.href = redirectUrl;
+        };
+        
+        window.verDetallesDesdeDestacadas = function(oportunidadId) {
+            // Redirigir con URL robusta para evitar rutas mal construidas
+            const redirectUrl = new URL(`visualizacion-vd/index.html?ver=${oportunidadId}`, window.location.href).href;
+            window.location.href = redirectUrl;
+        };
+        
+        // Cargar estadísticas del hero
+        async function cargarEstadisticasHero() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/estadisticas`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    const statUsuarios = document.getElementById('statUsuarios');
+                    const statOportunidades = document.getElementById('statOportunidades');
+                    
+                    if (statUsuarios) {
+                        animarNumero(statUsuarios, data.usuarios_registrados || 0);
+                    }
+                    if (statOportunidades) {
+                        animarNumero(statOportunidades, data.voluntariados_creados || 0);
+                    }
+                }
+            } catch (error) {
+                console.error('Error al cargar estadísticas:', error);
+            }
+        }
+        
+        function animarNumero(elemento, valorFinal) {
+            // Normalizar por si el backend/envía texto tipo "7+".
+            const valorNumerico = Number(String(valorFinal).replace(/[^\d.-]/g, '')) || 0;
+            const duracion = 2000; // 2 segundos
+            const incremento = valorNumerico / (duracion / 16); // 60 FPS
+            let valorActual = 0;
+            
+            const animacion = setInterval(() => {
+                valorActual += incremento;
+                if (valorActual >= valorNumerico) {
+                    elemento.textContent = valorNumerico.toLocaleString('es-CL');
+                    clearInterval(animacion);
+                } else {
+                    elemento.textContent = Math.floor(valorActual).toLocaleString('es-CL');
+                }
+            }, 16);
+        }
+        
+        // Cargar organizaciones
+        async function cargarOrganizaciones() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/organizaciones`);
+                const data = await response.json();
+                
+                if (data.success && data.organizaciones) {
+                    mostrarOrganizaciones(data.organizaciones.slice(0, 3)); // Mostrar máximo 3
+                } else {
+                    mostrarMensajeSinOrganizaciones();
+                }
+            } catch (error) {
+                console.error('Error al cargar organizaciones:', error);
+                mostrarMensajeSinOrganizaciones();
+            }
+        }
+        
+        function mostrarOrganizaciones(organizaciones) {
+            const container = document.getElementById('organizacionesContainer');
+            if (!container) return;
+            
+            if (organizaciones.length === 0) {
+                mostrarMensajeSinOrganizaciones();
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            organizaciones.forEach(org => {
+                const card = document.createElement('div');
+                card.className = 'country-card';
+                card.style.cursor = 'pointer';
+                card.setAttribute('data-org-id', org.id);
+                card.innerHTML = `
+                    <div class="country-flag">🏢</div>
+                    <h3>${org.nombre || 'Organización'}</h3>
+                    <p>${org.area_trabajo || 'Sin área especificada'}</p>
+                    <span class="country-count">${org.num_oportunidades || 0} oportunidades</span>
+                `;
+                
+                // Agregar event listener para redirigir al perfil
+                card.addEventListener('click', function() {
+                    const orgId = this.getAttribute('data-org-id');
+                    if (orgId) {
+                        // Construir URL relativa de forma robusta para evitar errores de ruta
+                        const profileUrl = new URL(
+                            `Roles/Perfil_organizacion/index.html?organizacion_id=${orgId}`,
+                            window.location.href
+                        ).href;
+                        window.location.href = profileUrl;
+                    }
+                });
+                
+                container.appendChild(card);
+            });
+        }
+        
+        function mostrarMensajeSinOrganizaciones() {
+            const container = document.getElementById('organizacionesContainer');
+            if (container) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: #666;">
+                        <p>No hay organizaciones disponibles en este momento.</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Cargar noticias desde el backend
+        async function cargarNoticiasHome() {
+            const newsGrid = document.getElementById('news-grid-home');
+            if (!newsGrid) {
+                console.error('No se encontró el elemento news-grid-home');
+                return;
+            }
+            
+            try {
+                console.log('Cargando noticias desde:', `${API_BASE_URL}/noticias?estado=activa`);
+                // Cargar todas las noticias (activas e inactivas) para verificar qué hay
+                let response = await fetch(`${API_BASE_URL}/noticias?estado=todas`);
+                
+                // Verificar si la respuesta es OK (status 200-299)
+                if (!response.ok) {
+                    console.error('Error del servidor:', response.status, response.statusText);
+                    mostrarMensajeSinNoticias(newsGrid);
+                    return;
+                }
+                
+                // Intentar parsear JSON
+                let data;
+                try {
+                    data = await response.json();
+                } catch (jsonError) {
+                    console.error('Error al parsear JSON:', jsonError);
+                    mostrarMensajeSinNoticias(newsGrid);
+                    return;
+                }
+                
+                console.log('Respuesta del servidor:', data);
+                
+                if (data.success && data.noticias && data.noticias.length > 0) {
+                    // Filtrar solo las activas para mostrar
+                    const noticiasActivas = data.noticias.filter(n => n.estado === 'activa');
+                    console.log('Noticias activas encontradas:', noticiasActivas.length);
+                    
+                    if (noticiasActivas.length > 0) {
+                        // Tomar solo las primeras 3 noticias para la página principal
+                        const noticiasPrincipales = noticiasActivas.slice(0, 3);
+                        console.log('Mostrando noticias reales:', noticiasPrincipales);
+                        renderizarNoticiasHome(noticiasPrincipales, newsGrid);
+                    } else {
+                        console.log('No hay noticias activas disponibles');
+                        // Si no hay activas, mostrar mensaje
+                        mostrarMensajeSinNoticias(newsGrid);
+                    }
+                } else {
+                    console.log('No hay noticias en la base de datos');
+                    // Si no hay noticias, mostrar mensaje
+                    mostrarMensajeSinNoticias(newsGrid);
+                }
+            } catch (error) {
+                console.error('Error al cargar noticias (backend probablemente apagado):', error);
+                // Si hay un error de red o conexión, mostrar mensaje
+                mostrarMensajeSinNoticias(newsGrid);
+            }
+        }
+        
+        // Renderizar noticias en la página principal
+        function renderizarNoticiasHome(noticias, container) {
+            const noticiasHTML = noticias.map((noticia) => {
+                // Formatear fecha de manera mejorada
+                let fechaFormateada = '';
+                let fechaObj = null;
+                
+                if (noticia.fecha_publicacion) {
+                    fechaObj = noticia.fecha_publicacion instanceof Date 
+                        ? noticia.fecha_publicacion 
+                        : new Date(noticia.fecha_publicacion);
+                } else if (noticia.created_at) {
+                    fechaObj = new Date(noticia.created_at);
+                }
+                
+                if (fechaObj && !isNaN(fechaObj.getTime())) {
+                    const diasSemana = ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'];
+                    const meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+                    
+                    const diaSemana = diasSemana[fechaObj.getDay()];
+                    const dia = fechaObj.getDate();
+                    const mes = meses[fechaObj.getMonth()];
+                    const horas = fechaObj.getHours().toString().padStart(2, '0');
+                    const minutos = fechaObj.getMinutes().toString().padStart(2, '0');
+                    const ampm = horas >= 12 ? 'p. m.' : 'a. m.';
+                    const horas12 = horas % 12 || 12;
+                    
+                    fechaFormateada = `${diaSemana}, ${dia} ${mes}, ${horas12}:${minutos} ${ampm}`;
+                } else {
+                    fechaFormateada = 'Fecha no disponible';
+                }
+                
+                // Mejorar el resumen - limpiar y formatear
+                let resumen = noticia.resumen || (noticia.contenido ? noticia.contenido.trim() : '');
+                if (resumen && resumen.length > 180) {
+                    resumen = resumen.substring(0, 180).trim();
+                    // Asegurar que termine en una palabra completa
+                    const ultimoEspacio = resumen.lastIndexOf(' ');
+                    if (ultimoEspacio > 150) {
+                        resumen = resumen.substring(0, ultimoEspacio);
+                    }
+                    resumen += '...';
+                }
+                
+                // Determinar icono y categorías según el contenido
+                const tituloLower = (noticia.titulo || '').toLowerCase();
+                const contenidoLower = (resumen || '').toLowerCase();
+                const textoCompleto = tituloLower + ' ' + contenidoLower;
+                
+                let icono = 'fa-newspaper';
+                const categorias = [];
+                
+                if (textoCompleto.includes('voluntariado') || textoCompleto.includes('ayuda') || textoCompleto.includes('colaboración')) {
+                    icono = 'fa-hands-helping';
+                    categorias.push('Voluntariado');
+                }
+                if (textoCompleto.includes('ambiental') || textoCompleto.includes('reforestación') || textoCompleto.includes('medio ambiente') || textoCompleto.includes('ecología')) {
+                    icono = 'fa-seedling';
+                    categorias.push('Medio Ambiente');
+                }
+                if (textoCompleto.includes('educación') || textoCompleto.includes('tutor') || textoCompleto.includes('estudiante') || textoCompleto.includes('enseñanza')) {
+                    icono = 'fa-graduation-cap';
+                    categorias.push('Educación');
+                }
+                if (textoCompleto.includes('salud') || textoCompleto.includes('médico') || textoCompleto.includes('hospital')) {
+                    icono = 'fa-heart';
+                    categorias.push('Salud');
+                }
+                if (textoCompleto.includes('emergencia') || textoCompleto.includes('desastre') || textoCompleto.includes('ayuda humanitaria')) {
+                    icono = 'fa-shield-alt';
+                    categorias.push('Emergencia');
+                }
+                
+                // Si no hay categorías detectadas, agregar "Noticias"
+                if (categorias.length === 0) {
+                    categorias.push('Noticias');
+                }
+                
+                // Construir URL de imagen usando directamente lo que viene de la BD
+                let imagenURL = '';
+                const filename = noticia.imagen_filename || noticia.imagen_url || '';
+                if (filename) {
+                    imagenURL = `${API_BASE_URL}/noticias/imagen/${filename}`;
+                }
+                
+                const imagenHTML = imagenURL 
+                    ? `<img src="${imagenURL}" alt="${noticia.titulo}" class="news-image-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">`
+                    : '';
+                
+                const placeholderHTML = `<div class="image-placeholder" ${imagenURL ? 'style="display:none;"' : ''}><i class="fas ${icono}"></i></div>`;
+                
+                const categoriasHTML = categorias.map(cat => `<span class="category">${cat}</span>`).join('');
+                
+                // Capitalizar el título correctamente
+                const titulo = (noticia.titulo || '').charAt(0).toUpperCase() + (noticia.titulo || '').slice(1);
+                
+                return `
+                    <article class="news-card">
+                        <div class="news-image">
+                            ${imagenHTML}
+                            ${placeholderHTML}
+                            <div class="news-categories">
+                                ${categoriasHTML}
+                            </div>
+                        </div>
+                        <div class="news-content">
+                            <h3>${titulo}</h3>
+                            ${resumen ? `<p class="news-description">${resumen}</p>` : ''}
+                            <div class="news-meta">
+                                <span class="news-date">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    ${fechaFormateada}
+                                </span>
+                                <a href="#" class="read-more" onclick="verDetalleNoticia(${noticia.id}); return false;">
+                                    Ver más
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+            
+            container.innerHTML = noticiasHTML;
+        }
+        
+        // Mostrar mensaje cuando no hay noticias disponibles
+        function mostrarMensajeSinNoticias(container) {
+            if (!container) return;
+            container.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: #666;">
+                    <i class="fas fa-newspaper" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                    <p style="font-size: 1.1rem; margin-bottom: 0.5rem; font-weight: 500;">No hay noticias disponibles</p>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">Por ahora no hay publicaciones para mostrar aquí. Puedes revisar más adelante o entrar a «Ver todas las noticias».</p>
+                </div>
+            `;
+        }
+
+        // Vacío de Academia / Biblioteca (mismo estilo que noticias; sin mensaje de «servidor»)
+        function mostrarMensajeSinContenido(container, titulo = 'esta sección') {
+            if (!container) return;
+            const icono = titulo.includes('Biblioteca') ? 'fa-book' : (titulo.includes('Academia') ? 'fa-graduation-cap' : 'fa-folder-open');
+            container.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: #666;">
+                    <i class="fas ${icono}" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                    <p style="font-size: 1.1rem; margin-bottom: 0.5rem; font-weight: 500;">No hay documentos disponibles</p>
+                    <p style="font-size: 0.95rem; margin-bottom: 0.35rem; opacity: 0.85;">${titulo}</p>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">Aún no hay materiales publicados para mostrar en el inicio. Puedes volver más tarde o usar «Ver todo» para ir a la sección completa.</p>
+                </div>
+            `;
+        }
+
+        function formatBytesAcademia(bytes) {
+            if (bytes == null || bytes === 0) return '';
+            var u = 0, s = bytes;
+            while (s >= 1024 && u < 3) { s /= 1024; u++; }
+            return s.toFixed(1).replace(/\.0$/, '') + ' ' + ['B', 'KB', 'MB', 'GB'][u];
+        }
+        function formatFechaAcademia(iso) {
+            if (!iso) return '';
+            try {
+                var d = new Date(iso);
+                return isNaN(d.getTime()) ? '' : d.toLocaleDateString('es-CL', { day: 'numeric', month: 'short', year: 'numeric' });
+            } catch (e) { return ''; }
+        }
+        function escapeHtmlAcademia(text) {
+            if (!text) return '';
+            var div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        async function cargarAcademiaHome() {
+            const container = document.getElementById('academia-grid-home');
+            if (!container) return;
+            try {
+                const response = await fetch(`${API_BASE_URL}/academia/documentos`);
+                const data = await response.json();
+                if (data.success && data.documentos && data.documentos.length > 0) {
+                    // Solo mostrar documentos aprobados (públicos) en la página principal
+                    const aprobados = data.documentos.filter(function(d) { return (d.estado || 'aprobado').toLowerCase() === 'aprobado'; });
+                    const list = aprobados.slice(0, 3);
+                    if (list.length === 0) {
+                        mostrarMensajeSinContenido(container, 'Academia de voluntariado');
+                        return;
+                    }
+                    container.innerHTML = list.map(function(doc) {
+                        var titulo = escapeHtmlAcademia(doc.nombre_archivo || doc.archivo_filename || 'Documento');
+                        var desc = doc.descripcion ? escapeHtmlAcademia(doc.descripcion.substring(0, 120)) + (doc.descripcion.length > 120 ? '...' : '') : 'Material de formación para voluntarios.';
+                        var metaParts = [doc.autor, formatFechaAcademia(doc.fecha_edicion || doc.created_at), formatBytesAcademia(doc.archivo_tamano_bytes)].filter(Boolean);
+                        var urlDescarga = `${API_BASE_URL}/repositorio/documento/academia/${doc.id}/descargar`;
+                        return '<article class="news-card academia-doc-card-home">' +
+                            '<div class="news-image"><div class="image-placeholder"><i class="fas fa-graduation-cap"></i></div></div>' +
+                            '<div class="news-content">' +
+                                '<h3>' + titulo + '</h3>' +
+                                (desc ? '<p class="news-description">' + desc + '</p>' : '') +
+                                '<div class="news-meta">' +
+                                    (metaParts.length ? '<span class="doc-meta-text">' + metaParts.join(' • ') + '</span>' : '') +
+                                    '<a href="' + urlDescarga + '" class="doc-download" target="_blank" rel="noopener">Descargar <i class="fas fa-download"></i></a>' +
+                                '</div>' +
+                            '</div>' +
+                        '</article>';
+                    }).join('');
+                } else {
+                    mostrarMensajeSinContenido(container, 'Academia de voluntariado');
+                }
+            } catch (err) {
+                console.error('Error al cargar Academia:', err);
+                mostrarMensajeSinContenido(container, 'Academia de voluntariado');
+            }
+        }
+
+        async function cargarBibliotecaHome() {
+            const container = document.getElementById('biblioteca-grid-home');
+            if (!container) return;
+            try {
+                const response = await fetch(`${API_BASE_URL}/biblioteca/documentos`);
+                const data = await response.json();
+                if (data.success && data.documentos && data.documentos.length > 0) {
+                    const docs = data.documentos.slice(0, 3);
+                    container.innerHTML = docs.map(doc => {
+                        const desc = (doc.descripcion || '').slice(0, 100) + ((doc.descripcion || '').length > 100 ? '…' : '');
+                        const tematica = doc.tematica_nombre ? `<span class="category">${doc.tematica_nombre}</span>` : '';
+                        return `
+                            <article class="news-card">
+                                <div class="news-image">
+                                    <div class="image-placeholder" style="display:flex;"><i class="fas fa-file-alt"></i></div>
+                                    <div class="news-categories">${tematica}</div>
+                                </div>
+                                <div class="news-content">
+                                    <h3>${(doc.nombre_archivo || '').slice(0, 60)}${(doc.nombre_archivo || '').length > 60 ? '…' : ''}</h3>
+                                    ${desc ? `<p class="news-description">${desc}</p>` : ''}
+                                    <div class="news-meta">
+                                        <span class="news-date"><i class="fas fa-user"></i> ${doc.autor || '—'}</span>
+                                        <span class="news-date"><i class="fas fa-calendar-alt"></i> ${doc.fecha_edicion || '—'}</span>
+                                        <a href="biblioteca/index.html" class="read-more">Ver más</a>
+                                    </div>
+                                </div>
+                            </article>
+                        `;
+                    }).join('');
+                } else {
+                    mostrarMensajeSinContenido(container, 'Biblioteca / estudios');
+                }
+            } catch (e) {
+                mostrarMensajeSinContenido(container, 'Biblioteca / estudios');
+            }
+        }
+        
+        // Cargar usuarios registrados
+        // Cargar todo cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarOportunidadesDestacadas();
+            cargarReseñasPublicas();
+            cargarEstadisticasHero();
+            cargarOrganizaciones();
+            cargarNoticiasHome();
+            cargarAcademiaHome();
+            cargarBibliotecaHome();
+        });
+    </script>
+    
+    <!-- Chatbot de Preguntas Frecuentes -->
+    <div id="chatbot-container" class="chatbot-container">
+        <div class="chatbot-header">
+            <div class="chatbot-header-content">
+                <div class="chatbot-avatar">
+                    <img src="chatbot/imagenes/chatbot-icon.png" alt="Asistente INJUV" class="chatbot-avatar-img">
+                </div>
+                <div class="chatbot-info">
+                    <h3>Asistente INJUV</h3>
+                    <span class="chatbot-status">👉 Listo para ayudarte...</span>
+                </div>
+            </div>
+            <button id="chatbot-close" class="chatbot-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="chatbot-messages" class="chatbot-messages"></div>
+        <div class="chatbot-input-container">
+            <input 
+                type="text" 
+                id="chatbot-input" 
+                class="chatbot-input" 
+                placeholder="Escribe tu pregunta aquí..."
+                autocomplete="off"
+            >
+            <button id="chatbot-send" class="chatbot-send">
+                <img src="chatbot/imagenes/Chatbot-enviar.png" alt="Enviar" class="send-icon-img">
+            </button>
+        </div>
+    </div>
+    
+    <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Abrir chatbot">
+        <img src="chatbot/imagenes/chatbot-icon.png" alt="Chatbot" class="chatbot-toggle-icon">
+        <span class="chatbot-badge">?</span>
+    </button>
+    
+    <!-- Modal para mostrar contenido completo de noticia -->
+    <div id="modalNoticia" class="news-modal" style="display: none;">
+        <div class="news-modal-overlay" onclick="cerrarModalNoticia()"></div>
+        <div class="news-modal-content">
+            <div class="news-modal-header">
+                <h2 id="modalNoticiaTitulo"></h2>
+                <button class="news-modal-close" onclick="cerrarModalNoticia()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="news-modal-body">
+                <div id="modalNoticiaImagen" class="news-modal-image"></div>
+                <div id="modalNoticiaMeta" class="news-modal-meta"></div>
+                <div id="modalNoticiaContenido" class="news-modal-text"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="chatbot/chatbot.js"></script>
+    
+    <script>
+        // Función para ver el detalle completo de una noticia
+        async function verDetalleNoticia(noticiaId) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/noticias/${noticiaId}`);
+                const data = await response.json();
+                
+                if (data.success && data.noticia) {
+                    mostrarModalNoticia(data.noticia);
+                } else {
+                    alert('No se pudo cargar el contenido de la noticia');
+                }
+            } catch (error) {
+                console.error('Error al cargar noticia:', error);
+                alert('Error al cargar el contenido de la noticia');
+            }
+        }
+        
+        // Función para mostrar el modal con el contenido de la noticia
+        function mostrarModalNoticia(noticia) {
+            const modal = document.getElementById('modalNoticia');
+            const titulo = document.getElementById('modalNoticiaTitulo');
+            const imagen = document.getElementById('modalNoticiaImagen');
+            const meta = document.getElementById('modalNoticiaMeta');
+            const contenido = document.getElementById('modalNoticiaContenido');
+            
+            if (!modal) return;
+            
+            // Formatear fecha
+            let fechaFormateada = '';
+            if (noticia.fecha_publicacion) {
+                const fechaObj = new Date(noticia.fecha_publicacion);
+                if (!isNaN(fechaObj.getTime())) {
+                    const diasSemana = ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'];
+                    const meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+                    const diaSemana = diasSemana[fechaObj.getDay()];
+                    const dia = fechaObj.getDate();
+                    const mes = meses[fechaObj.getMonth()];
+                    const horas = fechaObj.getHours().toString().padStart(2, '0');
+                    const minutos = fechaObj.getMinutes().toString().padStart(2, '0');
+                    const ampm = horas >= 12 ? 'p. m.' : 'a. m.';
+                    const horas12 = horas % 12 || 12;
+                    fechaFormateada = `${diaSemana}, ${dia} ${mes}, ${horas12}:${minutos} ${ampm}`;
+                }
+            } else if (noticia.created_at) {
+                const fechaObj = new Date(noticia.created_at);
+                if (!isNaN(fechaObj.getTime())) {
+                    const diasSemana = ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'];
+                    const meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+                    const diaSemana = diasSemana[fechaObj.getDay()];
+                    const dia = fechaObj.getDate();
+                    const mes = meses[fechaObj.getMonth()];
+                    const horas = fechaObj.getHours().toString().padStart(2, '0');
+                    const minutos = fechaObj.getMinutes().toString().padStart(2, '0');
+                    const ampm = horas >= 12 ? 'p. m.' : 'a. m.';
+                    const horas12 = horas % 12 || 12;
+                    fechaFormateada = `${diaSemana}, ${dia} ${mes}, ${horas12}:${minutos} ${ampm}`;
+                }
+            }
+            
+            // Construir URL de imagen usando directamente lo que viene de la BD
+            let imagenURL = '';
+            const filename = noticia.imagen_filename || noticia.imagen_url || '';
+            if (filename) {
+                imagenURL = `${API_BASE_URL}/noticias/imagen/${filename}`;
+            }
+            
+            // Llenar el modal
+            titulo.textContent = noticia.titulo || 'Noticia';
+            
+            if (imagenURL) {
+                imagen.innerHTML = `<img src="${imagenURL}" alt="${noticia.titulo}" class="news-modal-img">`;
+            } else {
+                imagen.innerHTML = '';
+            }
+            
+            meta.innerHTML = `
+                <div class="news-modal-author">
+                    <span class="news-modal-author-label">Por:</span>
+                    <span class="news-modal-author-name">${noticia.autor_nombre || 'INJUV'}</span>
+                </div>
+                ${fechaFormateada ? `
+                <div class="news-modal-date">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>${fechaFormateada}</span>
+                </div>
+                ` : ''}
+            `;
+            
+            // Formatear contenido con saltos de línea
+            const contenidoFormateado = (noticia.contenido || '').replace(/\n/g, '<br>');
+            contenido.innerHTML = contenidoFormateado || '<p>No hay contenido disponible.</p>';
+            
+            // Mostrar modal
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevenir scroll del body
+        }
+        
+        // Función para cerrar el modal
+        function cerrarModalNoticia() {
+            const modal = document.getElementById('modalNoticia');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = ''; // Restaurar scroll
+            }
+        }
+        
+        // Hacer funciones globales para que funcionen desde onclick
+        window.verDetalleNoticia = verDetalleNoticia;
+        window.cerrarModalNoticia = cerrarModalNoticia;
+        
+        // Cerrar modal con ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                cerrarModalNoticia();
+            }
+        });
+        
+        // Configurar enlace de "Preguntas frecuentes" para abrir el chatbot
+        window.addEventListener('load', () => {
+            const faqLink = document.getElementById('faq-link');
+            
+            if (faqLink) {
+                faqLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Esperar a que el chatbot se haya inicializado
+                    setTimeout(() => {
+                        const chatbotToggle = document.getElementById('chatbot-toggle');
+                        const chatbotContainer = document.getElementById('chatbot-container');
+                        
+                        if (chatbotContainer && chatbotToggle) {
+                            // Si el chatbot está cerrado, abrirlo haciendo clic en el toggle
+                            if (!chatbotContainer.classList.contains('chatbot-open')) {
+                                chatbotToggle.click();
+                            }
+                            // Si ya está abierto, no hacer nada (solo mantenerlo abierto)
+                        }
+                    }, 300);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

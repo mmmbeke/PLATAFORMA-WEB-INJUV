@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Organización - INJUV</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../../typography.css">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="dashboard.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <!-- Header Principal -->
+  <div id="header-container"></div>
+  
+  <!-- Navegación interna del dashboard -->
+  <nav class="org-dashboard-nav">
+    <div class="org-nav-container">
+      <a href="#" class="org-nav-link active" data-section="historial">
+        <i class="fas fa-history"></i>
+        <span>Historial de Oportunidades</span>
+      </a>
+      <a href="#" class="org-nav-link" data-section="postulaciones">
+        <i class="fas fa-user-check"></i>
+        <span>Postulaciones Recibidas</span>
+      </a>
+      <a href="#" class="org-nav-link" data-section="seguimiento">
+        <i class="fas fa-tasks"></i>
+        <span>Seguimiento de Voluntarios</span>
+      </a>
+      <a href="#" class="org-nav-link" data-section="reportes">
+        <i class="fas fa-chart-line"></i>
+        <span>Reportes de Impacto</span>
+      </a>
+      <a href="#" class="org-nav-link" data-section="academia">
+        <i class="fas fa-graduation-cap"></i>
+        <span>Academia</span>
+      </a>
+      <a href="#" class="org-nav-link" data-section="biblioteca">
+        <i class="fas fa-book"></i>
+        <span>Biblioteca</span>
+      </a>
+      <a href="#" class="org-nav-link" data-section="reseñas">
+        <i class="fas fa-star"></i>
+        <span>Reseñas</span>
+      </a>
+      <a href="#" class="org-nav-link" data-section="configuracion">
+        <i class="fas fa-cog"></i>
+        <span>Configuración</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="org-main-content">
+    
+    <!-- Sección: Historial de Oportunidades -->
+    <section id="historial" class="org-content-section active">
+      <div class="section-header">
+        <h1>Historial de Oportunidades</h1>
+        <p>Gestión y seguimiento de todas tus oportunidades de voluntariado</p>
+      </div>
+      
+      <!-- Filtros -->
+      <div class="filters-bar">
+        <select id="filtroEstadoHistorial" class="filter-select">
+          <option value="todas">Todas las oportunidades</option>
+          <option value="activa">Activas</option>
+          <option value="cerrada">Cerradas</option>
+        </select>
+        <input type="text" id="buscarHistorial" class="filter-input" placeholder="Buscar por título...">
+      </div>
+
+      <!-- Tabla de oportunidades -->
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Estado</th>
+              <th>Fecha Límite</th>
+              <th>Fechas VOL</th>
+              <th>Horas VOL</th>
+              <th>Postulaciones</th>
+              <th>Seleccionados</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tablaHistorialOportunidades">
+            <tr>
+              <td colspan="8" class="text-center text-gray-500 py-8">Cargando oportunidades...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Paginación -->
+      <div class="pagination" id="paginacionHistorial">
+        <!-- Se generará dinámicamente -->
+      </div>
+    </section>
+
+    <!-- Sección: Postulaciones Recibidas -->
+    <section id="postulaciones" class="org-content-section">
+      <div class="section-header">
+        <h1>Postulaciones Recibidas</h1>
+        <p>Gestiona las postulaciones de voluntarios a tus oportunidades</p>
+      </div>
+      
+      <!-- Filtros -->
+      <div class="filters-bar">
+        <select id="filtroOportunidadPostulaciones" class="filter-select">
+          <option value="todas">Todas las oportunidades</option>
+        </select>
+        <select id="filtroEstadoPostulaciones" class="filter-select">
+          <option value="todas">Todos los estados</option>
+          <option value="Pendiente de revisión">Pendiente de revisión</option>
+          <option value="Pre-seleccionado">Pre-seleccionado</option>
+          <option value="Etapa de entrevista">Etapa de entrevista</option>
+          <option value="En lista de espera">En lista de espera</option>
+          <option value="Seleccionado">Seleccionado</option>
+          <option value="No seleccionado">No seleccionado</option>
+        </select>
+        <input type="text" id="buscarPostulaciones" class="filter-input" placeholder="Buscar por nombre...">
+      </div>
+
+      <!-- Tabla de postulaciones -->
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Voluntario</th>
+              <th>Oportunidad</th>
+              <th>Estado</th>
+              <th>Fecha Postulación</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tablaPostulaciones">
+            <tr>
+              <td colspan="5" class="text-center text-gray-500 py-8">Cargando postulaciones...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Paginación -->
+      <div class="pagination" id="paginacionPostulaciones">
+        <!-- Se generará dinámicamente -->
+      </div>
+    </section>
+
+    <!-- Sección: Seguimiento de Voluntarios -->
+    <section id="seguimiento" class="org-content-section">
+      <div class="section-header">
+        <h1>Seguimiento de Voluntarios</h1>
+        <p>Gestiona el seguimiento y evaluación de voluntarios seleccionados</p>
+      </div>
+      
+      <!-- Filtros -->
+      <div class="filters-bar">
+        <select id="filtroOportunidadSeguimiento" class="filter-select">
+          <option value="todas">Todas las oportunidades</option>
+        </select>
+        <select id="filtroEstadoSeguimiento" class="filter-select">
+          <option value="todas">Todos los estados</option>
+          <option value="Confirmado">Confirmados</option>
+          <option value="No confirmado">No confirmados</option>
+          <option value="Pendiente">Pendientes</option>
+        </select>
+      </div>
+
+      <!-- Tabla de seguimiento -->
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Voluntario</th>
+              <th>Oportunidad</th>
+              <th>Confirmación</th>
+              <th>Asistencia Capacitación</th>
+              <th>Asistencia Actividad</th>
+              <th>Horas</th>
+              <th>Calificación</th>
+              <th>Certificado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tablaSeguimiento">
+            <tr>
+              <td colspan="7" class="text-center text-gray-500 py-8">Cargando seguimiento...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Sección: Reportes de Impacto -->
+    <section id="reportes" class="org-content-section">
+      <div class="section-header">
+        <h1>Reportes de Impacto</h1>
+        <p>Genera reportes de impacto en formato INJUV</p>
+      </div>
+      
+      <!-- Filtros para reportes -->
+      <div class="filters-bar">
+        <input type="date" id="fechaInicioReporte" class="filter-input">
+        <input type="date" id="fechaFinReporte" class="filter-input">
+        <select id="filtroOportunidadReporte" class="filter-select">
+          <option value="todas">Todas las oportunidades</option>
+        </select>
+        <button id="btnGenerarReporte" class="btn-primary">
+          <i class="fas fa-file-excel"></i> Generar Reporte INJUV
+        </button>
+      </div>
+
+      <!-- Resumen de impacto -->
+      <div class="impact-summary">
+        <div class="impact-card">
+          <div class="impact-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="impact-content">
+            <div class="impact-number" id="totalVoluntarios">0</div>
+            <div class="impact-label">Total Voluntarios</div>
+          </div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="impact-content">
+            <div class="impact-number" id="totalHoras">0</div>
+            <div class="impact-label">Horas de Voluntariado</div>
+          </div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-icon">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="impact-content">
+            <div class="impact-number" id="totalActividades">0</div>
+            <div class="impact-label">Actividades Completadas</div>
+          </div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-icon">
+            <i class="fas fa-certificate"></i>
+          </div>
+          <div class="impact-content">
+            <div class="impact-number" id="totalCertificados">0</div>
+            <div class="impact-label">Certificados Emitidos</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gráfico de impacto -->
+      <div class="chart-container">
+        <canvas id="graficoImpacto"></canvas>
+      </div>
+    </section>
+
+    <!-- Sección: Academia (documentos educativos) -->
+    <section id="academia" class="org-content-section">
+      <div class="section-header section-header-academia">
+        <div>
+          <h1>Academia</h1>
+          <p>Documentos educativos para voluntarios</p>
+        </div>
+        <div class="academia-btn-wrap">
+          <button type="button" id="btnSubirDocumentoEducativo" class="btn-primary" onclick="event.preventDefault(); event.stopPropagation(); if(typeof window.mostrarModalSubirDocumentoEducativo==='function'){ window.mostrarModalSubirDocumentoEducativo(); } return false;">
+            <i class="fas fa-upload"></i> Subir documento educativo
+          </button>
+        </div>
+      </div>
+      <div id="academiaDocumentosContainer" class="table-container" style="margin-top: 1rem;">
+        <div class="text-center text-gray-500 py-8">Cargando documentos...</div>
+      </div>
+    </section>
+
+    <!-- Sección: Biblioteca (documentos de biblioteca) -->
+    <section id="biblioteca" class="org-content-section">
+      <div class="section-header section-header-biblioteca">
+        <div>
+          <h1>Biblioteca</h1>
+          <p>Documentos de la biblioteca para voluntarios</p>
+        </div>
+        <div class="biblioteca-btn-wrap">
+          <button type="button" id="btnSubirDocumentoBiblioteca" class="btn-primary" onclick="event.preventDefault(); event.stopPropagation(); if(typeof window.mostrarModalSubirDocumentoBiblioteca==='function'){ window.mostrarModalSubirDocumentoBiblioteca(); } return false;">
+            <i class="fas fa-upload"></i> Subir documento
+          </button>
+        </div>
+      </div>
+      <div id="bibliotecaDocumentosContainer" class="table-container" style="margin-top: 1rem;">
+        <div class="text-center text-gray-500 py-8">Cargando documentos...</div>
+      </div>
+    </section>
+
+    <!-- Sección: Reseñas -->
+    <section id="reseñas" class="org-content-section">
+      <div class="section-header">
+        <h1>Reseñas de Voluntarios</h1>
+        <p>Visualiza todas las reseñas y calificaciones que los voluntarios han dejado sobre tus oportunidades</p>
+      </div>
+      
+      <!-- Filtros -->
+      <div class="filters-bar">
+        <select id="filtroOportunidadReseñas" class="filter-select">
+          <option value="todas">Todas las oportunidades</option>
+        </select>
+        <select id="filtroCalificacionReseñas" class="filter-select">
+          <option value="todas">Todas las calificaciones</option>
+          <option value="5">5 estrellas</option>
+          <option value="4">4 estrellas</option>
+          <option value="3">3 estrellas</option>
+          <option value="2">2 estrellas</option>
+          <option value="1">1 estrella</option>
+        </select>
+      </div>
+
+      <!-- Contenedor de reseñas organizadas por voluntariado -->
+      <div id="reseñasContainer" class="reseñas-container">
+        <div class="text-center text-gray-500 py-8">
+          Cargando reseñas...
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección: Configuración -->
+    <section id="configuracion" class="org-content-section">
+      <div class="section-header">
+        <h1>Configuración de Perfil</h1>
+        <p>Gestiona la información de tu organización</p>
+      </div>
+      
+      <div class="config-grid">
+        <div class="config-card">
+          <h3><i class="fas fa-building"></i> Información General</h3>
+          <button class="btn-secondary" onclick="if (typeof window.redirectTo === 'function') { window.redirectTo('index.html'); } else { window.location.href='index.html'; }">
+            <i class="fas fa-edit"></i> Editar Perfil
+          </button>
+        </div>
+        <div class="config-card">
+          <h3><i class="fas fa-bell"></i> Notificaciones</h3>
+          <div class="config-options">
+            <label class="config-switch">
+              <input type="checkbox" id="notifPostulaciones" checked>
+              <span>Notificaciones de nuevas postulaciones</span>
+            </label>
+            <label class="config-switch">
+              <input type="checkbox" id="notifRecordatorios" checked>
+              <span>Recordatorios de actividades</span>
+            </label>
+          </div>
+        </div>
+        <div class="config-card">
+          <h3><i class="fas fa-shield-alt"></i> Seguridad</h3>
+          <button class="btn-secondary" onclick="cambiarContrasena()">
+            <i class="fas fa-key"></i> Cambiar Contraseña
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal para ver detalles de postulación -->
+  <div id="modalPostulacion" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Detalles de Postulación</h2>
+        <span class="close-modal">&times;</span>
+      </div>
+      <div class="modal-body" id="modalPostulacionBody">
+        <!-- Se llenará dinámicamente -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="cerrarModal('modalPostulacion')">Cerrar</button>
+        <button id="btnAprobarPostulacion" class="btn-success" style="display: none;">
+          <i class="fas fa-check"></i> Aprobar
+        </button>
+        <button id="btnRechazarPostulacion" class="btn-danger" style="display: none;">
+          <i class="fas fa-times"></i> Rechazar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para seguimiento de voluntario -->
+  <div id="modalSeguimiento" class="modal">
+    <div class="modal-content modal-large">
+      <div class="modal-header">
+        <h2>Seguimiento de Voluntario</h2>
+        <span class="close-modal">&times;</span>
+      </div>
+      <div class="modal-body" id="modalSeguimientoBody">
+        <!-- Se llenará dinámicamente -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="cerrarModal('modalSeguimiento')">Cerrar</button>
+        <button id="btnGuardarSeguimiento" class="btn-primary">
+          <i class="fas fa-save"></i> Guardar Cambios
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
+

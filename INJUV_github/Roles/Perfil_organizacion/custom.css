@@ -1,0 +1,73 @@
+/* ==========================
+   INJUV - Estilos Perfil Organización
+   ========================== */
+
+/* Reset mínimo */
+* { box-sizing: border-box; }
+body { font-family: var(--font-body); }
+
+/* ---------- Avatar y cropper ---------- */
+.avatar-default #avatarCard {
+  transform: scale(1.5);
+  transform-origin: center center;
+}
+
+#cropper img { max-width: none; }
+#cropFrame { overflow: hidden; position: relative; }
+#cropImg {
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+  position: absolute;
+}
+
+/* ---------- Botones de edición (solo dentro de tarjetas) ---------- */
+.section-card { position: relative; }
+
+/* Posición + aparición solo al hover */
+.section-card .edit-btn {
+  position: absolute; top: 1rem; right: 1rem;
+  opacity: 0; transition: opacity .25s ease;
+}
+.section-card:hover .edit-btn { opacity: 1; }
+
+/* ---------- Animaciones suaves para tarjetas ---------- */
+.section-card {
+  transition: box-shadow .2s ease, transform .1s ease;
+}
+.section-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,.06);
+}
+
+/* ---------- Scrollbar (WebKit) ---------- */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background-color: #94a3b8; }
+
+/* ---------- Modal Editar Perfil ---------- */
+#editProfileModal {
+  z-index: 9999;
+}
+
+#editProfileModal .edit-profile-menu-item.active {
+  background-color: #dbeafe;
+  color: #1e40af;
+  font-weight: 500;
+}
+
+.edit-profile-section {
+  animation: fadeIn 0.2s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

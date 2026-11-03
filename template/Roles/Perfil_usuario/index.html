@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Plataforma de Voluntariados INJUV</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- CSS propio -->
+  <link rel="stylesheet" href="../../typography.css" />
+  <link rel="stylesheet" href="custom.css" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      padding-top: 80px;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gray-50 text-gray-900">
+
+  <!-- HEADER -->
+  <div id="header-container"></div>
+
+  <!-- PERFIL (banner + avatar + nombre) -->
+  <section class="max-w-7xl mx-auto mt-6 rounded-2xl overflow-hidden shadow-sm">
+    <!-- Banner azul -->
+    <div id="profileBanner" class="relative bg-blue-700 h-40">
+      <!-- Input de color de banner (oculto) -->
+      <input id="bannerColorInput" type="color" class="hidden" value="#1e40af">
+    </div>
+
+    <!-- Franja blanca con nombre -->
+    <div class="relative bg-white">
+      <!-- Botón editar perfil -->
+      <button id="editProfileBtn"
+        class="absolute right-4 top-3 inline-flex items-center gap-2 px-3 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 cursor-pointer text-sm shadow">
+        ✎ Editar perfil
+      </button>
+
+      <!-- Avatar superpuesto -->
+      <div id="avatarContainer" class="absolute -top-12 left-8 h-28 w-28 rounded-full ring-4 ring-white overflow-hidden bg-white avatar-default">
+        <img id="avatarCard"
+          src="avatar-default.png"
+          alt="Foto de perfil"
+          class="w-full h-full object-cover object-center">
+      </div>
+
+      <!-- Nombre y meta -->
+      <div class="pl-40 pr-32 py-4 flex items-center">
+        <div class="flex-1 min-w-0">
+          <h2 id="profileName" class="text-2xl font-semibold text-gray-900 break-words"></h2>
+          <div class="mt-1 text-sm text-gray-600 flex flex-wrap gap-x-6 gap-y-1">
+            <span id="profileHours"></span>
+            <span id="profileAge"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="max-w-7xl mx-auto px-4 py-6">
+    <main class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- COLUMNA IZQUIERDA -->
+      <section class="lg:col-span-2 space-y-6">
+
+        <!-- INFORMACIÓN DE CONTACTO -->
+        <div class="bg-white rounded-xl shadow-sm border p-6 section-card">
+          <h3 class="text-xl font-semibold mb-4">Información de Contacto</h3>
+
+          <div id="contactView" class="space-y-2 text-gray-700">
+            <p>📧 <span id="contactEmail"></span></p>
+            <p>📞 <span id="contactPhone"></span></p>
+            <p>📍 <span id="contactLocation"></span></p>
+          </div>
+        </div>
+
+        <!-- ACERCA DE MÍ -->
+        <div class="bg-white rounded-xl shadow-sm border p-6 section-card">
+          <h3 class="text-xl font-semibold mb-3">Acerca de Mí</h3>
+
+          <p id="aboutText" class="text-gray-700 leading-relaxed">
+          </p>
+        </div>
+
+        <!-- EXPERIENCIA -->
+        <div class="bg-white rounded-xl shadow-sm border p-6" id="experienceContainer">
+          <h3 class="text-xl font-semibold mb-4">Experiencia de Voluntariados</h3>
+          <div id="experiencesList">
+            <!-- Las experiencias se cargarán dinámicamente desde el backend -->
+            <p class="text-gray-600 text-center py-4">Cargando experiencias...</p>
+          </div>
+        </div>
+
+        <!-- RESEÑAS Y REFERENCIAS -->
+        <section class="bg-white rounded-xl shadow-sm border p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-xl">⭐</span>
+            <h3 class="text-xl font-semibold">Reseñas y Referencias</h3>
+          </div>
+
+          <div id="reviewsContainer">
+            <!-- Las reseñas se cargarán dinámicamente aquí -->
+          </div>
+
+          <!-- Botones de paginación -->
+          <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-200">
+            <button id="prevReviewsBtn" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition" disabled>
+              ← Anterior
+            </button>
+            <span id="reviewsPageInfo" class="text-sm text-gray-600">Página <span id="currentReviewsPage">1</span> de <span id="totalReviewsPages">1</span></span>
+            <button id="nextReviewsBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition">
+              Siguiente →
+            </button>
+          </div>
+        </section>
+      </section>
+
+      <!-- COLUMNA DERECHA -->
+      <aside class="space-y-6">
+        <!-- ESTADÍSTICAS -->
+        <div class="bg-white rounded-xl shadow-sm border p-6">
+          <h3 class="text-xl font-semibold mb-4">Estadísticas de Voluntariado</h3>
+          <div class="grid grid-cols-3 gap-3">
+            <div class="rounded-lg bg-blue-50 p-4 text-center">
+              <div class="text-3xl font-bold text-blue-700" id="statsHours">0</div>
+              <div class="text-xs text-blue-800 mt-1">Horas Totales</div>
+            </div>
+            <div class="rounded-lg bg-green-50 p-4 text-center">
+              <div class="text-3xl font-bold text-green-700" id="statsProjects">0</div>
+              <div class="text-xs text-green-800 mt-1">Proyectos</div>
+            </div>
+            <div class="rounded-lg bg-yellow-50 p-4 text-center">
+              <div class="text-3xl font-bold text-yellow-700" id="statsCertificates">0</div>
+              <div class="text-xs text-yellow-800 mt-1">Certificados</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- HABILIDADES (limpio y editable) -->
+        <div class="bg-white rounded-xl shadow-sm border p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+              <span class="text-xl">◎</span>
+              <h3 class="text-xl font-semibold">Habilidades</h3>
+            </div>
+          </div>
+
+          <ul id="skillsBars" class="space-y-5">
+            <!-- Las habilidades se cargarán dinámicamente aquí -->
+          </ul>
+        </div>
+
+        <!-- CERTIFICADOS -->
+        <div class="bg-white rounded-xl shadow-sm border p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-semibold">Certificados</h3>
+            <button id="openModalBtn" class="px-3 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">Subir</button>
+          </div>
+          <div id="certificatesList" class="space-y-3">
+            <div id="cert-antecedentes" class="border border-gray-200 rounded-lg p-3" style="display: none;">
+              <h4 class="font-medium text-gray-900 text-sm">Antecedentes</h4>
+              <p id="cert-antecedentes-org" class="text-xs text-gray-600"></p>
+              <p id="cert-antecedentes-date" class="text-xs text-gray-500 mt-1"></p>
+              <span id="cert-antecedentes-status" class="text-xs px-2 py-1 rounded-full bg-green-100 text-green-800"></span>
+            </div>
+            <div id="cert-inhabilidades" class="border border-gray-200 rounded-lg p-3" style="display: none;">
+              <h4 class="font-medium text-gray-900 text-sm">Inhabilidades</h4>
+              <p id="cert-inhabilidades-org" class="text-xs text-gray-600"></p>
+              <p id="cert-inhabilidades-date" class="text-xs text-gray-500 mt-1"></p>
+              <span id="cert-inhabilidades-status" class="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-800"></span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <!-- MODAL SUBIR CERTIFICADOS -->
+  <div id="modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+    <div class="w-full max-w-2xl rounded-2xl bg-white p-6 shadow-xl">
+      <div class="flex items-start justify-between">
+        <h2 class="text-xl font-semibold">Subir Certificados (≤ 6 meses)</h2>
+        <button id="closeModalBtn" class="rounded-lg px-3 py-1 text-sm hover:bg-gray-100">✕</button>
+      </div>
+
+      <div id="errors" class="mt-4 hidden rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+        <ul class="list-disc pl-5"></ul>
+      </div>
+
+      <form id="certForm" class="mt-5 space-y-6" autocomplete="off">
+        <!-- Antecedentes -->
+        <section class="rounded-xl border p-4">
+          <h3 class="mb-3 font-medium">Certificado de Antecedentes</h3>
+          <div class="grid gap-3 md:grid-cols-2">
+            <div>
+              <label class="mb-1 block text-sm font-medium">Archivo (PDF)</label>
+              <input type="file" accept="application/pdf" id="antecedentesFile" class="w-full rounded-lg border p-2" required>
+              <p id="antecedentesName" class="mt-1 text-xs text-gray-600 hidden"></p>
+            </div>
+            <div>
+              <label class="mb-1 block text-sm font-medium">Fecha de emisión</label>
+              <input type="date" id="antecedentesDate" class="w-full rounded-lg border p-2" required>
+              <p id="antecedentesFlag" class="mt-1 text-xs"></p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Inhabilidades -->
+        <section class="rounded-xl border p-4">
+          <h3 class="mb-3 font-medium">Certificado de Inhabilidades</h3>
+          <div class="grid gap-3 md:grid-cols-2">
+            <div>
+              <label class="mb-1 block text-sm font-medium">Archivo (PDF)</label>
+              <input type="file" accept="application/pdf" id="inhabilidadesFile" class="w-full rounded-lg border p-2" required>
+              <p id="inhabilidadesName" class="mt-1 text-xs text-gray-600 hidden"></p>
+            </div>
+            <div>
+              <label class="mb-1 block text-sm font-medium">Fecha de emisión</label>
+              <input type="date" id="inhabilidadesDate" class="w-full rounded-lg border p-2" required>
+              <p id="inhabilidadesFlag" class="mt-1 text-xs"></p>
+            </div>
+          </div>
+        </section>
+
+        <div class="flex items-center justify-end gap-2">
+          <button type="button" id="cancelBtn" class="px-4 py-2 rounded-lg border">Cancelar</button>
+          <button type="submit" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL EDITAR PERFIL (ESTILO FACEBOOK) -->
+  <div id="editProfileModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+    <div class="w-full max-w-5xl h-[90vh] bg-white rounded-lg shadow-2xl flex flex-col overflow-hidden">
+      <!-- Header del Modal -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+        <h2 class="text-2xl font-bold text-gray-900">Editar perfil</h2>
+        <button id="closeEditProfileModal" class="text-gray-500 hover:text-gray-700 text-2xl leading-none">&times;</button>
+      </div>
+
+      <!-- Contenido del Modal -->
+      <div class="flex flex-1 overflow-hidden">
+        <!-- Sidebar Izquierdo - Menú de opciones -->
+        <div class="w-64 border-r border-gray-200 bg-gray-50 overflow-y-auto">
+          <div class="p-4">
+            <h3 class="text-sm font-semibold text-gray-500 uppercase mb-2 px-3">Información</h3>
+            <nav class="space-y-1">
+              <button data-section="photo" class="edit-profile-menu-item active w-full text-left px-3 py-2 rounded-lg hover:bg-gray-200 text-gray-700 flex items-center gap-2 transition">
+                <span>📷</span> Editar foto
+              </button>
+              <button data-section="banner" class="edit-profile-menu-item w-full text-left px-3 py-2 rounded-lg hover:bg-gray-200 text-gray-700 flex items-center gap-2 transition">
+                <span>🎨</span> Color del banner
+              </button>
+              <button data-section="contact" class="edit-profile-menu-item w-full text-left px-3 py-2 rounded-lg hover:bg-gray-200 text-gray-700 flex items-center gap-2 transition">
+                <span>📧</span> Información de contacto
+              </button>
+              <button data-section="about" class="edit-profile-menu-item w-full text-left px-3 py-2 rounded-lg hover:bg-gray-200 text-gray-700 flex items-center gap-2 transition">
+                <span>📝</span> Acerca de mí
+              </button>
+              <button data-section="skills" class="edit-profile-menu-item w-full text-left px-3 py-2 rounded-lg hover:bg-gray-200 text-gray-700 flex items-center gap-2 transition">
+                <span>◎</span> Habilidades
+              </button>
+              <button data-section="privacy" class="edit-profile-menu-item w-full text-left px-3 py-2 rounded-lg hover:bg-gray-200 text-gray-700 flex items-center gap-2 transition">
+                <span>🔒</span> Privacidad
+              </button>
+            </nav>
+          </div>
+        </div>
+
+        <!-- Panel Derecho - Contenido de edición -->
+        <div class="flex-1 overflow-y-auto bg-white">
+          <div class="p-6">
+            <!-- Sección: Editar Foto -->
+            <div id="section-photo" class="edit-profile-section hidden">
+              <h3 class="text-xl font-semibold mb-4">Editar foto</h3>
+              <div class="space-y-4">
+                <p class="text-gray-600">Cambia tu foto de perfil. La imagen será recortada de forma circular.</p>
+                
+                <!-- Zona de arrastre -->
+                <div id="photoDropZone" class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center transition-colors hover:border-blue-400 hover:bg-blue-50 cursor-pointer">
+                  <div class="flex flex-col items-center gap-3">
+                    <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    </svg>
+                    <div>
+                      <p class="text-sm text-gray-600">
+                        <span class="font-semibold text-blue-600">Haz clic para seleccionar</span> o arrastra una imagen aquí
+                      </p>
+                      <p class="text-xs text-gray-500 mt-1">PNG, JPG, GIF hasta 10MB</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <input id="avatarInput" type="file" accept="image/*" class="hidden">
+              </div>
+            </div>
+
+            <!-- Sección: Color del Banner -->
+            <div id="section-banner" class="edit-profile-section hidden">
+              <h3 class="text-xl font-semibold mb-4">Color del banner</h3>
+              <div class="space-y-4">
+                <p class="text-gray-600">Personaliza el color del banner de tu perfil.</p>
+                <div>
+                  <label class="block text-sm font-medium mb-2">Selecciona un color</label>
+                  <div class="flex items-center gap-4">
+                    <input type="color" id="bannerColorPicker" value="#1e40af" class="w-20 h-12 rounded cursor-pointer border border-gray-300">
+                    <input type="text" id="bannerColorHex" value="#1e40af" autocomplete="off" class="flex-1 border rounded-lg p-2 font-mono" placeholder="#1e40af">
+                  </div>
+                </div>
+                <div class="p-4 rounded-lg border bg-gray-50">
+                  <p class="text-sm text-gray-600 mb-2">Vista previa:</p>
+                  <div id="bannerPreview" class="h-20 rounded-lg" style="background-color: #1e40af;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sección: Información de Contacto -->
+            <div id="section-contact" class="edit-profile-section hidden">
+              <h3 class="text-xl font-semibold mb-4">Información de contacto</h3>
+              <form id="contactInfoForm" class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium mb-1">Correo electrónico</label>
+                  <input type="email" id="contactEmailInput" autocomplete="off" class="w-full border rounded-lg p-2" placeholder="Correo electrónico">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Teléfono</label>
+                  <input type="text" id="contactPhoneInput" autocomplete="off" class="w-full border rounded-lg p-2" placeholder="Teléfono">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Región</label>
+                  <select id="region-usuario" autocomplete="off" class="w-full border rounded-lg p-2">
+                    <option value="">Seleccione una región</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Ciudad</label>
+                  <select id="ciudad-usuario" autocomplete="off" class="w-full border rounded-lg p-2" disabled>
+                    <option value="">Primero seleccione una región</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Comuna</label>
+                  <select id="comuna-usuario" autocomplete="off" class="w-full border rounded-lg p-2" disabled>
+                    <option value="">Primero seleccione una ciudad</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+
+            <!-- Sección: Acerca de Mí -->
+            <div id="section-about" class="edit-profile-section hidden">
+              <h3 class="text-xl font-semibold mb-4">Acerca de mí</h3>
+              <form id="aboutInfoForm" class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium mb-1">Descripción</label>
+                  <textarea id="aboutInput" rows="6" class="w-full border rounded-lg p-2" placeholder="Escribe una descripción sobre ti..."></textarea>
+                </div>
+              </form>
+            </div>
+
+            <!-- Sección: Habilidades -->
+            <div id="section-skills" class="edit-profile-section hidden">
+              <h3 class="text-xl font-semibold mb-4">Habilidades</h3>
+              <div class="space-y-4">
+                <div class="flex justify-between items-center mb-4">
+                  <p class="text-gray-600">Gestiona tus habilidades y su nivel de dominio.</p>
+                  <button id="addSkillBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2">
+                    <span>+</span> Agregar habilidad
+                  </button>
+                </div>
+                <ul id="skillsEditList" class="space-y-4">
+                  <!-- Las habilidades se cargarán dinámicamente aquí -->
+                </ul>
+              </div>
+            </div>
+
+            <!-- Sección: Privacidad -->
+            <div id="section-privacy" class="edit-profile-section hidden">
+              <h3 class="text-xl font-semibold mb-4">Privacidad</h3>
+              <p class="text-gray-600 mb-6">Controla qué información de tu perfil es visible para otros usuarios.</p>
+              
+              <div class="space-y-6">
+                <!-- Información Personal -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-gray-900 mb-3">Información Personal</h4>
+                  <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-sm font-medium text-gray-700">Horas de voluntariado</p>
+                        <p class="text-xs text-gray-500">Mostrar o ocultar las horas de voluntariado (incluyendo el ícono)</p>
+                      </div>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="privacy-hours" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-sm font-medium text-gray-700">Edad</p>
+                        <p class="text-xs text-gray-500">Mostrar o ocultar tu edad (incluyendo el ícono)</p>
+                      </div>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="privacy-age" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Información de Contacto -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-gray-900 mb-3">Información de Contacto</h4>
+                  <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-sm font-medium text-gray-700">Correo electrónico</p>
+                        <p class="text-xs text-gray-500">Controla la visibilidad de tu email</p>
+                      </div>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="privacy-email" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-sm font-medium text-gray-700">Teléfono</p>
+                        <p class="text-xs text-gray-500">Mostrar o ocultar tu número de teléfono</p>
+                      </div>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="privacy-phone" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-sm font-medium text-gray-700">Ubicación</p>
+                        <p class="text-xs text-gray-500">Mostrar o ocultar tu ubicación (incluyendo el ícono)</p>
+                      </div>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="privacy-location" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Contenido del Perfil -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-gray-900 mb-3">Contenido del Perfil</h4>
+                  <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-sm font-medium text-gray-700">Acerca de mí</p>
+                        <p class="text-xs text-gray-500">Mostrar o ocultar tu descripción personal</p>
+                      </div>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="privacy-about" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-sm font-medium text-gray-700">Experiencia de Voluntariados</p>
+                        <p class="text-xs text-gray-500">Mostrar o ocultar tu historial de voluntariados</p>
+                      </div>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="privacy-experience" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-sm font-medium text-gray-700">Habilidades</p>
+                        <p class="text-xs text-gray-500">Mostrar o ocultar tus habilidades</p>
+                      </div>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="privacy-skills" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-sm font-medium text-gray-700">Reseñas y Referencias</p>
+                        <p class="text-xs text-gray-500">Mostrar o ocultar las reseñas de organizaciones</p>
+                      </div>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="privacy-reviews" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Botón Eliminar Cuenta -->
+                <div class="border-2 border-red-300 rounded-lg p-6 bg-red-50 mt-6">
+                  <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0">
+                      <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
+                        <i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
+                      </div>
+                    </div>
+                    <div class="flex-1">
+                      <h4 class="text-lg font-semibold text-red-900 mb-2">Eliminar cuenta</h4>
+                      <p class="text-sm text-red-800 mb-4">
+                        Eliminar tu cuenta es una acción permanente. Una vez que elimines tu cuenta, no podrás recuperarla.
+                        Se eliminarán todos tus datos, incluyendo tu perfil, postulaciones y si eres administrador, tu organización.
+                      </p>
+                      <button id="deleteAccountBtn" class="w-full px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 font-semibold transition shadow-sm text-base">
+                        <i class="fas fa-trash-alt mr-2"></i> Eliminar mi cuenta
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer con botones -->
+          <div id="editProfileFooter" class="border-t border-gray-200 px-6 py-4 bg-gray-50 flex justify-end gap-3">
+            <button id="cancelEditProfile" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-100">Cancelar</button>
+            <button id="saveEditProfile" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL RECORTE AVATAR -->
+  <div id="cropper" class="hidden fixed inset-0 z-[60] flex items-center justify-center bg-black/40 p-4">
+    <div class="w-full max-w-xl rounded-2xl bg-white p-5 shadow-xl">
+      <h3 class="text-lg font-semibold">Recortar foto de perfil</h3>
+
+      <!-- Marco circular -->
+      <div id="cropFrame"
+        class="relative mx-auto my-4 h-64 w-64 rounded-full overflow-hidden ring-4 ring-white shadow-lg bg-gray-100">
+        <img id="cropImg" alt="Previsualización" class="absolute select-none cursor-move" draggable="false" />
+      </div>
+
+      <!-- Controles -->
+      <div class="flex items-center gap-3">
+        <span class="text-sm text-gray-600">Zoom</span>
+        <input id="cropZoom" type="range" min="0.5" max="3" step="0.01" value="1" class="w-full">
+        <button id="cropReset" class="px-3 py-1 rounded border text-sm">Reiniciar</button>
+        <div class="flex-1"></div>
+        <button id="cropCancel" class="px-3 py-2 rounded border">Cancelar</button>
+        <button id="cropSave" class="px-3 py-2 rounded bg-blue-600 text-white hover:bg-blue-700">Guardar</button>
+      </div>
+
+      <p class="text-xs text-gray-500 mt-2">Arrastra la imagen para centrarla y usa el control de zoom.</p>
+    </div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+    // Cargar header y configurar enlaces
+    fetch('../../header.html')
+      .then(response => response.text())
+      .then(data => {
+        // Extraer scripts y estilos del header
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data, 'text/html');
+        const headerContent = doc.querySelector('header');
+        const styles = doc.querySelector('style');
+        const scripts = doc.querySelectorAll('script');
+        
+        // Insertar estilos si existen
+        if (styles) {
+          const styleElement = document.createElement('style');
+          styleElement.textContent = styles.textContent;
+          document.head.appendChild(styleElement);
+        }
+        
+        // Insertar el header
+        if (headerContent) {
+          document.getElementById('header-container').innerHTML = headerContent.outerHTML;
+        } else {
+          document.getElementById('header-container').innerHTML = data;
+        }
+        
+        // Ejecutar los scripts del header manualmente
+        scripts.forEach(oldScript => {
+          const newScript = document.createElement('script');
+          if (oldScript.src) {
+            newScript.src = oldScript.src;
+          } else {
+            newScript.textContent = oldScript.textContent;
+          }
+          document.body.appendChild(newScript);
+        });
+        
+        setTimeout(() => {
+          // Verificar estado de sesión y actualizar header
+          const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true' || 
+                           sessionStorage.getItem('isLoggedIn') === 'true';
+          const loginLink = document.getElementById('login-link');
+          const userProfileMenu = document.getElementById('userProfileMenu');
+          const profileUserName = document.getElementById('profileUserName');
+          const profileUserEmail = document.getElementById('profileUserEmail');
+          
+          if (isLoggedIn) {
+            if (loginLink) {
+              loginLink.style.display = 'none';
+              loginLink.style.visibility = 'hidden';
+            }
+            if (userProfileMenu) {
+              userProfileMenu.style.display = 'block';
+              userProfileMenu.classList.add('active');
+              const userEmail = localStorage.getItem('userEmail') || sessionStorage.getItem('userEmail');
+              const userNombre = localStorage.getItem('userNombre') || '';
+              const userApellido = localStorage.getItem('userApellido') || '';
+              if (profileUserName) {
+                profileUserName.textContent = `${userNombre} ${userApellido}`.trim() || 'Usuario';
+              }
+              if (profileUserEmail) {
+                profileUserEmail.textContent = userEmail || '';
+              }
+            }
+          } else {
+            if (loginLink) {
+              loginLink.style.display = 'inline-flex';
+              loginLink.style.visibility = 'visible';
+            }
+            if (userProfileMenu) {
+              userProfileMenu.style.display = 'none';
+              userProfileMenu.classList.remove('active');
+            }
+          }
+          
+          // Ejecutar funciones del header si existen
+          if (typeof window.initHeaderAuth === 'function') {
+            window.initHeaderAuth();
+          }
+          if (typeof window.updateHeaderAuth === 'function') {
+            window.updateHeaderAuth();
+          }
+          
+          // Configurar enlaces
+          // Logo - va a página principal
+          const logo = document.getElementById('logo-link');
+          if (logo) logo.href = '../../index.html';
+          
+          // Enlaces - van a página principal con hash
+          const howWorks = document.getElementById('how-it-works-link');
+          if (howWorks) howWorks.href = '../../index.html#how-it-works';
+          
+          const experiencias = document.getElementById('experiencias-link');
+          if (experiencias) experiencias.href = '../../index.html#experiencias-voluntariado';
+          
+          const noticias = document.getElementById('news-link');
+          if (noticias) {
+            noticias.href = '../../index.html#news';
+            noticias.onclick = function(e) {
+              if (window.goToNoticias) {
+                window.goToNoticias(e);
+              } else {
+                e.preventDefault();
+                window.location.href = '../../index.html#news';
+              }
+              return false;
+            };
+          }
+
+          const academiaNav = document.getElementById('academia-link');
+          if (academiaNav) {
+            academiaNav.href = '../../index.html#academia-voluntariado';
+            academiaNav.onclick = function(e) {
+              if (window.goToAcademia) {
+                window.goToAcademia(e);
+              } else {
+                e.preventDefault();
+                window.location.href = '../../index.html#academia-voluntariado';
+              }
+              return false;
+            };
+          }
+
+          const bibliotecaNav = document.getElementById('biblioteca-link');
+          if (bibliotecaNav) {
+            bibliotecaNav.href = '../../index.html#biblioteca-estudios';
+            bibliotecaNav.onclick = function(e) {
+              if (window.goToBiblioteca) {
+                window.goToBiblioteca(e);
+              } else {
+                e.preventDefault();
+                window.location.href = '../../index.html#biblioteca-estudios';
+              }
+              return false;
+            };
+          }
+          
+          const login = document.getElementById('login-link');
+          if (login) login.href = '../../inicio de sesion/login.html';
+        }, 100);
+      })
+      .catch(error => console.error('Error:', error));
+  </script>
+  <!-- Modal para detalles del voluntariado -->
+  <div id="modalDetallesVoluntariado" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+    <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+      <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+        <h3 class="text-2xl font-semibold text-gray-900">Detalles del Voluntariado</h3>
+        <button id="cerrarModalDetalles" class="text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
+      </div>
+      
+      <div class="p-6 space-y-6">
+        <!-- Información básica -->
+        <div>
+          <h4 id="modalTitulo" class="text-xl font-semibold text-gray-900 mb-2"></h4>
+          <p id="modalOrganizacion" class="text-blue-600 font-medium mb-1"></p>
+          <p id="modalFecha" class="text-sm text-gray-600"></p>
+        </div>
+        
+        <!-- Horas de voluntariado -->
+        <div class="border-t border-gray-200 pt-4">
+          <h5 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+            <span>⏱</span> Horas de Voluntariado
+          </h5>
+          <div id="modalHoras" class="text-gray-700">
+            <p class="text-sm">Cargando información...</p>
+          </div>
+        </div>
+        
+        <!-- Reseña de la organización -->
+        <div class="border-t border-gray-200 pt-4">
+          <h5 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+            <span>⭐</span> Reseña de la Organización
+          </h5>
+          <div id="modalResena">
+            <p class="text-gray-600 italic">No hay reseña disponible aún.</p>
+          </div>
+        </div>
+        
+        <!-- Mi reseña sobre la organización -->
+        <div class="border-t border-gray-200 pt-4">
+          <h5 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+            <span>💬</span> Mi Reseña sobre la Organización
+          </h5>
+          <div id="modalMiResena">
+            <p class="text-gray-600 italic">Cargando información...</p>
+          </div>
+        </div>
+        
+        <!-- Certificado -->
+        <div class="border-t border-gray-200 pt-4">
+          <h5 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+            <span>📜</span> Certificado
+          </h5>
+          <div id="modalCertificado">
+            <p class="text-gray-600">No hay certificado disponible aún.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="sticky bottom-0 bg-gray-50 border-t border-gray-200 px-6 py-4 flex justify-end gap-3">
+        <button id="cerrarModalDetallesBtn" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../script.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

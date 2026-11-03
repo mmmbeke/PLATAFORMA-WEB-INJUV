@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración - INJUV (Diseño Moderno)</title>
+  <link rel="stylesheet" href="../../Kit_Gobierno/typography.css">
+  <link rel="stylesheet" href="../../Kit_Gobierno/grid-system.css">
+  <link rel="stylesheet" href="../../Kit_Gobierno/buttons-system.css">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="admin-modern.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <!-- Header Principal -->
+  <div id="header-container"></div>
+  
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <div class="brand-logo">INJUV</div>
+        <div class="brand-subtitle">Administración</div>
+      </div>
+      
+      <div class="nav-menu">
+        <a href="#" class="nav-link active" data-section="dashboard">
+          <i class="fas fa-chart-line"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-link" data-section="users">
+          <i class="fas fa-users"></i>
+          <span>Usuarios</span>
+        </a>
+        <a href="#" class="nav-link" data-section="reports">
+          <i class="fas fa-file-alt"></i>
+          <span>Reportes</span>
+        </a>
+        <a href="#" class="nav-link" data-section="statistics">
+          <i class="fas fa-chart-bar"></i>
+          <span>Estadísticas</span>
+        </a>
+        <a href="#" class="nav-link" data-section="platform">
+          <i class="fas fa-palette"></i>
+          <span>Plataforma</span>
+        </a>
+        <a href="#" class="nav-link" data-section="news">
+          <i class="fas fa-newspaper"></i>
+          <span>Noticias</span>
+        </a>
+        <a href="#" class="nav-link" data-section="opportunities">
+          <i class="fas fa-lightbulb"></i>
+          <span>Oportunidades</span>
+        </a>
+        <a href="#" class="nav-link" data-section="repository">
+          <i class="fas fa-database"></i>
+          <span>Repositorio</span>
+        </a>
+      </div>
+      
+      <div class="nav-user">
+        <div class="user-avatar">
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="user-info">
+          <div class="user-name">Admin Usuario</div>
+          <div class="user-role">Administrador</div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="content-section active">
+      <div class="section-header">
+        <h1>Dashboard</h1>
+        <p>Vista general de la plataforma INJUV</p>
+      </div>
+      
+      <div class="stats-overview">
+        <div class="stat-card primary">
+          <div class="stat-content">
+            <div class="stat-number">1,247</div>
+            <div class="stat-label">Usuarios Activos</div>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-users"></i>
+          </div>
+        </div>
+        
+        <div class="stat-card secondary">
+          <div class="stat-content">
+            <div class="stat-number">89</div>
+            <div class="stat-label">Oportunidades</div>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+        </div>
+        
+        <div class="stat-card accent">
+          <div class="stat-content">
+            <div class="stat-number">156</div>
+            <div class="stat-label">Noticias</div>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-newspaper"></i>
+          </div>
+        </div>
+        
+        <div class="stat-card neutral">
+          <div class="stat-content">
+            <div class="stat-number">234</div>
+            <div class="stat-label">Documentos</div>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-database"></i>
+          </div>
+        </div>
+      </div>
+      
+      <div class="quick-actions">
+        <h2>Acciones Rápidas</h2>
+        <div class="actions-grid">
+          <button class="action-btn">
+            <i class="fas fa-plus"></i>
+            <span>Agregar Usuario</span>
+          </button>
+          <button class="action-btn" data-section="statistics">
+            <i class="fas fa-chart-bar"></i>
+            <span>Estadísticas</span>
+          </button>
+          <button class="action-btn">
+            <i class="fas fa-upload"></i>
+            <span>Subir Documento</span>
+          </button>
+          <button class="action-btn">
+            <i class="fas fa-cog"></i>
+            <span>Configuración</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Users Section -->
+    <section id="users" class="content-section">
+      <div class="section-header">
+        <h1>Gestión de Usuarios</h1>
+        <button class="btn-primary">
+          <i class="fas fa-plus"></i>
+          Nuevo Usuario
+        </button>
+      </div>
+      
+      <div class="content-card">
+        <div class="table-header">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Buscar usuarios...">
+          </div>
+          <div class="table-filters">
+            <select>
+              <option>Todos los roles</option>
+              <option>Administrador</option>
+              <option>Moderador</option>
+              <option>Editor</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="users-table">
+          <div class="user-row header">
+            <div class="user-avatar">Avatar</div>
+            <div class="user-info">Usuario</div>
+            <div class="user-organization">Organización</div>
+            <div class="user-role">Rol</div>
+            <div class="user-status">Estado</div>
+            <div class="user-actions">Acciones</div>
+          </div>
+          
+          <div class="user-row">
+            <div class="user-avatar">
+              <div class="avatar-circle">JD</div>
+            </div>
+            <div class="user-info">
+              <div class="user-name">Juan Doe</div>
+              <div class="user-email">juan@verde.org</div>
+            </div>
+            <div class="user-organization">Fundación Verde</div>
+            <div class="user-role">
+              <span class="role-badge admin">Admin</span>
+            </div>
+            <div class="user-status">
+              <span class="status-dot active"></span>
+              Activo
+            </div>
+            <div class="user-actions">
+              <button class="btn-icon"><i class="fas fa-edit"></i></button>
+              <button class="btn-icon"><i class="fas fa-trash"></i></button>
+            </div>
+          </div>
+          
+          <div class="user-row">
+            <div class="user-avatar">
+              <div class="avatar-circle">MJ</div>
+            </div>
+            <div class="user-info">
+              <div class="user-name">María Jiménez</div>
+              <div class="user-email">maria@juventud.org</div>
+            </div>
+            <div class="user-organization">ONG Juventud</div>
+            <div class="user-role">
+              <span class="role-badge moderator">Mod</span>
+            </div>
+            <div class="user-status">
+              <span class="status-dot active"></span>
+              Activo
+            </div>
+            <div class="user-actions">
+              <button class="btn-icon"><i class="fas fa-edit"></i></button>
+              <button class="btn-icon"><i class="fas fa-trash"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reports Section -->
+    <section id="reports" class="content-section">
+      <div class="section-header">
+        <h1>Reportes</h1>
+        <p>Genera reportes personalizados de la plataforma</p>
+      </div>
+      
+      <div class="reports-grid">
+        <div class="report-card">
+          <div class="report-header">
+            <i class="fas fa-users"></i>
+            <h3>Reporte de Usuarios</h3>
+          </div>
+          <p>Análisis detallado de usuarios por organización y actividad</p>
+          <div class="report-form">
+            <div class="form-row">
+              <label>Organización</label>
+              <select>
+                <option>Todas las organizaciones</option>
+                <option>Fundación Verde</option>
+                <option>ONG Juventud</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label>Período</label>
+              <div class="date-inputs">
+                <input type="date" placeholder="Desde">
+                <input type="date" placeholder="Hasta">
+              </div>
+            </div>
+            <button class="btn-primary">Generar Reporte</button>
+          </div>
+        </div>
+        
+        <div class="report-card">
+          <div class="report-header">
+            <i class="fas fa-chart-line"></i>
+            <h3>Reporte de Actividades</h3>
+          </div>
+          <p>Métricas de oportunidades de voluntariado y formación</p>
+          <div class="report-form">
+            <div class="form-row">
+              <label>Tipo de Actividad</label>
+              <select>
+                <option>Todas las actividades</option>
+                <option>Voluntariado</option>
+                <option>Formación</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label>Estado</label>
+              <select>
+                <option>Todos los estados</option>
+                <option>Activa</option>
+                <option>Pendiente</option>
+                <option>Cerrada</option>
+              </select>
+            </div>
+            <button class="btn-primary">Generar Reporte</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section id="statistics" class="content-section">
+      <div class="section-header">
+        <h1>Estadísticas</h1>
+        <p>Visualiza estadísticas de voluntariados y voluntarios registrados</p>
+      </div>
+      
+      <!-- Filtros -->
+      <div class="statistics-filters">
+        <div class="filter-group">
+          <label for="filter-month">Mes:</label>
+          <select id="filter-month">
+            <option value="">Todos los meses</option>
+            <option value="01">Enero</option>
+            <option value="02">Febrero</option>
+            <option value="03">Marzo</option>
+            <option value="04">Abril</option>
+            <option value="05">Mayo</option>
+            <option value="06">Junio</option>
+            <option value="07">Julio</option>
+            <option value="08">Agosto</option>
+            <option value="09">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filter-year">Año:</label>
+          <select id="filter-year">
+            <option value="">Todos los años</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
+          </select>
+        </div>
+        <button class="btn-primary" id="apply-filters">
+          <i class="fas fa-filter"></i>
+          Aplicar Filtros
+        </button>
+      </div>
+
+      <!-- Estadísticas Unificadas -->
+      <div class="statistics-card">
+        <!-- Tabla de Estadísticas -->
+        <div class="statistics-table-container">
+          <table class="statistics-table">
+            <thead>
+              <tr>
+                <th>Mes</th>
+                <th>Año</th>
+                <th>Voluntariados Registrados</th>
+                <th>Voluntarios Registrados</th>
+                <th>Voluntarios Activos</th>
+              </tr>
+            </thead>
+            <tbody id="statistics-table-body">
+              <!-- Los datos se cargarán dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+        <!-- Header y Gráfico -->
+        <div class="statistics-header">
+          <h2>Estadísticas de Registros</h2>
+          <div class="statistics-counts">
+            <div class="count-item">
+              <span class="count-label">Voluntariados</span>
+              <span class="count-value" id="voluntariados-count">0</span>
+            </div>
+            <div class="count-item">
+              <span class="count-label">Voluntarios</span>
+              <span class="count-value" id="voluntarios-count">0</span>
+            </div>
+          </div>
+        </div>
+        <!-- Gráfico de Torta -->
+        <div class="statistics-chart-wrapper">
+          <div class="statistics-chart-container">
+            <canvas id="pieChart"></canvas>
+          </div>
+          <div class="statistics-legend" id="pieChartLegend">
+            <!-- La leyenda se generará dinámicamente -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Platform Section -->
+    <section id="platform" class="content-section">
+      <div class="section-header">
+        <h1>Configuración de la Plataforma</h1>
+        <p>Personaliza la apariencia y funcionalidad</p>
+      </div>
+      
+      <div class="settings-grid">
+        <div class="setting-card">
+          <h3>Colores del Tema</h3>
+          <div class="color-settings">
+            <div class="color-option">
+              <label>Color Principal</label>
+              <input type="color" value="#1976D2">
+            </div>
+            <div class="color-option">
+              <label>Color Secundario</label>
+              <input type="color" value="#D32F2F">
+            </div>
+            <div class="color-option">
+              <label>Color de Fondo</label>
+              <input type="color" value="#FAFAFA">
+            </div>
+          </div>
+        </div>
+        
+        <div class="setting-card">
+          <h3>Logo y Branding</h3>
+          <div class="logo-settings">
+            <div class="upload-area">
+              <i class="fas fa-upload"></i>
+              <p>Arrastra el logo aquí o haz clic para seleccionar</p>
+              <input type="file" accept="image/*">
+            </div>
+          </div>
+        </div>
+        
+        <div class="setting-card">
+          <h3>Texto del Sitio</h3>
+          <div class="text-settings">
+            <div class="form-group">
+              <label>Título Principal</label>
+              <input type="text" value="Plataforma de Voluntariado INJUV">
+            </div>
+            <div class="form-group">
+              <label>Descripción</label>
+              <textarea>Conecta con proyectos que cambian vidas en todo Chile</textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="settings-actions">
+        <button class="btn-secondary">Cancelar</button>
+        <button class="btn-primary">Guardar Cambios</button>
+      </div>
+    </section>
+
+    <!-- News Section -->
+    <section id="news" class="content-section">
+      <div class="section-header">
+        <h1>Gestión de Noticias</h1>
+        <button class="btn-primary">
+          <i class="fas fa-plus"></i>
+          Nueva Noticia
+        </button>
+      </div>
+      
+      <div class="news-grid">
+        <div class="news-card pending">
+          <div class="news-status">Pendiente</div>
+          <div class="news-content">
+            <h3>Nueva campaña de reforestación</h3>
+            <p>Se anuncia nueva iniciativa para plantar 10,000 árboles en la región metropolitana...</p>
+            <div class="news-meta">
+              <span><i class="fas fa-user"></i> Admin Verde</span>
+              <span><i class="fas fa-clock"></i> Hace 2 horas</span>
+            </div>
+          </div>
+          <div class="news-actions">
+            <button class="btn-success">Aprobar</button>
+            <button class="btn-danger">Rechazar</button>
+            <button class="btn-secondary">Editar</button>
+          </div>
+        </div>
+        
+        <div class="news-card approved">
+          <div class="news-status">Aprobada</div>
+          <div class="news-content">
+            <h3>Resultados del voluntariado 2024</h3>
+            <p>Balance anual de las actividades de voluntariado realizadas en todo el país...</p>
+            <div class="news-meta">
+              <span><i class="fas fa-user"></i> Admin INJUV</span>
+              <span><i class="fas fa-clock"></i> Hace 1 día</span>
+            </div>
+          </div>
+          <div class="news-actions">
+            <button class="btn-secondary">Editar</button>
+            <button class="btn-danger">Despublicar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Opportunities Section -->
+    <section id="opportunities" class="content-section">
+      <div class="section-header">
+        <h1>Gestión de Oportunidades</h1>
+        <button class="btn-primary">
+          <i class="fas fa-plus"></i>
+          Nueva Oportunidad
+        </button>
+      </div>
+      
+      <div class="opportunities-grid">
+        <div class="opportunity-card formation pending">
+          <div class="opportunity-type">Formación</div>
+          <div class="opportunity-status">Pendiente</div>
+          <div class="opportunity-content">
+            <h3>Taller de primeros auxilios</h3>
+            <p>Capacitación gratuita en primeros auxilios para jóvenes voluntarios...</p>
+            <div class="opportunity-meta">
+              <span><i class="fas fa-map-marker-alt"></i> Santiago</span>
+              <span><i class="fas fa-calendar"></i> 15-20 Dic</span>
+            </div>
+          </div>
+          <div class="opportunity-actions">
+            <button class="btn-success">Aprobar</button>
+            <button class="btn-danger">Rechazar</button>
+            <button class="btn-secondary">Editar</button>
+          </div>
+        </div>
+        
+        <div class="opportunity-card volunteer approved">
+          <div class="opportunity-type">Voluntariado</div>
+          <div class="opportunity-status">Aprobada</div>
+          <div class="opportunity-content">
+            <h3>Limpieza de playas</h3>
+            <p>Jornada de limpieza en playas de Valparaíso para el próximo fin de semana...</p>
+            <div class="opportunity-meta">
+              <span><i class="fas fa-map-marker-alt"></i> Valparaíso</span>
+              <span><i class="fas fa-calendar"></i> 22 Dic</span>
+            </div>
+          </div>
+          <div class="opportunity-actions">
+            <button class="btn-secondary">Editar</button>
+            <button class="btn-danger">Desactivar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Repository Section -->
+    <section id="repository" class="content-section">
+      <div class="section-header">
+        <h1>Repositorio de Documentos</h1>
+        <button class="btn-primary">
+          <i class="fas fa-upload"></i>
+          Subir Documento
+        </button>
+      </div>
+      
+      <div class="documents-grid">
+        <div class="document-card pending">
+          <div class="document-icon">
+            <i class="fas fa-file-pdf"></i>
+          </div>
+          <div class="document-info">
+            <h3>Manual de Voluntariado 2024</h3>
+            <p>PDF • 2.3 MB • Subido por: admin_org1</p>
+            <div class="document-status">Pendiente de Aprobación</div>
+          </div>
+          <div class="document-actions">
+            <button class="btn-success">Aprobar</button>
+            <button class="btn-danger">Rechazar</button>
+            <button class="btn-secondary">Descargar</button>
+          </div>
+        </div>
+        
+        <div class="document-card approved">
+          <div class="document-icon">
+            <i class="fas fa-file-word"></i>
+          </div>
+          <div class="document-info">
+            <h3>Formulario de Postulación</h3>
+            <p>DOCX • 156 KB • Subido por: user_org2</p>
+            <div class="document-status">Aprobado</div>
+          </div>
+          <div class="document-actions">
+            <button class="btn-secondary">Editar</button>
+            <button class="btn-danger">Eliminar</button>
+            <button class="btn-secondary">Descargar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="admin-modern.js"></script>
+  <script>
+    // Cargar header y configurar enlaces
+    fetch('../../header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header-container').innerHTML = data;
+            
+            setTimeout(() => {
+              // Logo - va a página principal
+              const logo = document.getElementById('logo-link');
+              if (logo) logo.href = '../../index.html';
+              
+              // Enlaces - van a página principal con hash
+              const howWorks = document.getElementById('how-it-works-link');
+              if (howWorks) howWorks.href = '../../index.html#how-it-works';
+              
+              const experiencias = document.getElementById('experiencias-link');
+              if (experiencias) experiencias.href = '../../index.html#experiencias-voluntariado';
+              
+              const noticias = document.getElementById('news-link');
+              if (noticias) noticias.href = '../../index.html#news';
+              
+              const login = document.getElementById('login-link');
+              if (login) login.href = '../../inicio de sesion/login.html';
+            }, 100);
+        })
+        .catch(error => console.error('Error:', error));
+  </script>
+  <script src="../../script.js"></script>
+</body>
+</html> 

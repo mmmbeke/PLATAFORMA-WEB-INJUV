@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Header — INJUV</title>
+  <link rel="stylesheet" href="Kit_Gobierno/typography.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:var(--font-body);line-height:1.6;color:#333;overflow-x:hidden;background:#f6f7fb}
+
+    .header{
+      position:fixed;top:0;left:0;width:100%;
+      background:rgba(255,255,255,.97);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(0,0,0,.08);
+      z-index:1000;transition:all .3s ease;
+    }
+    .header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.1);background:rgba(255,255,255,.98)}
+
+    .header-content{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      max-width:1400px;
+      margin:0 auto;
+      padding:1rem 40px;
+    }
+
+    .logo{flex-shrink:0}
+    .logo img{height:60px;width:auto;border-radius:6px;object-fit:contain;transition:.3s;cursor:pointer}
+    .logo a:hover img{transform:scale(1.05);opacity:.9}
+
+    .main-nav{flex:1;white-space:nowrap;display:flex;justify-content:center;min-width:0;margin-right:1rem}
+    .nav-menu{display:flex;list-style:none;gap:.75rem;flex-wrap:nowrap;justify-content:center;align-items:center;margin:0;padding:0}
+    .nav-item{position:relative;white-space:nowrap;flex-shrink:0}
+    .nav-link{display:flex;align-items:center;gap:.4rem;padding:.5rem .75rem;color:#333;text-decoration:none;font-weight:500;font-size:.9rem;transition:.25s;border-radius:6px;white-space:nowrap}
+    .nav-link:hover{background:#f8f9fa;color:#0066CC}
+
+    .dropdown-menu{position:absolute;top:100%;left:0;background:#fff;min-width:250px;box-shadow:0 10px 30px rgba(0,0,0,.1);border-radius:8px;opacity:0;visibility:hidden;transform:translateY(-10px);transition:.25s;z-index:1000;list-style:none;padding:.5rem 0}
+    .nav-item:hover .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
+    .dropdown-menu a{display:block;padding:.75rem 1.25rem;color:#333;text-decoration:none}
+    .dropdown-menu a:hover{background:#f8f9fa;color:#0066CC}
+
+    .volunteer-filter > li{list-style:none}
+    .volunteer-filter{min-width:700px;padding:0;display:flex;background:#fff;border-radius:8px;overflow:hidden}
+    .volunteer-filter-section{flex:1;padding:1.5rem}
+    .volunteer-filter-section:first-child{border-right:1px solid #e0e0e0}
+    .section-title{font-weight:600;font-size:1rem;color:#333;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid #e0e0e0}
+    .destinations-list,.experiences-list{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;list-style:none;margin:0;padding:0}
+    .destination-item,.experience-item{margin:0}
+    .destination-item a,.experience-item a{display:flex;align-items:center;gap:.5rem;padding:.75rem;text-decoration:none;color:#333;transition:.2s;border-radius:6px;font-size:.9rem}
+    .destination-item a:hover,.experience-item a:hover{background:#f0f7ff;color:#0066CC}
+    .experience-item a i{font-size:1.1rem;color:#0066CC;width:20px;text-align:center}
+    .view-all-link{margin-top:1rem;padding-top:1rem;border-top:1px solid #e0e0e0}
+    .view-all-link a{color:#0066CC;font-weight:500;text-decoration:none;font-size:.9rem;transition:color .2s}
+    .view-all-link a:hover{color:#0052CC;text-decoration:underline}
+
+    .header-actions{display:flex;align-items:center;gap:.5rem;flex-shrink:0;justify-content:flex-end;position:relative;z-index:1001;margin-left:1rem}
+    .btn-login{display:inline-flex;justify-content:center;align-items:center;min-width:120px;padding:.6rem 1.2rem;border-radius:8px;font-weight:600;font-size:.9rem;text-decoration:none;transition:.3s;white-space:nowrap;cursor:pointer;position:relative;z-index:1002;pointer-events:auto;background:linear-gradient(90deg,#0052CC,#007BFF);color:#fff;border:none;box-shadow:0 4px 12px rgba(0,102,204,.3)}
+    .btn-login:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,102,204,.35)}
+
+    .menu-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.5rem;margin-left:auto}
+    .menu-toggle span{width:26px;height:2px;background:#1f2937;border-radius:2px;transition:transform .3s ease,opacity .3s ease}
+    .menu-toggle.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .menu-toggle.active span:nth-child(2){opacity:0}
+    .menu-toggle.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+    @media (max-width:768px){
+      .volunteer-filter{min-width:320px;flex-direction:column}
+      .volunteer-filter-section:first-child{border-right:none;border-bottom:1px solid #e0e0e0}
+      .destinations-list,.experiences-list{grid-template-columns:1fr}
+    }
+
+    .nav-item.dropdown:last-child .dropdown-menu{right:0;left:auto}
+    @media (max-width:1200px){
+      .header-content{padding:.75rem 1.25rem}
+    }
+
+    @media (max-width:1024px){
+      .header-content{flex-wrap:wrap;gap:1rem}
+      .menu-toggle{display:flex}
+      .main-nav{order:3;width:100%;display:none;justify-content:flex-start;flex-direction:column;gap:.75rem;background:#fff;border-radius:12px;box-shadow:0 20px 40px rgba(15,23,42,.12);padding:1rem 1.25rem;max-height:calc(100vh - 120px);overflow-y:auto}
+      .main-nav.active{display:flex}
+      .nav-menu{flex-direction:column;align-items:stretch;gap:.5rem}
+      .nav-item{width:100%}
+      .nav-link{width:100%;justify-content:space-between}
+      .header-actions{order:2;width:100%;justify-content:flex-start;margin-left:0;gap:.75rem}
+      .dropdown-menu{position:static;transform:none;box-shadow:none;padding:.5rem 0;display:none;opacity:1;visibility:visible;border-radius:0;border-top:1px solid #e5e7eb;margin-top:.5rem}
+      .nav-item.open>.dropdown-menu{display:block}
+      .nav-item.dropdown i{transition:transform .3s ease}
+      .nav-item.open>.nav-link i{transform:rotate(180deg)}
+    }
+
+    @media (max-width:640px){
+      .header-actions{flex-direction:column;align-items:stretch}
+      .btn-login{width:100%}
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header-content">
+      <div class="logo">
+        <a href="#" id="logo-link" style="display:block;text-decoration:none">
+          <img src="https://www.injuv.gob.cl/sites/default/files/logo_injuv_2021_portal.png?v=3" alt="INJUV Logo" />
+        </a>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="main-nav" aria-label="Navegación principal">
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="#" id="how-it-works-link" class="nav-link">¿Cómo funciona?</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link">Oportunidades de Voluntariado <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+            <ul class="dropdown-menu volunteer-filter">
+              <li class="volunteer-filter-section">
+                <div class="section-title">Destinos destacados</div>
+                <ul class="destinations-list">
+                  <li class="destination-item"><a href="#" data-location="santiago">Región Metropolitana</a></li>
+                  <li class="destination-item"><a href="#" data-location="valparaiso">Valparaíso</a></li>
+                  <li class="destination-item"><a href="#" data-location="concepcion">Bío Bío</a></li>
+                  <li class="destination-item"><a href="#" data-location="temuco">Araucanía</a></li>
+                  <li class="destination-item"><a href="#" data-location="puerto-varas">Los Lagos</a></li>
+                  <li class="destination-item"><a href="#" data-location="atacama">Atacama</a></li>
+                  <li class="destination-item"><a href="#" data-location="coquimbo">Coquimbo</a></li>
+                  <li class="destination-item"><a href="#" data-location="maule">Maule</a></li>
+                  <li class="destination-item"><a href="#" data-location="ohiggins">O'Higgins</a></li>
+                  <li class="destination-item"><a href="#" data-location="arica">Arica y Parinacota</a></li>
+                </ul>
+                <div class="view-all-link"><a href="#">Mira todas las oportunidades de voluntariado</a></div>
+              </li>
+
+              <li class="volunteer-filter-section">
+                <div class="section-title">¿Qué tipo de experiencias estás buscando?</div>
+                <ul class="experiences-list">
+                  <li class="experience-item"><a href="#" data-theme="non-profit-school"><i class="fas fa-chalkboard-teacher"></i><span>Escuela sin fines lucrativos</span></a></li>
+                  <li class="experience-item"><a href="#" data-theme="community"><i class="fas fa-users"></i><span>Comunidad</span></a></li>
+                  <li class="experience-item"><a href="#" data-theme="ngo"><i class="fas fa-heart"></i><span>ONG</span></a></li>
+                  <li class="experience-item"><a href="#" data-theme="homestay"><i class="fas fa-home"></i><span>Casa de familia</span></a></li>
+                  <li class="experience-item"><a href="#" data-theme="hostel"><i class="fas fa-building"></i><span>Hostel</span></a></li>
+                  <li class="experience-item"><a href="#" data-theme="camping"><i class="fas fa-campground"></i><span>Camping</span></a></li>
+                  <li class="experience-item"><a href="#" data-theme="inn"><i class="fas fa-hotel"></i><span>Posada</span></a></li>
+                  <li class="experience-item"><a href="#" data-theme="farm"><i class="fas fa-tractor"></i><span>Granja</span></a></li>
+                  <li class="experience-item"><a href="#" data-theme="permaculture"><i class="fas fa-seedling"></i><span>Permacultura</span></a></li>
+                  <li class="experience-item"><a href="#" data-theme="eco-village"><i class="fas fa-leaf"></i><span>Ecoaldea</span></a></li>
+                  <li class="experience-item"><a href="#" data-theme="holistic-center"><i class="fas fa-spa"></i><span>Centro holístico</span></a></li>
+                  <li class="experience-item"><a href="#" data-theme="guest-house"><i class="fas fa-door-open"></i><span>Casa de huéspedes</span></a></li>
+                  <li class="experience-item"><a href="#" data-theme="eco-lodge"><i class="fas fa-tree"></i><span>Eco alojamiento</span></a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" id="experiencias-link" class="nav-link">Experiencias de Voluntariado</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" id="news-link" class="nav-link">Noticias</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link">Atención Ciudadana <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Trámites INJUV</a></li>
+              <li><a href="#">Gobierno Transparente</a></li>
+              <li><a href="#">OIRS</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="#" id="login-link" class="btn-login">Iniciar sesión</a>
+      </div>
+    </div>
+  </header>
+</body>
+</html>

@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formulario de Organización — INJUV (clon estático)</title>
+  <link rel="stylesheet" href="../../Kit_Gobierno/typography.css" />
+  <link rel="stylesheet" href="../../Kit_Gobierno/grid-system.css" />
+  <link rel="stylesheet" href="../../Kit_Gobierno/buttons-system.css" />
+  <link rel="stylesheet" href="../../Kit_Gobierno/cards-system.css" />
+  <link rel="stylesheet" href="../../Kit_Gobierno/expansion-panel-system.css" />
+  <link rel="stylesheet" href="../../Kit_Gobierno/stepper-system.css" />
+  <link rel="stylesheet" href="../../Kit_Gobierno/tooltip-system.css" />
+  <link rel="stylesheet" href="../../Kit_Gobierno/form-controls-system.css" />
+  <link rel="stylesheet" href="../../Kit_Gobierno/otp-input-system.css" />
+  <link rel="stylesheet" href="../../Kit_Gobierno/search-input-system.css" />
+  <link rel="stylesheet" href="../../Kit_Gobierno/select-system.css" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="../../chatbot/styles_bot.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Header Principal -->
+  <div id="header-container"></div>
+
+  <main class="container" style="padding-bottom: 80px; margin-bottom: 40px;">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-icon" aria-hidden="true">🏢</div>
+        <h1>Formulario de Organización</h1>
+        <p>Complete toda la información de su organización para participar en el programa de voluntariado</p>
+      </div>
+    </section>
+
+    <div class="progress">
+      <div class="progress-bar" style="width: 0%" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <span>Progreso: 0%</span>
+      </div>
+    </div>
+
+    <!-- IDENTIFICACIÓN -->
+    <section class="card">
+      <header class="card-header">
+        <div class="card-title">
+          <span class="icon" aria-hidden="true">🧾</span>
+          <h2>Identificación</h2>
+        </div>
+      </header>
+      <div class="grid two">
+        <div class="field">
+          <label>Nombre legal de la organización <span class="req">*</span></label>
+          <input type="text" placeholder="" />
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente (nombre corto o comp)</label>
+        </div>
+        <div class="field">
+          <label>Nombre corto / Sigla</label>
+          <input type="text" />
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+
+        <div class="field">
+          <label>Tipo de organización <span class="req">*</span></label>
+          <select>
+            <option>Seleccione...</option>
+            <option>Fundación</option>
+            <option>Corporación</option>
+            <option>ONG</option>
+            <option>Agrupación</option>
+          </select>
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+        <div class="field">
+          <label>RUT / Número de registro legal</label>
+          <input type="text" placeholder="12.345.678-9" />
+          <p class="hint private"><span class="dot"></span> Solo visible para organización y administradores</p>
+        </div>
+
+        <div class="field">
+          <label>Año de fundación <span class="req">*</span></label>
+          <input type="number" placeholder="2005" />
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+        <div class="field">
+          <label>Documentos legales (estatutos, certificados, FECU social)</label>
+          <input type="file" multiple />
+          <p class="hint private"><span class="dot"></span> Solo visible para organización y administradores</p>
+          <div class="notice sensitive">⚠ Información sensible — Este campo solo será visible para miembros de su organización y administradores del sistema.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PERSONALIDAD JURÍDICA -->
+    <section class="card">
+      <header class="card-header">
+        <div class="card-title">
+          <span class="icon" aria-hidden="true">📄</span>
+          <h2>Personalidad Jurídica</h2>
+        </div>
+      </header>
+      <div class="grid three">
+        <div class="field">
+          <label>Tipo de personalidad jurídica <span class="req">*</span></label>
+          <select>
+            <option>Seleccione...</option>
+            <option>Fundación</option>
+            <option>Corporación</option>
+            <option>Organización Comunitaria</option>
+            <option>ONG</option>
+            <option>Otra</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Nº / Inscripción de personalidad jurídica <span class="req">*</span></label>
+          <input type="text" placeholder="N° de inscripción / registro" />
+        </div>
+        <div class="field">
+          <label>Fecha de constitución <span class="req">*</span></label>
+          <input type="date" />
+        </div>
+        <div class="field">
+          <label>Notaría / Entidad que certifica</label>
+          <input type="text" placeholder="Nombre de notaría o entidad" />
+        </div>
+        <div class="field">
+          <label>Documento de constitución (PDF)</label>
+          <input type="file" accept=".pdf" />
+          <p class="hint private"><span class="dot"></span> Solo visible para organización y administradores</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GESTIÓN DE OPORTUNIDADES -->
+    <section class="card">
+      <header class="card-header">
+        <div class="card-title">
+          <span class="icon" aria-hidden="true">🧾</span>
+          <h2>Gestión de Oportunidades</h2>
+        </div>
+      </header>
+      <div class="grid three">
+        <div class="field">
+          <label>Historial de oportunidades publicadas</label>
+          <input type="text" />
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+        <div class="field">
+          <label>Oportunidades activas</label>
+          <input type="text" />
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+        <div class="field">
+          <label>Estado de cada oportunidad</label>
+          <textarea placeholder="Describa el estado actual de sus oportunidades..."></textarea>
+          <p class="hint private"><span class="dot"></span> Solo visible para organización y administradores</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEGUIMIENTO -->
+    <section class="card">
+      <header class="card-header">
+        <div class="card-title">
+          <span class="icon" aria-hidden="true">🧾</span>
+          <h2>Seguimiento</h2>
+        </div>
+      </header>
+      <div class="grid three">
+        <div class="field">
+          <label>Número de postulantes recibidos en plataforma</label>
+          <input type="number" min="0" />
+          <p class="hint private"><span class="dot"></span> Solo visible para organización y administradores</p>
+        </div>
+        <div class="field">
+          <label>Evaluaciones/opiniones de voluntarios hacia la org</label>
+          <textarea></textarea>
+          <p class="hint private"><span class="dot"></span> Solo visible para organización y administradores</p>
+        </div>
+        <div class="field">
+          <label>Resumen del impacto obtenido en el voluntariado</label>
+          <textarea></textarea>
+          <p class="hint private"><span class="dot"></span> Solo visible para organización y administradores</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCIA Y CONFIANZA -->
+    <section class="card">
+      <header class="card-header">
+        <div class="card-title">
+          <span class="icon" aria-hidden="true">🧾</span>
+          <h2>Experiencia y Confianza</h2>
+        </div>
+      </header>
+      <div class="grid three">
+        <div class="field">
+          <label>Experiencia previa (años en voluntariado) <span class="req">*</span></label>
+          <input type="number" min="0" />
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+        <div class="field">
+          <label>Número anual de voluntarios movilizados estimado (rango)</label>
+          <select>
+            <option>Seleccione...</option>
+            <option>1–20</option>
+            <option>21–100</option>
+            <option>101–500</option>
+            <option>500+</option>
+          </select>
+          <p class="hint private"><span class="dot"></span> Solo visible para organización y administradores</p>
+        </div>
+        <div class="field">
+          <label>Principales proyectos realizados <span class="req">*</span></label>
+          <textarea></textarea>
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+
+        <div class="field col-span-2">
+          <label>Certificaciones o reconocimientos (opcional)</label>
+          <textarea></textarea>
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+          <div class="tip">🏅 Reconocimientos — Mencione cualquier certificación o premio que haya recibido su organización.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMAGEN Y PRESENTACIÓN -->
+    <section class="card">
+      <header class="card-header">
+        <div class="card-title">
+          <span class="icon" aria-hidden="true">🧾</span>
+          <h2>Imagen y Presentación</h2>
+        </div>
+      </header>
+      <div class="grid three">
+        <div class="field">
+          <label>Logotipo <span class="req">*</span></label>
+          <input type="file" />
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+        <div class="field">
+          <label>Imagen de portada/banner <span class="req">*</span></label>
+          <input type="file" />
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+        <div class="field">
+          <label>Descripción breve (máx. 500 caracteres) <span class="req">*</span></label>
+          <textarea maxlength="500" placeholder=""></textarea>
+          <div class="counter">500 caracteres restantes</div>
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+
+        <div class="field col-span-2">
+          <label>Descripción extendida (misión, visión, historia)</label>
+          <textarea rows="4"></textarea>
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+
+        <div class="field">
+          <label>Áreas de trabajo / Causas <span class="req">*</span></label>
+          <select>
+            <option>Seleccione...</option>
+            <option>Educación</option>
+            <option>Salud</option>
+            <option>Medio Ambiente</option>
+            <option>Derechos Humanos</option>
+            <option>Lucha contra la Pobreza</option>
+            <option>Inclusión</option>
+            <option>Deportes</option>
+            <option>Cultura</option>
+            <option>Otra</option>
+          </select>
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- MULTIMEDIA -->
+    <section class="card">
+      <header class="card-header">
+        <div class="card-title">
+          <span class="icon" aria-hidden="true">🧾</span>
+          <h2>Multimedia</h2>
+        </div>
+      </header>
+      <div class="grid three">
+        <div class="field">
+          <label>Galería de fotos <span class="req">*</span></label>
+          <input type="file" multiple />
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+        <div class="field">
+          <label>Videos de actividades (opcional)</label>
+          <input type="file" multiple />
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+        <div class="field">
+          <label>Testimonios de voluntarios (opcional)</label>
+          <textarea placeholder="Testimonios de voluntarios que han participado en sus proyectos..."></textarea>
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" type="button">📄 Enviar Formulario de Organización</button>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="card">
+      <header class="card-header">
+        <div class="card-title">
+          <span class="icon" aria-hidden="true">🧾</span>
+          <h2>Contacto</h2>
+        </div>
+      </header>
+      <div class="grid three">
+        <div class="field">
+          <label>Persona responsable del voluntariado <span class="req">*</span></label>
+          <input type="text" />
+          <p class="hint private"><span class="dot"></span> Solo visible para organización y administradores</p>
+        </div>
+        <div class="field">
+          <label>Cargo <span class="req">*</span></label>
+          <input type="text" />
+          <p class="hint private"><span class="dot"></span> Solo visible para organización y administradores</p>
+        </div>
+        <div class="field">
+          <label>Teléfono directo <span class="req">*</span></label>
+          <input type="tel" placeholder="+56 9 1234 5678" />
+          <p class="hint private"><span class="dot"></span> Solo visible para organización y administradores</p>
+        </div>
+
+        <div class="field">
+          <label>Correo contraparte <span class="req">*</span></label>
+          <input type="email" placeholder="contraparte@ejemplo.org" />
+          <p class="hint private"><span class="dot"></span> Solo visible para organización y administradores</p>
+        </div>
+        <div class="field">
+          <label>Correo institucional para consultas <span class="req">*</span></label>
+          <input type="email" placeholder="contacto@ejemplo.org" />
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente (genérico)</label>
+        </div>
+        <div class="field">
+          <label>Ciudad / Región <span class="req">*</span></label>
+          <input type="text" />
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+          <div class="tip">📍 Ubicación importante — Esta información ayudará a los voluntarios a encontrar oportunidades cercanas.</div>
+        </div>
+
+        <div class="field">
+          <label>Localidad / Comuna <span class="req">*</span></label>
+          <input type="text" placeholder="Ej.: Ñuñoa, Maipú, Temuco" />
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+        <div class="field">
+          <label>Sitio web</label>
+          <input type="url" placeholder="https://www.ejemplo.org" />
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+
+        <div class="field col-span-3">
+          <label>Redes sociales</label>
+          <input type="text" placeholder="Instagram: @ejemplo, Facebook: /ejemplo" />
+          <label class="hint public"><input type="checkbox" checked disabled /> Visible públicamente</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-wrapper">
+            <!-- Barra superior -->
+            <div class="footer-top-bar">
+                <div class="footer-bar-blue"></div>
+                <div class="footer-bar-red"></div>
+            </div>
+            
+            <div class="footer-content">
+                <!-- Columna 1: Logos -->
+                <div class="footer-section footer-col1">
+                    <div class="footer-logos-container">
+                        <!-- Logo ClaveÚnica -->
+                        <div class="footer-logo-claveunica">
+                            <img src="../../Fotos_injuv/ClaveUnica.png" alt="ClaveÚnica" class="footer-logo-img claveunica-logo">
+                        </div>
+                        
+                        <p class="footer-admin-text">Servicio de autenticación administrado por:</p>
+                        
+                        <!-- Logo Secretaría de Gobierno Digital -->
+                        <div class="footer-logo-secretaria">
+                            <img src="../../Fotos_injuv/SecretariaGobiernoDigital.png" alt="Secretaría de Gobierno Digital" class="footer-logo-img secretaria-logo">
+                        </div>
+                        
+                        <p class="footer-collab-text">Con la colaboración de:</p>
+                        
+                        <!-- Logo Ministerio -->
+                        <div class="footer-logo-ministerio-small">
+                            <img src="../../Fotos_injuv/color_MinDesarrolloSocialYFamilia.jpg" alt="Ministerio de Desarrollo Social y Familia" class="footer-logo-img ministerio-small-logo">
+                        </div>
+                        
+                        <p class="footer-trademark">INJUV®</p>
+                    </div>
+                </div>
+                
+                <!-- Columna 2: Secciones -->
+                <div class="footer-section footer-col2">
+                    <h4>Secciones</h4>
+                    <ul>
+                        <li><a href="../../noticias/index.html">Noticias</a></li>
+                        <li><a href="../../inicio de sesion/login.html">Postular</a></li>
+                        <li><a href="../../organizaciones/index.html">Instituciones públicas</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Columna 3: Ayuda a Ciudadanos -->
+                <div class="footer-section footer-col3">
+                    <h4>Ayuda a Ciudadanos</h4>
+                    <a href="#" class="contact-link" id="faq-link">Preguntas frecuentes</a>
+                    <p class="contact-info">Horario: Lu - Vi / 9:00hrs - 18:00hrs</p>
+                    <a href="tel:+56226204700" class="contact-phone">+56 2 26204700</a>
+                </div>
+                
+                <!-- Columna 4: Ayuda a Instituciones -->
+                <div class="footer-section footer-col4">
+                    <h4>Ayuda a Instituciones</h4>
+                    <p class="contact-info">Horario: Lu - Vi / 9:00hrs - 18:00hrs</p>
+                    <a href="tel:+56226204700" class="contact-phone">+56 2 26204700</a>
+                </div>
+            </div>
+            
+            <!-- Barra inferior -->
+            <div class="footer-bottom-bar">
+                <div class="footer-bar-blue"></div>
+                <div class="footer-bar-red"></div>
+            </div>
+        </div>
+    </footer>
+  </main>
+  
+  <script>
+    // Cargar header y configurar enlaces
+    fetch('../../header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header-container').innerHTML = data;
+            
+            setTimeout(() => {
+              // Logo - va a página principal
+              const logo = document.getElementById('logo-link');
+              if (logo) logo.href = '../../index.html';
+              
+              // Enlaces - van a página principal con hash
+              const howWorks = document.getElementById('how-it-works-link');
+              if (howWorks) howWorks.href = '../../index.html#how-it-works';
+              
+              const experiencias = document.getElementById('experiencias-link');
+              if (experiencias) experiencias.href = '../../index.html#experiencias-voluntariado';
+              
+              const noticias = document.getElementById('news-link');
+              if (noticias) noticias.href = '../../index.html#news';
+              
+              const login = document.getElementById('login-link');
+              if (login) login.href = '../../inicio de sesion/login.html';
+            }, 100);
+        })
+        .catch(error => console.error('Error:', error));
+  </script>
+  <!-- Chatbot de Preguntas Frecuentes -->
+  <div id="chatbot-container" class="chatbot-container">
+      <div class="chatbot-header">
+          <div class="chatbot-header-content">
+              <div class="chatbot-avatar">
+                  <img src="../../chatbot/imagenes/chatbot-icon.png" alt="Asistente INJUV" class="chatbot-avatar-img">
+              </div>
+              <div class="chatbot-info">
+                  <h3>Asistente INJUV</h3>
+                  <span class="chatbot-status">👉 Listo para ayudarte...</span>
+              </div>
+          </div>
+          <button id="chatbot-close" class="chatbot-close">
+              <i class="fas fa-times"></i>
+          </button>
+      </div>
+      <div id="chatbot-messages" class="chatbot-messages"></div>
+      <div class="chatbot-input-container">
+          <input 
+              type="text" 
+              id="chatbot-input" 
+              class="chatbot-input" 
+              placeholder="Escribe tu pregunta aquí..."
+              autocomplete="off"
+          >
+          <button type="button" id="chatbot-send" class="chatbot-send">
+              <img src="../../chatbot/imagenes/Chatbot-enviar.png" alt="Enviar" class="send-icon-img">
+          </button>
+      </div>
+  </div>
+  
+  <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Abrir chatbot">
+      <img src="../../chatbot/imagenes/chatbot-icon.png" alt="Chatbot" class="chatbot-toggle-icon">
+      <span class="chatbot-badge">?</span>
+  </button>
+
+  <script src="../../Kit_Gobierno/expansion-panel-system.js"></script>
+  <script src="../../Kit_Gobierno/stepper-system.js"></script>
+  <script src="../../Kit_Gobierno/tooltip-system.js"></script>
+  <script src="../../Kit_Gobierno/file-input-system.js"></script>
+  <script src="../../Kit_Gobierno/otp-input-system.js"></script>
+  <script src="../../Kit_Gobierno/search-input-system.js"></script>
+  <script src="../../Kit_Gobierno/select-system.js"></script>
+  <script src="../../script.js"></script>
+  <script src="../../chatbot/chatbot.js"></script>
+  
+  <script>
+      // Configurar enlace de "Preguntas frecuentes" para abrir el chatbot
+      window.addEventListener('load', () => {
+          const faqLink = document.getElementById('faq-link');
+          
+          if (faqLink) {
+              faqLink.addEventListener('click', (e) => {
+                  e.preventDefault();
+                  
+                  setTimeout(() => {
+                      const chatbotToggle = document.getElementById('chatbot-toggle');
+                      const chatbotContainer = document.getElementById('chatbot-container');
+                      
+                      if (chatbotContainer && chatbotToggle) {
+                          if (!chatbotContainer.classList.contains('chatbot-open')) {
+                              chatbotToggle.click();
+                          }
+                      }
+                  }, 300);
+              });
+          }
+      });
+  </script>
+</body>
+</html>

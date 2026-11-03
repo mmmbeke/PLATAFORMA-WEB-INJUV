@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración - INJUV (Diseño Moderno)</title>
+  <link rel="stylesheet" href="../../typography.css">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="admin-modern.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <!-- Header Principal -->
+  <div id="header-container"></div>
+  
+  <!-- Navegación interna del panel (debajo del header principal) -->
+  <nav class="admin-internal-nav">
+    <div class="admin-nav-container">
+      <a href="#" class="admin-nav-link active" data-section="dashboard">
+        <i class="fas fa-chart-line"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="#" class="admin-nav-link" data-section="users">
+        <i class="fas fa-users"></i>
+        <span>Usuarios</span>
+      </a>
+      <a href="#" class="admin-nav-link" data-section="organization-requests">
+        <i class="fas fa-file-signature"></i>
+        <span>Solicitudes Org.</span>
+      </a>
+      <a href="#" class="admin-nav-link" data-section="reports">
+        <i class="fas fa-file-alt"></i>
+        <span>Reportes</span>
+      </a>
+      <a href="#" class="admin-nav-link" data-section="statistics">
+        <i class="fas fa-chart-bar"></i>
+        <span>Estadísticas</span>
+      </a>
+      <a href="#" class="admin-nav-link" data-section="news">
+        <i class="fas fa-newspaper"></i>
+        <span>Noticias</span>
+      </a>
+      <a href="#" class="admin-nav-link" data-section="opportunities">
+        <i class="fas fa-lightbulb"></i>
+        <span>Oportunidades</span>
+      </a>
+      <a href="#" class="admin-nav-link" data-section="reviews">
+        <i class="fas fa-star"></i>
+        <span>Reseñas</span>
+      </a>
+      <a href="#" class="admin-nav-link" data-section="repository">
+        <i class="fas fa-database"></i>
+        <span>Repositorio</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="content-section active">
+      <div class="section-header">
+        <h1>Dashboard</h1>
+        <p>Vista general de la plataforma INJUV</p>
+      </div>
+      
+      <div class="stats-overview">
+        <div class="stat-card primary clickable-stat" data-type="usuarios">
+          <div class="stat-content">
+            <div class="stat-number" id="stat-usuarios">0</div>
+            <div class="stat-label">Usuarios Registrados</div>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-users"></i>
+          </div>
+        </div>
+        
+        <div class="stat-card secondary clickable-stat" data-type="voluntariados">
+          <div class="stat-content">
+            <div class="stat-number" id="stat-voluntariados">0</div>
+            <div class="stat-label">Voluntariados Creados</div>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+        </div>
+        
+        <div class="stat-card accent clickable-stat" data-type="organizaciones">
+          <div class="stat-content">
+            <div class="stat-number" id="stat-organizaciones">0</div>
+            <div class="stat-label">Organizaciones Creadas</div>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-building"></i>
+          </div>
+        </div>
+        
+        <div class="stat-card neutral">
+          <div class="stat-content">
+            <div class="stat-number" id="stat-noticias">0</div>
+            <div class="stat-label">Noticias Activas</div>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-newspaper"></i>
+          </div>
+        </div>
+        
+        <div class="stat-card primary clickable-stat" data-type="academia">
+          <div class="stat-content">
+            <div class="stat-number" id="stat-academia">0</div>
+            <div class="stat-label">Documentos Academia</div>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+        </div>
+        
+        <div class="stat-card accent clickable-stat" data-type="biblioteca">
+          <div class="stat-content">
+            <div class="stat-number" id="stat-biblioteca">0</div>
+            <div class="stat-label">Documentos Biblioteca</div>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-book"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Users Section -->
+    <section id="users" class="content-section">
+      <div class="section-header">
+        <h1>Gestión de Usuarios</h1>
+        <button class="btn-primary" onclick="showAddUserModal()">
+          <i class="fas fa-plus"></i>
+          Nuevo Usuario
+        </button>
+      </div>
+      
+      <div class="content-card">
+        <div class="table-header">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Buscar usuarios...">
+          </div>
+          <div class="table-filters">
+            <select>
+              <option>Todos los roles</option>
+              <option>Administrador</option>
+              <option>Moderador</option>
+              <option>Editor</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="users-table">
+          <div class="user-row header">
+            <div class="user-avatar">Avatar</div>
+            <div class="user-info">Usuario</div>
+            <div class="user-organization">Organización</div>
+            <div class="user-role">Rol</div>
+            <div class="user-status">Estado</div>
+            <div class="user-actions">Acciones</div>
+          </div>
+          <!-- Los usuarios se cargarán dinámicamente desde el backend -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Organization Requests Section -->
+    <section id="organization-requests" class="content-section">
+      <div class="section-header">
+        <h1>Solicitudes de Creación de Organización</h1>
+        <button class="btn-primary" id="btnRefreshOrgRequests">
+          <i class="fas fa-sync-alt"></i>
+          Actualizar
+        </button>
+      </div>
+
+      <div class="content-card">
+        <p class="section-description" style="margin-bottom: 1rem; color: #6b7280;">
+          Revisa los formularios enviados por usuarios y aprueba o rechaza la creación de su organización.
+        </p>
+        <div id="organizationRequestsContainer">
+          <div class="text-center text-gray-500 py-8">Cargando solicitudes...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reports Section -->
+    <section id="reports" class="content-section">
+      <div class="section-header">
+        <h1>Reportes</h1>
+        <p>Genera reportes personalizados de la plataforma</p>
+      </div>
+      
+      <div class="reports-grid">
+        <div class="report-card">
+          <div class="report-header">
+            <i class="fas fa-users"></i>
+            <h3>Reporte de Usuarios</h3>
+          </div>
+          <p>Listado completo de todos los usuarios registrados con su información y estadísticas</p>
+          <div class="report-form">
+            <div class="form-row">
+              <label>Filtro por Rol</label>
+              <select id="reporte-user-rol">
+                <option value="">Todos los roles</option>
+                <option value="user">Usuario</option>
+                <option value="organizacion">Organización</option>
+                <option value="admin">Administrador</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label>Filtro por Región</label>
+              <select id="reporte-user-region">
+                <option value="">Todas las regiones</option>
+                <option value="Arica y Parinacota">Arica y Parinacota</option>
+                <option value="Tarapacá">Tarapacá</option>
+                <option value="Antofagasta">Antofagasta</option>
+                <option value="Atacama">Atacama</option>
+                <option value="Coquimbo">Coquimbo</option>
+                <option value="Valparaíso">Valparaíso</option>
+                <option value="Región Metropolitana de Santiago">Región Metropolitana de Santiago</option>
+                <option value="O'Higgins">O'Higgins</option>
+                <option value="Maule">Maule</option>
+                <option value="Ñuble">Ñuble</option>
+                <option value="Bío Bío">Bío Bío</option>
+                <option value="Araucanía">Araucanía</option>
+                <option value="Los Ríos">Los Ríos</option>
+                <option value="Los Lagos">Los Lagos</option>
+                <option value="Aysén">Aysén</option>
+                <option value="Magallanes">Magallanes</option>
+              </select>
+            </div>
+            <button class="btn-primary" onclick="generarReporteUsuarios()">Generar Reporte</button>
+          </div>
+        </div>
+        
+        <div class="report-card">
+          <div class="report-header">
+            <i class="fas fa-building"></i>
+            <h3>Reporte de Organizaciones</h3>
+          </div>
+          <p>Listado completo de todas las organizaciones registradas con sus datos y estadísticas</p>
+          <div class="report-form">
+            <div class="form-row">
+              <label>Filtro por Región</label>
+              <select id="reporte-org-region">
+                <option value="">Todas las regiones</option>
+                <option value="Arica y Parinacota">Arica y Parinacota</option>
+                <option value="Tarapacá">Tarapacá</option>
+                <option value="Antofagasta">Antofagasta</option>
+                <option value="Atacama">Atacama</option>
+                <option value="Coquimbo">Coquimbo</option>
+                <option value="Valparaíso">Valparaíso</option>
+                <option value="Región Metropolitana de Santiago">Región Metropolitana de Santiago</option>
+                <option value="O'Higgins">O'Higgins</option>
+                <option value="Maule">Maule</option>
+                <option value="Ñuble">Ñuble</option>
+                <option value="Bío Bío">Bío Bío</option>
+                <option value="Araucanía">Araucanía</option>
+                <option value="Los Ríos">Los Ríos</option>
+                <option value="Los Lagos">Los Lagos</option>
+                <option value="Aysén">Aysén</option>
+                <option value="Magallanes">Magallanes</option>
+              </select>
+            </div>
+            <button class="btn-primary" onclick="generarReporteOrganizaciones()">Generar Reporte</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section id="statistics" class="content-section">
+      <div class="section-header">
+        <h1>Estadísticas</h1>
+        <p>Visualiza estadísticas detalladas por categoría</p>
+      </div>
+      
+      <!-- Categorías de Estadísticas -->
+      <div class="statistics-categories">
+        <button class="category-btn active" data-category="voluntarios">
+          <i class="fas fa-users"></i>
+          <span>Voluntarios</span>
+        </button>
+        <button class="category-btn" data-category="organizaciones">
+          <i class="fas fa-building"></i>
+          <span>Organizaciones</span>
+        </button>
+        <button class="category-btn" data-category="voluntariados">
+          <i class="fas fa-lightbulb"></i>
+          <span>Voluntariados</span>
+        </button>
+      </div>
+
+      <!-- Contenedor de Estadísticas -->
+      <div class="statistics-content-container">
+        <!-- Filtros (se mostrarán según la categoría) -->
+        <div class="statistics-filters" id="statistics-filters">
+          <div class="filter-group">
+            <label for="filter-month">Mes:</label>
+            <select id="filter-month">
+              <option value="">Todos los meses</option>
+              <option value="01">Enero</option>
+              <option value="02">Febrero</option>
+              <option value="03">Marzo</option>
+              <option value="04">Abril</option>
+              <option value="05">Mayo</option>
+              <option value="06">Junio</option>
+              <option value="07">Julio</option>
+              <option value="08">Agosto</option>
+              <option value="09">Septiembre</option>
+              <option value="10">Octubre</option>
+              <option value="11">Noviembre</option>
+              <option value="12">Diciembre</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="filter-year">Año:</label>
+            <select id="filter-year">
+              <option value="">Todos los años</option>
+              <!-- Los años se cargarán dinámicamente -->
+            </select>
+          </div>
+          <button class="btn-primary" id="apply-filters">
+            <i class="fas fa-filter"></i>
+            Aplicar Filtros
+          </button>
+        </div>
+
+        <!-- Contenedor del gráfico -->
+        <div class="statistics-card">
+          <div class="statistics-header">
+            <h2 id="statistics-title">Estadísticas</h2>
+            <button class="btn-primary" id="btn-generar-reporte" onclick="generarReporteExcel()">
+              <i class="fas fa-file-excel"></i>
+              Generar Reporte Excel
+            </button>
+          </div>
+          <div class="statistics-chart-wrapper">
+            <div class="statistics-chart-container">
+              <canvas id="statisticsChart"></canvas>
+            </div>
+            <div class="statistics-legend" id="statisticsLegend">
+              <!-- La leyenda se generará dinámicamente -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- News Section -->
+    <section id="news" class="content-section">
+      <div class="section-header">
+        <h1>Gestión de Noticias</h1>
+        <button class="btn-primary" onclick="crearNoticia()">
+          <i class="fas fa-plus"></i>
+          Nueva Noticia
+        </button>
+      </div>
+      
+      <div class="news-grid">
+        <!-- Las noticias se cargarán dinámicamente aquí -->
+      </div>
+    </section>
+
+    <!-- Opportunities Section -->
+    <section id="opportunities" class="content-section">
+      <div class="section-header">
+        <h1>Gestión de Oportunidades</h1>
+      </div>
+      
+      <div class="opportunities-grid">
+        <!-- Las oportunidades se cargarán dinámicamente desde el backend -->
+      </div>
+    </section>
+
+    <!-- Repository Section -->
+    <section id="repository" class="content-section">
+      <div class="section-header">
+        <h1>Repositorio de Documentos</h1>
+        <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+          <label style="font-weight: 600; color: #374151;">Ver:</label>
+          <select id="repositorioFiltroSeccion" class="filter-select" style="min-width: 140px;">
+            <option value="todos">Todos</option>
+            <option value="biblioteca">Biblioteca</option>
+            <option value="academia">Academia</option>
+          </select>
+          <button type="button" class="btn-primary" id="btnSubirDocumentoRepo">
+            <i class="fas fa-upload"></i>
+            Subir Documento
+          </button>
+          <button type="button" class="btn-secondary" id="btnActualizarRepositorio" title="Actualizar lista">
+            <i class="fas fa-sync-alt"></i>
+            Actualizar
+          </button>
+        </div>
+      </div>
+      <p class="section-description" style="margin-bottom: 1rem; color: #6b7280;">Documentos de Biblioteca y Academia. Los documentos subidos por organizaciones aparecen como <strong>Pendiente</strong> hasta que un administrador los apruebe; solo los aprobados son públicos.</p>
+      <div id="repositorioDocumentsGrid" class="documents-grid">
+        <!-- Se llena por loadRepositoryData() -->
+      </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="content-section">
+      <div class="section-header">
+        <h1>Gestión de Reseñas</h1>
+        <p>Todas las reseñas de voluntarios sobre organizaciones y oportunidades</p>
+      </div>
+      
+      <!-- Filtros y agrupación -->
+      <div style="display: flex; gap: 1rem; margin-bottom: 2rem; align-items: center; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 200px;">
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151;">Agrupar por:</label>
+          <select id="filtroAgruparReseñas" class="filter-select" style="width: 100%; padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 6px;">
+            <option value="oportunidad">Por Oportunidad</option>
+            <option value="organizacion">Por Organización</option>
+          </select>
+        </div>
+        <div style="flex: 1; min-width: 200px;">
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151;">Filtrar por calificación:</label>
+          <select id="filtroCalificacionReseñasAdmin" class="filter-select" style="width: 100%; padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 6px;">
+            <option value="todas">Todas las calificaciones</option>
+            <option value="5">5 estrellas</option>
+            <option value="4">4 estrellas</option>
+            <option value="3">3 estrellas</option>
+            <option value="2">2 estrellas</option>
+            <option value="1">1 estrella</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Contenedor de reseñas -->
+      <div id="reviewsContainer" style="margin-top: 1rem;">
+        <div class="text-center text-gray-500 py-8">
+          Cargando reseñas...
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal para mostrar detalles -->
+  <div id="detailsModal" class="details-modal">
+    <div class="details-modal-content">
+      <div class="details-modal-header">
+        <h2 id="modalTitle">Detalles</h2>
+        <button class="details-modal-close" id="closeModal">&times;</button>
+      </div>
+      <div class="details-modal-body">
+        <div class="details-search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="detailsSearch" placeholder="Buscar...">
+        </div>
+        <div class="details-table-container" id="detailsTableContainer">
+          <!-- Los datos se cargarán aquí dinámicamente -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para mostrar datos del responsable -->
+  <div id="responsableModal" class="details-modal">
+    <div class="details-modal-content" style="max-width: 600px;">
+      <div class="details-modal-header">
+        <h2>Datos del Responsable</h2>
+        <button class="details-modal-close" id="closeResponsableModal">&times;</button>
+      </div>
+      <div class="details-modal-body">
+        <div id="responsableDataContainer">
+          <!-- Los datos del responsable se cargarán aquí -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Cargar header y configurar enlaces
+    fetch('../../header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header-container').innerHTML = data;
+            
+            setTimeout(() => {
+              // Logo - va a página principal
+              const logo = document.getElementById('logo-link');
+              if (logo) logo.href = '../../index.html';
+              
+              // Enlaces - van a página principal con hash
+              const howWorks = document.getElementById('how-it-works-link');
+              if (howWorks) howWorks.href = '../../index.html#how-it-works';
+              
+              const experiencias = document.getElementById('experiencias-link');
+              if (experiencias) experiencias.href = '../../index.html#experiencias-voluntariado';
+              
+              const noticias = document.getElementById('news-link');
+              if (noticias) {
+                noticias.href = '../../index.html#news';
+                noticias.onclick = function(e) {
+                  e.preventDefault();
+                  window.location.href = '../../index.html#news';
+                  return false;
+                };
+              }
+
+              const academiaNav = document.getElementById('academia-link');
+              if (academiaNav) {
+                academiaNav.href = '../../index.html#academia-voluntariado';
+                academiaNav.onclick = function(e) {
+                  e.preventDefault();
+                  window.location.href = '../../index.html#academia-voluntariado';
+                  return false;
+                };
+              }
+
+              const bibliotecaNav = document.getElementById('biblioteca-link');
+              if (bibliotecaNav) {
+                bibliotecaNav.href = '../../index.html#biblioteca-estudios';
+                bibliotecaNav.onclick = function(e) {
+                  e.preventDefault();
+                  window.location.href = '../../index.html#biblioteca-estudios';
+                  return false;
+                };
+              }
+              
+              const login = document.getElementById('login-link');
+              if (login) login.href = '../../inicio de sesion/login.html';
+            }, 100);
+        })
+        .catch(error => console.error('Error:', error));
+  </script>
+  <script src="../../script.js"></script>
+
+  <!-- Modal para Agregar Usuario -->
+  <div id="addUserModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Agregar Nuevo Usuario</h2>
+        <button class="modal-close" onclick="closeModal('addUserModal')" type="button">&times;</button>
+      </div>
+      <div class="modal-body">
+      <form class="modal-form" id="addUserForm" style="display: flex; flex-direction: column; gap: 1rem;">
+        <!-- Formulario idéntico al de registro -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div>
+            <label for="nombre" class="block text-sm font-medium mb-1">
+              Nombre
+            </label>
+            <input
+              id="nombre"
+              type="text"
+              required
+              placeholder="Tu nombre"
+              autocomplete="off"
+              class="form-input"
+            />
+          </div>
+          <div>
+            <label for="apellido" class="block text-sm font-medium mb-1">
+              Apellido
+            </label>
+            <input
+              id="apellido"
+              type="text"
+              required
+              placeholder="Tu apellido"
+              autocomplete="off"
+              class="form-input"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium mb-1">
+            Correo electrónico
+          </label>
+          <input
+            id="email"
+            type="email"
+            required
+            placeholder="tuname@dominio.cl"
+            autocomplete="off"
+            class="form-input"
+          />
+        </div>
+
+        <div>
+          <label for="rut" class="block text-sm font-medium mb-1">
+            RUT
+          </label>
+          <input
+            id="rut"
+            type="text"
+            required
+            placeholder="12345678-9"
+            maxlength="12"
+            autocomplete="off"
+            class="form-input"
+          />
+          <p class="text-xs text-gray-500 mt-1">Formato: 12345678-9 (con guion y dígito verificador)</p>
+        </div>
+
+        <div>
+          <label for="fechaNacimiento" class="block text-sm font-medium mb-1">
+            Fecha de nacimiento
+          </label>
+          <input
+            id="fechaNacimiento"
+            type="date"
+            required
+            autocomplete="off"
+            class="form-input"
+          />
+          <p class="text-xs text-gray-500 mt-1">Debes tener al menos 15 años para registrarte.</p>
+        </div>
+
+        <div>
+          <label for="password" class="block text-sm font-medium mb-1">
+            Contraseña
+          </label>
+          <input
+            id="password"
+            type="password"
+            required
+            minlength="8"
+            placeholder="Mínimo 8 caracteres"
+            autocomplete="off"
+            class="form-input"
+          />
+          <p class="text-xs text-gray-500 mt-1">Mínimo 8 caracteres.</p>
+        </div>
+
+        <div>
+          <label for="confirmPassword" class="block text-sm font-medium mb-1">
+            Confirmar contraseña
+          </label>
+          <input
+            id="confirmPassword"
+            type="password"
+            required
+            minlength="8"
+            placeholder="Repite tu contraseña"
+            autocomplete="off"
+            class="form-input"
+          />
+        </div>
+        
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" onclick="closeModal('addUserModal')">Cancelar</button>
+          <button type="submit" class="btn-primary">Guardar Usuario</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="admin-modern.js"></script>
+</body>
+</html> 

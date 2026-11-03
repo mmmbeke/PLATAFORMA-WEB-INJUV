@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Plataforma de Voluntariados INJUV</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- CSS propio -->
+  <link rel="stylesheet" href="../../Kit_Gobierno/typography.css" />
+  <link rel="stylesheet" href="../../Kit_Gobierno/grid-system.css" />
+  <link rel="stylesheet" href="custom.css" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="../../chatbot/styles_bot.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      padding-top: 80px;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gray-50 text-gray-900">
+
+  <!-- HEADER -->
+  <div id="header-container"></div>
+
+  <!-- PERFIL (banner + avatar + nombre) -->
+  <section class="max-w-7xl mx-auto mt-6 rounded-2xl overflow-hidden shadow-sm">
+    <!-- Banner azul -->
+    <div id="profileBanner" class="relative bg-blue-700 h-40" style="background-color: #262c5f;">
+      <!-- Input de color de banner (oculto) -->
+      <input id="bannerColorInput" type="color" class="hidden" value="#262c5f">
+    </div>
+
+    <!-- Franja blanca con nombre -->
+    <div class="relative bg-white">
+      <!-- Botón editar perfil -->
+      <button id="editProfileBtn"
+        class="absolute right-4 top-3 inline-flex items-center gap-2 px-3 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 cursor-pointer text-sm shadow">
+        ✎ Editar perfil
+      </button>
+
+      <!-- Avatar superpuesto -->
+      <div id="avatarContainer" class="absolute -top-12 left-8 h-28 w-28 rounded-full ring-4 ring-white overflow-hidden bg-white avatar-default">
+        <img id="avatarCard"
+          src="avatar-default-org.png"
+          alt="Logo de la organización"
+          class="w-full h-full object-cover object-center">
+      </div>
+
+      <!-- Nombre y meta -->
+      <div class="pl-40 pr-4 py-4 flex items-center justify-between">
+        <div>
+          <h2 id="profileName" class="text-2xl font-semibold text-gray-900">Fundación Educación para Todos</h2>
+          <p id="organizationType" class="text-sm text-gray-600 mt-1">Organización certificada sin fines de lucro</p>
+          <div class="mt-1 text-sm text-gray-600 flex flex-wrap gap-x-6 gap-y-1">
+            <span id="profileHours">⏱ 157 horas de voluntariado</span>
+            <span>📅 Activa desde <span id="activeSince">2015</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="max-w-7xl mx-auto px-4 py-6">
+    <main class="grid grid-cols-1 lg:grid-cols-3 gap-6" style="padding-bottom: 80px; margin-bottom: 40px;">
+
+      <!-- COLUMNA IZQUIERDA -->
+      <section class="lg:col-span-2 space-y-6">
+
+        <!-- ACERCA DE LA ORGANIZACIÓN -->
+        <div class="bg-white rounded-xl shadow-sm border p-6 section-card">
+          <h3 class="text-xl font-semibold mb-3">Acerca de la Organización</h3>
+
+          <p id="aboutText" class="text-gray-700 leading-relaxed">
+            Somos una fundación comprometida con el desarrollo educativo y social de niños, niñas y jóvenes en situación de vulnerabilidad. Trabajamos para reducir las brechas educativas y promover la igualdad de oportunidades en todo Chile.
+          </p>
+        </div>
+
+        <!-- VOLUNTARIADOS DISPONIBLES -->
+        <div class="bg-white rounded-xl shadow-sm border p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-semibold">Voluntariados Disponibles</h3>
+            <button id="createVolunteerBtn" class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow-sm">
+              <span>+</span> Crear voluntariado
+            </button>
+          </div>
+
+          <div id="volunteerOpportunitiesContainer">
+            <!-- Los voluntariados se cargarán dinámicamente aquí -->
+          </div>
+
+          <!-- Botones de paginación -->
+          <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-200">
+            <button id="prevPageBtn" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition" disabled>
+              ← Anterior
+            </button>
+            <span id="pageInfo" class="text-sm text-gray-600">Página <span id="currentPage">1</span> de <span id="totalPages">1</span></span>
+            <button id="nextPageBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition">
+              Siguiente →
+            </button>
+          </div>
+        </div>
+
+        <!-- HISTORIAS DE VOLUNTARIADOS -->
+        <div class="bg-white rounded-xl shadow-sm border p-6">
+          <h3 class="text-xl font-semibold mb-4">Historias de Voluntariados</h3>
+
+          <div id="volunteerStoriesContainer">
+            <!-- Las historias se cargarán dinámicamente aquí -->
+          </div>
+
+          <!-- Botones de paginación -->
+          <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-200">
+            <button id="prevStoriesBtn" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition" disabled>
+              ← Anterior
+            </button>
+            <span id="storiesPageInfo" class="text-sm text-gray-600">Página <span id="currentStoriesPage">1</span> de <span id="totalStoriesPages">1</span></span>
+            <button id="nextStoriesBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition">
+              Siguiente →
+            </button>
+          </div>
+        </div>
+
+        <!-- VOLUNTARIADOS CERRADOS -->
+        <div class="bg-white rounded-xl shadow-sm border p-6">
+          <h3 class="text-xl font-semibold mb-4">Voluntariados Cerrados</h3>
+
+          <div id="closedOpportunitiesContainer">
+            <!-- Los voluntariados cerrados se cargarán dinámicamente aquí -->
+          </div>
+
+          <!-- Botones de paginación -->
+          <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-200">
+            <button id="prevClosedBtn" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition" disabled>
+              ← Anterior
+            </button>
+            <span id="closedPageInfo" class="text-sm text-gray-600">Página <span id="currentClosedPage">1</span> de <span id="totalClosedPages">1</span></span>
+            <button id="nextClosedBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition">
+              Siguiente →
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- COLUMNA DERECHA -->
+      <aside class="space-y-6">
+        <!-- INFORMACIÓN DE CONTACTO -->
+        <div class="bg-white rounded-xl shadow-sm border p-6 section-card">
+          <h3 class="text-xl font-semibold mb-4">Información de Contacto</h3>
+
+          <div id="contactView" class="space-y-2 text-gray-700">
+            <p>📧 <span id="contactEmail">contacto@educacionparatodos.cl</span></p>
+            <p>📞 <span id="contactPhone">+56 2 2345 6789</span></p>
+            <p>📍 <span id="contactLocation">Santiago, Región Metropolitana</span></p>
+          </div>
+        </div>
+
+        <!-- ESTADÍSTICAS -->
+        <div class="bg-white rounded-xl shadow-sm border p-6">
+          <h3 class="text-xl font-semibold mb-4">Estadísticas de Voluntariado</h3>
+          <div class="grid grid-cols-1 gap-3">
+            <div class="rounded-lg bg-blue-50 p-4 text-center">
+              <div class="text-3xl font-bold text-blue-700">6</div>
+              <div class="text-xs text-blue-800 mt-1">Voluntariados Activos</div>
+            </div>
+            <div class="rounded-lg bg-green-50 p-4 text-center">
+              <div class="text-3xl font-bold text-green-700">850</div>
+              <div class="text-xs text-green-800 mt-1">Beneficiarios Alcanzados</div>
+            </div>
+            <div class="rounded-lg bg-yellow-50 p-4 text-center">
+              <div class="text-3xl font-bold text-yellow-700">157</div>
+              <div class="text-xs text-yellow-800 mt-1">Horas de Voluntariado</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CERTIFICACIONES -->
+        <div class="bg-white rounded-xl shadow-sm border p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-xl">🏆</span>
+            <h3 class="text-xl font-semibold">Certificaciones</h3>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-start gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
+              <span class="text-2xl">📄</span>
+              <div>
+                <h4 class="font-semibold text-gray-900">Registro INJUV</h4>
+                <p class="text-sm text-gray-600">Organización Certificada</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
+              <span class="text-2xl">🛡️</span>
+              <div>
+                <h4 class="font-semibold text-gray-900">Sello de Calidad</h4>
+                <p class="text-sm text-gray-600">Ministerio de Educación</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RESEÑAS -->
+        <div class="bg-white rounded-xl shadow-sm border p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-xl">⭐</span>
+            <h3 class="text-xl font-semibold">Reseñas</h3>
+          </div>
+
+          <div id="reviewsContainer">
+            <!-- Las reseñas se cargarán dinámicamente aquí -->
+          </div>
+
+          <!-- Botones de paginación -->
+          <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-200">
+            <button id="prevReviewsBtn" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition" disabled>
+              ← Anterior
+            </button>
+            <span id="reviewsPageInfo" class="text-sm text-gray-600">Página <span id="currentReviewsPage">1</span> de <span id="totalReviewsPages">1</span></span>
+            <button id="nextReviewsBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition">
+              Siguiente →
+            </button>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <!-- MODAL EDITAR PERFIL -->
+  <div id="editProfileModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+    <div class="w-full max-w-5xl h-[90vh] bg-white rounded-lg shadow-2xl flex flex-col overflow-hidden">
+      <!-- Header del Modal -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+        <h2 class="text-2xl font-bold text-gray-900">Editar perfil</h2>
+        <button id="closeEditProfileModal" class="text-gray-500 hover:text-gray-700 text-2xl leading-none">&times;</button>
+      </div>
+
+      <!-- Contenido del Modal -->
+      <div class="flex flex-1 overflow-hidden">
+        <!-- Sidebar Izquierdo - Menú de opciones -->
+        <div class="w-64 border-r border-gray-200 bg-gray-50 overflow-y-auto">
+          <div class="p-4">
+            <h3 class="text-sm font-semibold text-gray-500 uppercase mb-2 px-3">Información</h3>
+            <nav class="space-y-1">
+              <button data-section="photo" class="edit-profile-menu-item active w-full text-left px-3 py-2 rounded-lg hover:bg-gray-200 text-gray-700 flex items-center gap-2 transition">
+                <span>📷</span> Editar logo
+              </button>
+              <button data-section="banner" class="edit-profile-menu-item w-full text-left px-3 py-2 rounded-lg hover:bg-gray-200 text-gray-700 flex items-center gap-2 transition">
+                <span>🎨</span> Color del banner
+              </button>
+              <button data-section="organization" class="edit-profile-menu-item w-full text-left px-3 py-2 rounded-lg hover:bg-gray-200 text-gray-700 flex items-center gap-2 transition">
+                <span>🏢</span> Información de la organización
+              </button>
+              <button data-section="contact" class="edit-profile-menu-item w-full text-left px-3 py-2 rounded-lg hover:bg-gray-200 text-gray-700 flex items-center gap-2 transition">
+                <span>📧</span> Información de contacto
+              </button>
+              <button data-section="about" class="edit-profile-menu-item w-full text-left px-3 py-2 rounded-lg hover:bg-gray-200 text-gray-700 flex items-center gap-2 transition">
+                <span>📝</span> Acerca de la organización
+              </button>
+            </nav>
+          </div>
+        </div>
+
+        <!-- Panel Derecho - Contenido de edición -->
+        <div class="flex-1 overflow-y-auto bg-white">
+          <div class="p-6">
+            <!-- Sección: Editar Logo -->
+            <div id="section-photo" class="edit-profile-section hidden">
+              <h3 class="text-xl font-semibold mb-4">Editar logo</h3>
+              <div class="space-y-4">
+                <p class="text-gray-600">Cambia el logo de tu organización. La imagen será recortada de forma circular.</p>
+                
+                <!-- Zona de arrastre -->
+                <div id="photoDropZone" class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center transition-colors hover:border-blue-400 hover:bg-blue-50 cursor-pointer">
+                  <div class="flex flex-col items-center gap-3">
+                    <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    </svg>
+                    <div>
+                      <p class="text-sm text-gray-600">
+                        <span class="font-semibold text-blue-600">Haz clic para seleccionar</span> o arrastra una imagen aquí
+                      </p>
+                      <p class="text-xs text-gray-500 mt-1">PNG, JPG, GIF hasta 10MB</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <input id="avatarInput" type="file" accept="image/*" class="hidden">
+              </div>
+            </div>
+
+            <!-- Sección: Color del Banner -->
+            <div id="section-banner" class="edit-profile-section hidden">
+              <h3 class="text-xl font-semibold mb-4">Color del banner</h3>
+              <div class="space-y-4">
+                <p class="text-gray-600">Personaliza el color del banner de tu perfil.</p>
+                <div>
+                  <label class="block text-sm font-medium mb-2">Selecciona un color</label>
+                  <div class="flex items-center gap-4">
+                    <input type="color" id="bannerColorPicker" value="#262c5f" class="w-20 h-12 rounded cursor-pointer border border-gray-300">
+                    <input type="text" id="bannerColorHex" value="#262c5f" class="flex-1 border rounded-lg p-2 font-mono" placeholder="#262c5f">
+                  </div>
+                </div>
+                <div class="p-4 rounded-lg border bg-gray-50">
+                  <p class="text-sm text-gray-600 mb-2">Vista previa:</p>
+                  <div id="bannerPreview" class="h-20 rounded-lg" style="background-color: #262c5f;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sección: Información de la Organización -->
+            <div id="section-organization" class="edit-profile-section hidden">
+              <h3 class="text-xl font-semibold mb-4">Información de la organización</h3>
+              <form id="organizationInfoForm" class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium mb-1">Nombre de la organización</label>
+                  <input type="text" id="organizationNameInput" class="w-full border rounded-lg p-2" placeholder="Nombre de la organización">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Tipo de organización</label>
+                  <input type="text" id="organizationTypeInput" class="w-full border rounded-lg p-2" placeholder="Ej: Organización certificada sin fines de lucro">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Año de inicio</label>
+                  <input type="number" id="activeSinceInput" class="w-full border rounded-lg p-2" placeholder="Ej: 2015" min="1900" max="2099">
+                </div>
+              </form>
+            </div>
+
+            <!-- Sección: Información de Contacto -->
+            <div id="section-contact" class="edit-profile-section hidden">
+              <h3 class="text-xl font-semibold mb-4">Información de contacto</h3>
+              <form id="contactInfoForm" class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium mb-1">Correo electrónico</label>
+                  <input type="email" id="contactEmailInput" class="w-full border rounded-lg p-2" placeholder="Correo electrónico">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Teléfono</label>
+                  <input type="text" id="contactPhoneInput" class="w-full border rounded-lg p-2" placeholder="Teléfono">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Ubicación</label>
+                  <input type="text" id="contactLocationInput" class="w-full border rounded-lg p-2" placeholder="Ciudad, Región">
+                </div>
+              </form>
+            </div>
+
+            <!-- Sección: Acerca de la Organización -->
+            <div id="section-about" class="edit-profile-section hidden">
+              <h3 class="text-xl font-semibold mb-4">Acerca de la organización</h3>
+              <form id="aboutInfoForm" class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium mb-1">Descripción</label>
+                  <textarea id="aboutInput" rows="6" class="w-full border rounded-lg p-2" placeholder="Escribe una descripción sobre tu organización..."></textarea>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer con botones -->
+      <div id="editProfileFooter" class="border-t border-gray-200 px-6 py-4 bg-gray-50 flex justify-end gap-3">
+        <button type="button" id="cancelEditProfile" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-100">Cancelar</button>
+        <button type="button" id="saveEditProfile" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CROPPER PARA RECORTAR LOGO -->
+  <div id="cropper" class="hidden fixed inset-0 z-[60] flex items-center justify-center bg-black/40 p-4">
+    <div class="w-full max-w-xl rounded-2xl bg-white p-5 shadow-xl">
+      <h3 class="text-lg font-semibold">Ajustar logo de la organización</h3>
+
+      <!-- Marco circular -->
+      <div id="cropFrame"
+        class="relative mx-auto my-4 h-64 w-64 rounded-full overflow-hidden ring-4 ring-white shadow-lg bg-gray-100">
+        <img id="cropImg" alt="Previsualización" class="absolute select-none cursor-move" draggable="false" />
+      </div>
+
+      <!-- Controles -->
+      <div class="flex items-center gap-3">
+        <span class="text-sm text-gray-600">Zoom</span>
+        <input id="cropZoom" type="range" min="0.5" max="3" step="0.01" value="1" class="w-full">
+        <button id="cropReset" class="px-3 py-1 rounded border text-sm">Reiniciar</button>
+        <div class="flex-1"></div>
+        <button id="cropCancel" class="px-3 py-2 rounded border">Cancelar</button>
+        <button id="cropSave" class="px-3 py-2 rounded bg-blue-600 text-white hover:bg-blue-700">Guardar</button>
+      </div>
+
+      <p class="text-xs text-gray-500 mt-2">Arrastra la imagen para centrarla y usa el control de zoom.</p>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // Cargar header y configurar enlaces
+    fetch('../../header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header-container').innerHTML = data;
+            
+            setTimeout(() => {
+              // Logo - va a página principal
+              const logo = document.getElementById('logo-link');
+              if (logo) logo.href = '../../index.html';
+              
+              // Enlaces - van a página principal con hash
+              const howWorks = document.getElementById('how-it-works-link');
+              if (howWorks) howWorks.href = '../../index.html#how-it-works';
+              
+              const experiencias = document.getElementById('experiencias-link');
+              if (experiencias) experiencias.href = '../../index.html#experiencias-voluntariado';
+              
+              const noticias = document.getElementById('news-link');
+              if (noticias) noticias.href = '../../index.html#news';
+              
+              const login = document.getElementById('login-link');
+              if (login) login.href = '../../inicio de sesion/login.html';
+            }, 100);
+        })
+        .catch(error => console.error('Error:', error));
+  </script>
+  <script src="../../script.js"></script>
+  <script src="app.js">  </script>
+
+  <!-- Footer -->
+  <footer class="footer">
+      <div class="footer-wrapper">
+          <!-- Barra superior -->
+          <div class="footer-top-bar">
+              <div class="footer-bar-blue"></div>
+              <div class="footer-bar-red"></div>
+          </div>
+          
+          <div class="footer-content">
+              <!-- Columna 1: Logos -->
+              <div class="footer-section footer-col1">
+                  <div class="footer-logos-container">
+                      <!-- Logo ClaveÚnica -->
+                      <div class="footer-logo-claveunica">
+                          <img src="../../Fotos_injuv/ClaveUnica.png" alt="ClaveÚnica" class="footer-logo-img claveunica-logo">
+                      </div>
+                      
+                      <p class="footer-admin-text">Servicio de autenticación administrado por:</p>
+                      
+                      <!-- Logo Secretaría de Gobierno Digital -->
+                      <div class="footer-logo-secretaria">
+                          <img src="../../Fotos_injuv/SecretariaGobiernoDigital.png" alt="Secretaría de Gobierno Digital" class="footer-logo-img secretaria-logo">
+                      </div>
+                      
+                      <p class="footer-collab-text">Con la colaboración de:</p>
+                      
+                      <!-- Logo Ministerio -->
+                      <div class="footer-logo-ministerio-small">
+                          <img src="../../Fotos_injuv/color_MinDesarrolloSocialYFamilia.jpg" alt="Ministerio de Desarrollo Social y Familia" class="footer-logo-img ministerio-small-logo">
+                      </div>
+                      
+                      <p class="footer-trademark">INJUV®</p>
+                  </div>
+              </div>
+              
+              <!-- Columna 2: Secciones -->
+              <div class="footer-section footer-col2">
+                  <h4>Secciones</h4>
+                  <ul>
+                      <li><a href="../../noticias/index.html">Noticias</a></li>
+                      <li><a href="../../inicio de sesion/login.html">Postular</a></li>
+                      <li><a href="../../organizaciones/index.html">Instituciones públicas</a></li>
+                      <li><a href="#">Términos y condiciones</a></li>
+                  </ul>
+              </div>
+              
+              <!-- Columna 3: Ayuda a Ciudadanos -->
+              <div class="footer-section footer-col3">
+                  <h4>Ayuda a Ciudadanos</h4>
+                  <a href="#" class="contact-link" id="faq-link">Preguntas frecuentes</a>
+                  <p class="contact-info">Horario: Lu - Vi / 9:00hrs - 18:00hrs</p>
+                  <a href="tel:+56226204700" class="contact-phone">+56 2 26204700</a>
+              </div>
+              
+              <!-- Columna 4: Ayuda a Instituciones -->
+              <div class="footer-section footer-col4">
+                  <h4>Ayuda a Instituciones</h4>
+                  <p class="contact-info">Horario: Lu - Vi / 9:00hrs - 18:00hrs</p>
+                  <a href="tel:+56226204700" class="contact-phone">+56 2 26204700</a>
+              </div>
+          </div>
+          
+          <!-- Barra inferior -->
+          <div class="footer-bottom-bar">
+              <div class="footer-bar-blue"></div>
+              <div class="footer-bar-red"></div>
+          </div>
+      </div>
+  </footer>
+
+  <link rel="stylesheet" href="../../styles.css">
+  <script src="../../chatbot/chatbot.js"></script>
+  
+  <script>
+      // Configurar enlace de "Preguntas frecuentes" para abrir el chatbot
+      window.addEventListener('load', () => {
+          const faqLink = document.getElementById('faq-link');
+          
+          if (faqLink) {
+              faqLink.addEventListener('click', (e) => {
+                  e.preventDefault();
+                  
+                  setTimeout(() => {
+                      const chatbotToggle = document.getElementById('chatbot-toggle');
+                      const chatbotContainer = document.getElementById('chatbot-container');
+                      
+                      if (chatbotContainer && chatbotToggle) {
+                          if (!chatbotContainer.classList.contains('chatbot-open')) {
+                              chatbotToggle.click();
+                          }
+                      }
+                  }, 300);
+              });
+          }
+      });
+  </script>
+
+  <!-- Chatbot de Preguntas Frecuentes -->
+  <div id="chatbot-container" class="chatbot-container">
+      <div class="chatbot-header">
+          <div class="chatbot-header-content">
+              <div class="chatbot-avatar">
+                  <img src="../../chatbot/imagenes/chatbot-icon.png" alt="Asistente INJUV" class="chatbot-avatar-img">
+              </div>
+              <div class="chatbot-info">
+                  <h3>Asistente INJUV</h3>
+                  <span class="chatbot-status">👉 Listo para ayudarte...</span>
+              </div>
+          </div>
+          <button id="chatbot-close" class="chatbot-close">
+              <i class="fas fa-times"></i>
+          </button>
+      </div>
+      <div id="chatbot-messages" class="chatbot-messages"></div>
+      <div class="chatbot-input-container">
+          <input 
+              type="text" 
+              id="chatbot-input" 
+              class="chatbot-input" 
+              placeholder="Escribe tu pregunta aquí..."
+              autocomplete="off"
+          >
+          <button type="button" id="chatbot-send" class="chatbot-send">
+              <img src="../../chatbot/imagenes/Chatbot-enviar.png" alt="Enviar" class="send-icon-img">
+          </button>
+      </div>
+  </div>
+  
+  <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Abrir chatbot">
+      <img src="../../chatbot/imagenes/chatbot-icon.png" alt="Chatbot" class="chatbot-toggle-icon">
+      <span class="chatbot-badge">?</span>
+  </button>
+
+  <script src="../../chatbot/chatbot.js"></script>
+</body>
+</html>

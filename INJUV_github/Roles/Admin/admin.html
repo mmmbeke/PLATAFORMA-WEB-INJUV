@@ -1,0 +1,423 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración - INJUV</title>
+  <link rel="stylesheet" href="../../Kit_Gobierno/typography.css">
+  <link rel="stylesheet" href="../../Kit_Gobierno/grid-system.css">
+  <link rel="stylesheet" href="admin-style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <img src="img/logo-injuv.png" alt="Logo INJUV" class="logo">
+      <h3>Administración</h3>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <ul>
+        <li class="nav-item active" data-section="dashboard">
+          <i class="fas fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </li>
+        <li class="nav-item" data-section="users">
+          <i class="fas fa-users"></i>
+          <span>Usuarios</span>
+        </li>
+        <li class="nav-item" data-section="reports">
+          <i class="fas fa-chart-bar"></i>
+          <span>Reportes</span>
+        </li>
+        <li class="nav-item" data-section="platform">
+          <i class="fas fa-palette"></i>
+          <span>Edición Plataforma</span>
+        </li>
+        <li class="nav-item" data-section="news">
+          <i class="fas fa-newspaper"></i>
+          <span>Noticias</span>
+        </li>
+        <li class="nav-item" data-section="opportunities">
+          <i class="fas fa-handshake"></i>
+          <span>Oportunidades</span>
+        </li>
+        <li class="nav-item" data-section="repository">
+          <i class="fas fa-folder-open"></i>
+          <span>Repositorio</span>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="breadcrumb">
+        <span id="current-section">Dashboard</span>
+      </div>
+      <div class="user-menu">
+        <span class="user-name">Admin Usuario</span>
+        <i class="fas fa-user-circle"></i>
+      </div>
+    </header>
+
+    <!-- Content Sections -->
+    <div class="content-wrapper">
+      <!-- Dashboard Section -->
+      <section id="dashboard" class="content-section active">
+        <h2>Dashboard General</h2>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-info">
+              <h3>1,247</h3>
+              <p>Usuarios Activos</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-handshake"></i>
+            </div>
+            <div class="stat-info">
+              <h3>89</h3>
+              <p>Oportunidades Activas</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-newspaper"></i>
+            </div>
+            <div class="stat-info">
+              <h3>156</h3>
+              <p>Noticias Publicadas</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-file-alt"></i>
+            </div>
+            <div class="stat-info">
+              <h3>234</h3>
+              <p>Documentos en Repositorio</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Users Section -->
+      <section id="users" class="content-section">
+        <div class="section-header">
+          <h2>Gestión de Usuarios</h2>
+          <button class="btn-primary" onclick="showAddUserModal()">
+            <i class="fas fa-plus"></i> Agregar Usuario
+          </button>
+        </div>
+        
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Usuario</th>
+                <th>Nombre Organización</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <th>Rol</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>admin_org1</td>
+                <td>Fundación Verde</td>
+                <td>admin@verde.org</td>
+                <td>+56 9 1234 5678</td>
+                <td><span class="role admin">Administrador</span></td>
+                <td><span class="status active">Activo</span></td>
+                <td>
+                  <button class="btn-icon" title="Editar"><i class="fas fa-edit"></i></button>
+                  <button class="btn-icon" title="Eliminar"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>user_org2</td>
+                <td>ONG Juventud</td>
+                <td>user@juventud.org</td>
+                <td>+56 9 8765 4321</td>
+                <td><span class="role moderator">Moderador</span></td>
+                <td><span class="status active">Activo</span></td>
+                <td>
+                  <button class="btn-icon" title="Editar"><i class="fas fa-edit"></i></button>
+                  <button class="btn-icon" title="Eliminar"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Reports Section -->
+      <section id="reports" class="content-section">
+        <h2>Generación de Reportes</h2>
+        <div class="reports-grid">
+          <div class="report-card">
+            <h3>Reporte de Usuarios</h3>
+            <p>Genera reportes detallados de usuarios por organización, actividad y período.</p>
+            <div class="report-filters">
+              <select>
+                <option>Seleccionar Organización</option>
+                <option>Todas las organizaciones</option>
+                <option>Fundación Verde</option>
+                <option>ONG Juventud</option>
+              </select>
+              <input type="date" placeholder="Fecha inicio">
+              <input type="date" placeholder="Fecha fin">
+            </div>
+            <button class="btn-primary">Generar Reporte</button>
+          </div>
+          
+          <div class="report-card">
+            <h3>Reporte de Actividades</h3>
+            <p>Reportes de oportunidades de voluntariado y formación por categoría y estado.</p>
+            <div class="report-filters">
+              <select>
+                <option>Tipo de Actividad</option>
+                <option>Voluntariado</option>
+                <option>Formación</option>
+              </select>
+              <select>
+                <option>Estado</option>
+                <option>Activa</option>
+                <option>Pendiente</option>
+                <option>Cerrada</option>
+              </select>
+            </div>
+            <button class="btn-primary">Generar Reporte</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Platform Section -->
+      <section id="platform" class="content-section">
+        <h2>Personalización de la Plataforma</h2>
+        <div class="platform-settings">
+          <div class="setting-group">
+            <h3>Colores del Tema</h3>
+            <div class="color-picker">
+              <label>Color Principal:</label>
+              <input type="color" value="#004996">
+              <label>Color Secundario:</label>
+              <input type="color" value="#e30613">
+              <label>Color de Fondo:</label>
+              <input type="color" value="#f8fafc">
+            </div>
+          </div>
+          
+          <div class="setting-group">
+            <h3>Logo y Branding</h3>
+            <div class="logo-upload">
+              <label>Logo Principal:</label>
+              <input type="file" accept="image/*">
+              <label>Favicon:</label>
+              <input type="file" accept="image/*">
+            </div>
+          </div>
+          
+          <div class="setting-group">
+            <h3>Texto del Sitio</h3>
+            <div class="text-settings">
+              <label>Título Principal:</label>
+              <input type="text" value="Plataforma de Voluntariado INJUV">
+              <label>Descripción:</label>
+              <textarea>Conecta con proyectos que cambian vidas en todo Chile.</textarea>
+            </div>
+          </div>
+          
+          <button class="btn-primary">Guardar Cambios</button>
+        </div>
+      </section>
+
+      <!-- News Section -->
+      <section id="news" class="content-section">
+        <div class="section-header">
+          <h2>Gestión de Noticias</h2>
+          <button class="btn-primary" onclick="showAddNewsModal()">
+            <i class="fas fa-plus"></i> Agregar Noticia
+          </button>
+        </div>
+        
+        <div class="news-grid">
+          <div class="news-card pending">
+            <div class="news-header">
+              <h3>Nueva campaña de reforestación</h3>
+              <span class="status pending">Pendiente</span>
+            </div>
+            <p>Se anuncia nueva iniciativa para plantar 10,000 árboles en la región metropolitana...</p>
+            <div class="news-actions">
+              <button class="btn-success">Aprobar</button>
+              <button class="btn-danger">Rechazar</button>
+              <button class="btn-secondary">Editar</button>
+            </div>
+          </div>
+          
+          <div class="news-card approved">
+            <div class="news-header">
+              <h3>Resultados del voluntariado 2024</h3>
+              <span class="status approved">Aprobada</span>
+            </div>
+            <p>Balance anual de las actividades de voluntariado realizadas en todo el país...</p>
+            <div class="news-actions">
+              <button class="btn-secondary">Editar</button>
+              <button class="btn-danger">Despublicar</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Opportunities Section -->
+      <section id="opportunities" class="content-section">
+        <div class="section-header">
+          <h2>Gestión de Oportunidades</h2>
+          <button class="btn-primary" onclick="showAddOpportunityModal()">
+            <i class="fas fa-plus"></i> Agregar Oportunidad
+          </button>
+        </div>
+        
+        <div class="opportunities-grid">
+          <div class="opportunity-card pending">
+            <div class="opportunity-header">
+              <h3>Taller de primeros auxilios</h3>
+              <span class="type formation">Formación</span>
+              <span class="status pending">Pendiente</span>
+            </div>
+            <p>Capacitación gratuita en primeros auxilios para jóvenes voluntarios...</p>
+            <div class="opportunity-actions">
+              <button class="btn-success">Aprobar</button>
+              <button class="btn-danger">Rechazar</button>
+              <button class="btn-secondary">Editar</button>
+            </div>
+          </div>
+          
+          <div class="opportunity-card approved">
+            <div class="opportunity-header">
+              <h3>Limpieza de playas</h3>
+              <span class="type volunteer">Voluntariado</span>
+              <span class="status approved">Aprobada</span>
+            </div>
+            <p>Jornada de limpieza en playas de Valparaíso para el próximo fin de semana...</p>
+            <div class="opportunity-actions">
+              <button class="btn-secondary">Editar</button>
+              <button class="btn-danger">Desactivar</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Repository Section -->
+      <section id="repository" class="content-section">
+        <div class="section-header">
+          <h2>Gestión del Repositorio</h2>
+          <button class="btn-primary" onclick="showAddDocumentModal()">
+            <i class="fas fa-plus"></i> Subir Documento
+          </button>
+        </div>
+        
+        <div class="repository-grid">
+          <div class="document-card pending">
+            <div class="document-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="document-info">
+              <h3>Manual de Voluntariado 2024</h3>
+              <p>PDF • 2.3 MB • Subido por: admin_org1</p>
+              <span class="status pending">Pendiente de Aprobación</span>
+            </div>
+            <div class="document-actions">
+              <button class="btn-success">Aprobar</button>
+              <button class="btn-danger">Rechazar</button>
+              <button class="btn-secondary">Descargar</button>
+            </div>
+          </div>
+          
+          <div class="document-card approved">
+            <div class="document-icon">
+              <i class="fas fa-file-word"></i>
+            </div>
+              <h3>Formulario de Postulación</h3>
+              <p>DOCX • 156 KB • Subido por: user_org2</p>
+              <span class="status approved">Aprobado</span>
+            </div>
+            <div class="document-actions">
+              <button class="btn-secondary">Editar</button>
+              <button class="btn-danger">Eliminar</button>
+              <button class="btn-secondary">Descargar</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Modals -->
+  <div id="addUserModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Agregar Nuevo Usuario</h3>
+        <span class="close">&times;</span>
+      </div>
+      <form class="modal-form">
+        <div class="form-group">
+          <label>Usuario:</label>
+          <input type="text" required>
+        </div>
+        <div class="form-group">
+          <label>Clave:</label>
+          <input type="password" required>
+        </div>
+        <div class="form-group">
+          <label>Nombre de la Organización:</label>
+          <input type="text" required>
+        </div>
+        <div class="form-group">
+          <label>Correo 1:</label>
+          <input type="email" required>
+        </div>
+        <div class="form-group">
+          <label>Correo 2:</label>
+          <input type="email">
+        </div>
+        <div class="form-group">
+          <label>Teléfono 1:</label>
+          <input type="tel" required>
+        </div>
+        <div class="form-group">
+          <label>Teléfono 2:</label>
+          <input type="tel">
+        </div>
+        <div class="form-group">
+          <label>Rol:</label>
+          <select required>
+            <option value="">Seleccionar rol</option>
+            <option value="admin">Administrador</option>
+            <option value="moderator">Moderador</option>
+            <option value="editor">Editor</option>
+            <option value="viewer">Visualizador</option>
+          </select>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn-secondary" onclick="closeModal('addUserModal')">Cancelar</button>
+          <button type="submit" class="btn-primary">Guardar Usuario</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html> 

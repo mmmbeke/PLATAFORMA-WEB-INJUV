@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Academia de Voluntariado - INJUV</title>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../typography.css">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../visualizacion-vd/styles.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['var(--font-body)','ui-sans-serif','system-ui'] },
+          colors: { brand: { blue: '#2151ff' } },
+          boxShadow: { card: '0 10px 16px -8px rgba(15, 23, 42, .08)' }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body { margin: 0; padding-top: 90px; }
+    .card-hover { transition: all 0.3s ease; }
+    .card-hover:hover { transform: translateY(-2px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+    .fade-in { animation: fadeIn 0.5s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans">
+
+  <div id="header-container"></div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 mt-6" style="padding-top: 120px; padding-bottom: 80px; margin-bottom: 40px;">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+      <!-- Sidebar búsqueda (mismo formato que Voluntariados) -->
+      <aside class="lg:col-span-4">
+        <div class="bg-white rounded-2xl ring-1 ring-slate-200 p-4 sm:p-5 shadow-card">
+          <h2 class="text-lg font-semibold">Buscar en Academia</h2>
+
+          <div class="mt-4">
+            <label class="sr-only" for="academiaSearch">Buscar</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 pointer-events-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="7"></circle>
+                  <path d="M21 21l-4.3-4.3" stroke-linecap="round"></path>
+                </svg>
+              </span>
+              <input id="academiaSearch" type="text" placeholder="Palabra clave o nombre del documento" autocomplete="off"
+                     class="w-full pl-10 pr-3 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 text-[15px] placeholder:text-slate-400">
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <label class="block text-sm font-medium text-slate-700 mb-1" for="academiaCategoria">Categoría</label>
+            <select id="academiaCategoria" class="w-full pl-3 pr-3 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 text-[15px]">
+              <option value="">Todas las categorías</option>
+              <option value="guias_manuales">Guías y Manuales</option>
+              <option value="plantillas_formatos">Plantillas y Formatos</option>
+              <option value="videos_tutoriales">Videos Tutoriales</option>
+            </select>
+          </div>
+
+          <div class="mt-6">
+            <button id="btnAplicarFiltrosAcademia"
+                    class="w-full px-4 py-3 bg-brand-blue text-white rounded-xl font-semibold hover:bg-blue-700 transition shadow-md hover:shadow-lg">
+              <i class="fas fa-filter mr-2"></i>
+              Aplicar Filtros
+            </button>
+          </div>
+
+          <div class="mt-5 rounded-xl bg-blue-50 text-slate-700 p-3 leading-5 text-sm">
+            Materiales de formación y documentos aprobados para voluntarios y organizaciones.
+          </div>
+
+          <div class="mt-4">
+            <a href="../visualizacion-vd/index.html#repositorio" class="text-sm font-semibold text-brand-blue hover:text-blue-700">
+              <i class="fas fa-arrow-left mr-1"></i> Volver al Repositorio
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Listado de materiales (mismo formato que Voluntariados disponibles) -->
+      <section class="lg:col-span-8">
+        <div class="flex items-end justify-between">
+          <h2 class="text-2xl font-semibold">Materiales disponibles</h2>
+          <span id="academiaResultCount" class="text-sm text-slate-500">0 resultados</span>
+        </div>
+
+        <div id="academiaGrid" class="mt-4 grid sm:grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Las tarjetas se cargan dinámicamente -->
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Modal Ver detalles -->
+  <div id="modalDetalleDoc" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <div class="p-6">
+        <div class="flex justify-between items-start mb-4">
+          <h3 id="modalDocTitulo" class="text-2xl font-bold text-slate-900"></h3>
+          <button type="button" onclick="cerrarModalDoc()" class="text-slate-400 hover:text-slate-600">
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+        <div id="modalDocContenido" class="text-slate-600"></div>
+        <div class="mt-6 flex gap-3">
+          <a id="modalDocDescargar" href="#" target="_blank" rel="noopener" class="px-6 py-2 bg-brand-blue text-white rounded-xl font-semibold hover:bg-blue-700 transition inline-flex items-center gap-2">
+            <i class="fas fa-download"></i> Descargar
+          </a>
+          <button type="button" onclick="cerrarModalDoc()" class="px-6 py-2 border border-slate-300 text-slate-700 rounded-xl font-semibold hover:bg-slate-50 transition">
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-wrapper">
+      <div class="footer-top-bar">
+        <div class="footer-bar-blue"></div>
+        <div class="footer-bar-red"></div>
+      </div>
+      <div class="footer-content">
+        <div class="footer-section footer-col1">
+          <div class="footer-logos-container">
+            <div class="footer-logo-claveunica">
+              <img src="../Fotos_injuv/ClaveUnica.png" alt="ClaveÚnica" class="footer-logo-img claveunica-logo">
+            </div>
+            <p class="footer-admin-text">Servicio de autenticación administrado por:</p>
+            <div class="footer-logo-secretaria">
+              <img src="../Fotos_injuv/SecretariaGobiernoDigital.png" alt="Secretaría de Gobierno Digital" class="footer-logo-img secretaria-logo">
+            </div>
+            <p class="footer-collab-text">Con la colaboración de:</p>
+            <div class="footer-logo-ministerio-small">
+              <img src="../Fotos_injuv/color_MinDesarrolloSocialYFamilia.jpg" alt="Ministerio de Desarrollo Social y Familia" class="footer-logo-img ministerio-small-logo">
+            </div>
+            <p class="footer-trademark">INJUV®</p>
+          </div>
+        </div>
+        <div class="footer-section footer-col2">
+          <h4>Secciones</h4>
+          <ul>
+            <li><a href="../noticias/noticias.html">Noticias</a></li>
+            <li><a href="../inicio de sesion/login.html">Postular</a></li>
+            <li><a href="../index.html#organizaciones">Instituciones públicas</a></li>
+            <li><a href="#">Términos y condiciones</a></li>
+          </ul>
+        </div>
+        <div class="footer-section footer-col3">
+          <h4>Ayuda a Ciudadanos</h4>
+          <a href="#" class="contact-link" id="faq-link">Preguntas frecuentes</a>
+          <p class="contact-info">Horario: Lu - Vi / 9:00hrs - 18:00hrs</p>
+          <a href="tel:+56226204700" class="contact-phone">+56 2 26204700</a>
+        </div>
+        <div class="footer-section footer-col4">
+          <h4>Ayuda a Instituciones</h4>
+          <p class="contact-info">Horario: Lu - Vi / 9:00hrs - 18:00hrs</p>
+          <a href="tel:+56226204700" class="contact-phone">+56 2 26204700</a>
+        </div>
+      </div>
+      <div class="footer-bottom-bar">
+        <div class="footer-bar-blue"></div>
+        <div class="footer-bar-red"></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const API_BASE_URL = 'https://injuv.onrender.com/api';
+    let todosDocumentos = [];
+
+    // Cargar header
+    fetch('../header.html')
+      .then(r => r.text())
+      .then(data => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data, 'text/html');
+        const headerContent = doc.querySelector('header');
+        const styles = doc.querySelector('style');
+        const scripts = doc.querySelectorAll('script');
+        if (styles) {
+          const styleElement = document.createElement('style');
+          styleElement.textContent = styles.textContent;
+          document.head.appendChild(styleElement);
+        }
+        const container = document.getElementById('header-container');
+        if (container) container.innerHTML = headerContent ? headerContent.outerHTML : doc.body.innerHTML;
+        scripts.forEach(oldScript => {
+          const newScript = document.createElement('script');
+          if (oldScript.src) newScript.src = oldScript.src;
+          else newScript.textContent = oldScript.textContent;
+          document.body.appendChild(newScript);
+        });
+        setTimeout(() => {
+          if (typeof window.initHeaderAuth === 'function') window.initHeaderAuth();
+          if (typeof window.updateHeaderAuth === 'function') window.updateHeaderAuth();
+        }, 50);
+      });
+
+    function formatBytes(bytes) {
+      if (bytes == null || bytes === 0) return '';
+      var u = 0, s = bytes;
+      while (s >= 1024 && u < 3) { s /= 1024; u++; }
+      return s.toFixed(1).replace(/\.0$/, '') + ' ' + ['B', 'KB', 'MB', 'GB'][u];
+    }
+    function formatFecha(iso) {
+      if (!iso) return '';
+      try {
+        var d = new Date(iso);
+        return isNaN(d.getTime()) ? '' : d.toLocaleDateString('es-CL', { day: 'numeric', month: 'short', year: 'numeric' });
+      } catch (e) { return ''; }
+    }
+    function escapeHtml(text) {
+      if (!text) return '';
+      var div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    var CATEGORIA_LABELS = { guias_manuales: 'Guías y Manuales', plantillas_formatos: 'Plantillas y Formatos', videos_tutoriales: 'Videos Tutoriales' };
+
+    function filtrarPorTexto(lista, texto) {
+      if (!texto || !texto.trim()) return lista;
+      var q = texto.trim().toLowerCase();
+      return lista.filter(function(d) {
+        var nombre = (d.nombre_archivo || d.archivo_filename || '').toLowerCase();
+        var desc = (d.descripcion || '').toLowerCase();
+        var org = (d.organizacion_nombre || '').toLowerCase();
+        var catLabel = (CATEGORIA_LABELS[d.categoria] || '').toLowerCase();
+        return nombre.indexOf(q) !== -1 || desc.indexOf(q) !== -1 || org.indexOf(q) !== -1 || catLabel.indexOf(q) !== -1;
+      });
+    }
+
+    function filtrarPorCategoria(lista, categoriaSlug) {
+      if (!categoriaSlug || !categoriaSlug.trim()) return lista;
+      return lista.filter(function(d) { return (d.categoria || '') === categoriaSlug.trim(); });
+    }
+
+    function renderCards(documentos) {
+      const grid = document.getElementById('academiaGrid');
+      const countEl = document.getElementById('academiaResultCount');
+      if (!grid) return;
+      countEl.textContent = documentos.length + ' resultado' + (documentos.length !== 1 ? 's' : '');
+      if (documentos.length === 0) {
+        grid.innerHTML = '<div class="col-span-full text-center py-12 text-slate-500"><i class="fas fa-graduation-cap text-4xl opacity-30 mb-4"></i><p>Aún no hay materiales publicados o no hay resultados para tu búsqueda.</p></div>';
+        return;
+      }
+      grid.innerHTML = documentos.map(function(doc) {
+        var titulo = escapeHtml(doc.nombre_archivo || doc.archivo_filename || 'Documento');
+        var desc = doc.descripcion ? escapeHtml(doc.descripcion.substring(0, 120)) + (doc.descripcion.length > 120 ? '...' : '') : 'Material de formación para voluntarios.';
+        var org = doc.organizacion_nombre ? escapeHtml(doc.organizacion_nombre) : '';
+        var catLabel = doc.categoria ? (CATEGORIA_LABELS[doc.categoria] || doc.categoria) : '';
+        var autor = doc.autor ? escapeHtml(doc.autor) : '';
+        var fecha = formatFecha(doc.fecha_edicion || doc.created_at);
+        var size = formatBytes(doc.archivo_tamano_bytes);
+        var urlDescarga = API_BASE_URL + '/repositorio/documento/academia/' + doc.id + '/descargar';
+        return '<article class="bg-white rounded-2xl ring-1 ring-slate-200 p-5 shadow-card card-hover fade-in" data-doc-id="' + doc.id + '">' +
+          (org ? '<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-orange-50 border border-orange-200 mb-2"><i class="fas fa-building text-orange-700 text-xs"></i><span class="text-xs font-medium text-orange-800">' + org + '</span></div>' : '') +
+          (catLabel ? '<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-teal-50 border border-teal-200 mb-2"><i class="fas fa-tag text-teal-700 text-xs"></i><span class="text-xs font-medium text-teal-800">' + escapeHtml(catLabel) + '</span></div>' : '') +
+          '<div class="flex items-center gap-2 mb-2">' +
+            '<div class="h-10 w-10 rounded-xl bg-teal-100 flex items-center justify-center shrink-0"><i class="fas fa-graduation-cap text-teal-700"></i></div>' +
+            '<h3 class="text-lg font-semibold">' + titulo + '</h3>' +
+          '</div>' +
+          '<p class="text-slate-600 text-sm mt-1">' + desc + '</p>' +
+          '<ul class="mt-4 space-y-2 text-sm text-slate-600">' +
+            (autor ? '<li class="flex items-center gap-2"><i class="fas fa-user text-slate-500 w-[18px]"></i>' + autor + '</li>' : '') +
+            (fecha ? '<li class="flex items-center gap-2"><i class="fas fa-calendar text-slate-500 w-[18px]"></i>' + fecha + '</li>' : '') +
+            (size ? '<li class="flex items-center gap-2"><i class="fas fa-file-alt text-slate-500 w-[18px]"></i>' + size + '</li>' : '') +
+          '</ul>' +
+          '<div class="mt-5 flex items-center gap-3">' +
+            '<a href="' + urlDescarga + '" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl bg-brand-blue text-white text-sm font-semibold shadow hover:bg-blue-700 transition">Descargar</a>' +
+            '<button type="button" class="btnVerDetalleDoc px-4 py-2 rounded-xl border border-slate-300 text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 transition">Ver detalles</button>' +
+          '</div>' +
+        '</article>';
+      }).join('');
+
+      grid.querySelectorAll('.btnVerDetalleDoc').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var card = this.closest('article');
+          var docId = card.getAttribute('data-doc-id');
+          if (!docId) return;
+          var doc = todosDocumentos.filter(function(d) { return String(d.id) === String(docId); })[0];
+          if (!doc) return;
+          document.getElementById('modalDocTitulo').textContent = doc.nombre_archivo || 'Documento';
+          document.getElementById('modalDocContenido').innerHTML = '<p class="mb-4">' + escapeHtml(doc.descripcion || 'Sin descripción.') + '</p>' +
+            (doc.categoria ? '<p class="text-sm"><strong>Categoría:</strong> ' + escapeHtml(CATEGORIA_LABELS[doc.categoria] || doc.categoria) + '</p>' : '') +
+            (doc.organizacion_nombre ? '<p class="text-sm mt-1"><strong>Organización:</strong> ' + escapeHtml(doc.organizacion_nombre) + '</p>' : '') +
+            (doc.autor ? '<p class="text-sm mt-1"><strong>Autor:</strong> ' + escapeHtml(doc.autor) + '</p>' : '') +
+            '<p class="text-sm mt-2"><strong>Fecha:</strong> ' + formatFecha(doc.fecha_edicion || doc.created_at) + '</p>' +
+            (doc.archivo_tamano_bytes ? '<p class="text-sm"><strong>Tamaño:</strong> ' + formatBytes(doc.archivo_tamano_bytes) + '</p>' : '');
+          document.getElementById('modalDocDescargar').href = API_BASE_URL + '/repositorio/documento/academia/' + doc.id + '/descargar';
+          document.getElementById('modalDetalleDoc').classList.remove('hidden');
+          document.getElementById('modalDetalleDoc').classList.add('flex');
+        });
+      });
+    }
+
+    function cerrarModalDoc() {
+      document.getElementById('modalDetalleDoc').classList.add('hidden');
+      document.getElementById('modalDetalleDoc').classList.remove('flex');
+    }
+
+    function aplicarFiltros() {
+      var q = (document.getElementById('academiaSearch') && document.getElementById('academiaSearch').value) || '';
+      var catSlug = (document.getElementById('academiaCategoria') && document.getElementById('academiaCategoria').value) || '';
+      var filtrados = filtrarPorTexto(todosDocumentos, q);
+      filtrados = filtrarPorCategoria(filtrados, catSlug);
+      renderCards(filtrados);
+    }
+
+    async function cargarDocumentosAcademia() {
+      const grid = document.getElementById('academiaGrid');
+      if (!grid) return;
+      grid.innerHTML = '<div class="col-span-full text-center py-12"><i class="fas fa-spinner fa-spin text-4xl text-slate-400"></i><p class="mt-4 text-slate-500">Cargando materiales...</p></div>';
+      try {
+        const response = await fetch(API_BASE_URL + '/academia/documentos');
+        const data = await response.json();
+        if (data.success && data.documentos && data.documentos.length > 0) {
+          todosDocumentos = data.documentos.filter(function(d) { return (d.estado || 'aprobado').toLowerCase() === 'aprobado'; });
+          aplicarFiltros();
+        } else {
+          todosDocumentos = [];
+          renderCards([]);
+        }
+      } catch (err) {
+        console.error('Error cargando academia:', err);
+        todosDocumentos = [];
+        renderCards([]);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      cargarDocumentosAcademia();
+      var btnFiltros = document.getElementById('btnAplicarFiltrosAcademia');
+      if (btnFiltros) btnFiltros.addEventListener('click', aplicarFiltros);
+      var inputSearch = document.getElementById('academiaSearch');
+      if (inputSearch) inputSearch.addEventListener('keypress', function(e) { if (e.key === 'Enter') aplicarFiltros(); });
+    });
+  </script>
+</body>
+</html>

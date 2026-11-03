@@ -1,0 +1,107 @@
+/* ==========================
+   INJUV - Estilos 
+   ========================== */
+
+/* Reset mínimo */
+* { box-sizing: border-box; }
+body { font-family: var(--font-body); }
+
+/* ---------- Avatar y cropper ---------- */
+.avatar-default #avatarCard {
+  transform: scale(1.5);
+  transform-origin: center center;
+}
+
+#cropper img { max-width: none; }
+#cropFrame { overflow: hidden; position: relative; }
+#cropImg {
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+  position: absolute;
+}
+
+/* ---------- Botones de edición (solo dentro de tarjetas) ---------- */
+.section-card { position: relative; }
+
+/* Posición + aparición solo al hover */
+.section-card .edit-btn {
+  position: absolute; top: 1rem; right: 1rem;
+  opacity: 0; transition: opacity .25s ease;
+}
+.section-card:hover .edit-btn { opacity: 1; }
+
+/* ---------- Habilidades ---------- */
+.bar-track {
+  width: 100%; height: 10px;
+  background-color: #e5e7eb;
+  border-radius: 9999px;
+  cursor: pointer; overflow: hidden; position: relative;
+}
+.bar-fill {
+  height: 100%; background-color: #2563eb;
+  border-radius: 9999px; transition: width .2s ease;
+}
+.bar-track:hover .bar-fill { filter: brightness(1.1); }
+
+/* Botón eliminar (X) – sin wrapper extra */
+.delete-btn{
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; line-height: 1;
+  color: #e11d48;                 /* rojo */
+  border: 1px solid #fecaca;      /* borde rosado suave */
+  background: transparent;
+  transition: background-color .2s ease, color .2s ease, transform .12s ease;
+}
+.delete-btn:hover{
+  background-color: #e11d48; color: #fff; transform: scale(1.06);
+}
+
+/* Botón añadir (+) – ya usas tailwind, solo suavizo transición opcional */
+#skillQuickAdd { transition: background-color .2s ease, transform .12s ease; }
+#skillQuickAdd:hover { transform: translateY(-1px); }
+
+/* ---------- Modales ---------- */
+#modal, #cropper { backdrop-filter: blur(2px); }
+
+/* ---------- Modal Editar Perfil (Estilo Facebook) ---------- */
+#editProfileModal {
+  z-index: 9999;
+}
+
+#editProfileModal .edit-profile-menu-item.active {
+  background-color: #dbeafe;
+  color: #1e40af;
+  font-weight: 500;
+}
+
+.edit-profile-section {
+  animation: fadeIn 0.2s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Scrollbar (WebKit) ---------- */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background-color: #94a3b8; }
+
+/* ---------- Animaciones suaves para tarjetas ---------- */
+.section-card {
+  transition: box-shadow .2s ease, transform .1s ease;
+}
+.section-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,.06);
+}

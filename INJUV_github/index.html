@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INJUV - Juventud y Voluntariado</title>
+    <link rel="stylesheet" href="Kit_Gobierno/typography.css">
+    <link rel="stylesheet" href="Kit_Gobierno/grid-system.css">
+    <link rel="stylesheet" href="Kit_Gobierno/buttons-system.css">
+    <link rel="stylesheet" href="Kit_Gobierno/cards-system.css">
+    <link rel="stylesheet" href="Kit_Gobierno/expansion-panel-system.css">
+    <link rel="stylesheet" href="Kit_Gobierno/stepper-system.css">
+    <link rel="stylesheet" href="Kit_Gobierno/tooltip-system.css">
+    <link rel="stylesheet" href="Kit_Gobierno/form-controls-system.css">
+    <link rel="stylesheet" href="Kit_Gobierno/otp-input-system.css">
+    <link rel="stylesheet" href="Kit_Gobierno/search-input-system.css">
+    <link rel="stylesheet" href="Kit_Gobierno/select-system.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="chatbot/styles_bot.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+   
+    <!-- Header -->
+    <div id="header-container"></div>
+
+    <main style="padding-bottom: 80px; margin-bottom: 40px;">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Voluntariado
+                    <span class="highlight">para Chile</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Conecta con oportunidades de voluntariado en más de 140 Comunas de Chile mientras desarrollas habilidades 
+                    y contribuyes al desarrollo sostenible. Más de 10,000 jóvenes ya han participado.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">12,456</span>
+                        <span class="stat-label">Usuarios Registrados</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">3,247</span>
+                        <span class="stat-label">Oportunidades Subidas</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">156,789</span>
+                        <span class="stat-label">Horas de Voluntariado</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="Fotos_injuv/IMG_8906.JPG" alt="Jóvenes voluntarios de INJUV" class="hero-travel-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <section class="navigation-section">
+        <div class="container">
+            <h2 class="section-title">Acceso a la Plataforma</h2>
+            <p class="section-subtitle">Selecciona el área que necesitas para acceder a los servicios de INJUV</p>
+            
+            <div class="nav-cards">
+                <div class="nav-card">
+                    <div class="nav-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>Panel de Administración</h3>
+                    <p>Gestiona usuarios, reportes, noticias y configuraciones de la plataforma</p>
+                    <a href="Roles/Admin/admin-modern.html" class="nav-btn">
+                        <i class="fas fa-arrow-right"></i>
+                        Acceder como Admin
+                    </a>
+                </div>
+                
+                <div class="nav-card">
+                    <div class="nav-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Formulario de Organización</h3>
+                    <p>Registra tu organización para participar en el programa de voluntariado</p>
+                    <a href="Roles/Formulario/index.html" class="nav-btn">
+                        <i class="fas fa-arrow-right"></i>
+                        Registrar Organización
+                    </a>
+                </div>
+                
+                <div class="nav-card">
+                    <div class="nav-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Perfil de Usuario</h3>
+                    <p>Gestiona tu perfil, certificados y experiencia de voluntariado</p>
+                    <a href="Roles/Perfil_usuario/index.html" class="nav-btn">
+                        <i class="fas fa-arrow-right"></i>
+                        Acceder como Usuario
+                    </a>
+                </div>
+                
+                <div class="nav-card">
+                    <div class="nav-icon">
+                        <i class="fas fa-sitemap"></i>
+                    </div>
+                    <h3>Perfil de Organización</h3>
+                    <p>Gestiona el perfil de tu organización, oportunidades y voluntarios</p>
+                    <a href="Roles/Perfil_organizacion/index.html" class="nav-btn">
+                        <i class="fas fa-arrow-right"></i>
+                        Acceder como Organización
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Volunteering Carousel -->
+    <section class="volunteering-carousel" id="experiencias-voluntariado">
+        <div class="container">
+            <h2 class="section-title">Experiencias de Voluntariado</h2>
+            <p class="section-subtitle">Descubre las increíbles experiencias de nuestros voluntarios alrededor del mundo</p>
+        </div>
+        
+        <div class="carousel-container">
+                <div class="carousel-wrapper">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide active">
+                            <div class="slide-image">
+                                <img src="Fotos_injuv/54281547351_0aaa628927_b.jpg" alt="Experiencia de voluntariado INJUV">
+                                <div class="slide-overlay">
+                                    <h3>Experiencias de Voluntariado</h3>
+                                    <p>Jóvenes chilenos participando en proyectos de desarrollo</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <div class="slide-image">
+                                <img src="Fotos_injuv/54368589547_757eda7fe6_b.jpg" alt="Experiencia de voluntariado INJUV">
+                                <div class="slide-overlay">
+                                    <h3>Programas de Voluntariado</h3>
+                                    <p>Oportunidades de servicio comunitario e internacional</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <div class="slide-image">
+                                <img src="Fotos_injuv/54730068199_d866975486_b.jpg" alt="Experiencia de voluntariado INJUV">
+                                <div class="slide-overlay">
+                                    <h3>Compromiso Juvenil</h3>
+                                    <p>Jóvenes transformando comunidades a través del voluntariado</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <div class="slide-image">
+                                <img src="Fotos_injuv/54751927332_a8c92169f5_b.jpg" alt="Experiencia de voluntariado INJUV">
+                                <div class="slide-overlay">
+                                    <h3>Participación Activa</h3>
+                                    <p>Jóvenes comprometidos con el cambio social y comunitario</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <div class="slide-image">
+                                <img src="Fotos_injuv/54853109430_9945f5fb9c_b.jpg" alt="Experiencia de voluntariado INJUV">
+                                <div class="slide-overlay">
+                                    <h3>Desarrollo Comunitario</h3>
+                                    <p>Construyendo un futuro mejor para nuestras comunidades</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-progress-bar">
+                        <div class="carousel-progress-fill"></div>
+                    </div>
+                    
+                    <div class="carousel-controls">
+                        <button class="carousel-btn prev-btn" id="prevBtn">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="carousel-btn next-btn" id="nextBtn">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="carousel-indicators">
+                    <span class="indicator active" data-slide="0"></span>
+                    <span class="indicator" data-slide="1"></span>
+                    <span class="indicator" data-slide="2"></span>
+                    <span class="indicator" data-slide="3"></span>
+                    <span class="indicator" data-slide="4"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news-section" id="news">
+        <div class="container">
+            <div class="section-header">
+                <h2>Noticias</h2>
+                <a href="noticias/index.html" class="view-all">Ver todas las noticias</a>
+            </div>
+            
+            <div class="news-grid">
+                <article class="news-card">
+                    <div class="news-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="news-categories">
+                            <span class="category organization">INJUV</span>
+                            <span class="category">Voluntariado</span>
+                        </div>
+                    </div>
+                    <div class="news-content">
+                        <h3>INJUV lanza programa de voluntariado nacionales para jóvenes chilenos</h3>
+                        <p>Nueva iniciativa permite a jóvenes de 18 a 29 años participar en proyectos de desarrollo sostenible en más de 140 países, con apoyo institucional y certificación oficial.</p>
+                        <div class="news-meta">
+                            <span class="news-date">Lun, 15 Ene, 10:30 am.</span>
+                            <a href="#" class="read-more">Ver más</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-tree"></i>
+                        </div>
+                        <div class="news-categories">
+                            <span class="category organization">Fundación Verde</span>
+                            <span class="category">Medio Ambiente</span>
+                            <span class="category">Reforestación</span>
+                        </div>
+                    </div>
+                    <div class="news-content">
+                        <h3>Fundación Verde lanza campaña de reforestación en la Patagonia</h3>
+                        <p>Iniciativa busca plantar 10,000 árboles nativos en áreas afectadas por incendios forestales, con participación de voluntarios nacionales e internacionales.</p>
+                        <div class="news-meta">
+                            <span class="news-date">Mar, 8 Ene, 11:00 am.</span>
+                            <a href="#" class="read-more">Ver más</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="news-categories">
+                            <span class="category organization">Cruz Roja Chile</span>
+                            <span class="category">Emergencia</span>
+                            <span class="category">Ayuda Humanitaria</span>
+                        </div>
+                    </div>
+                    <div class="news-content">
+                        <h3>Cruz Roja Chile busca voluntarios para programa de ayuda en emergencias</h3>
+                        <p>Programa de capacitación para jóvenes que deseen ayudar en situaciones de emergencia y desastres naturales en todo el país.</p>
+                        <div class="news-meta">
+                            <span class="news-date">Lun, 7 Ene, 16:45 pm.</span>
+                            <a href="#" class="read-more">Ver más</a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">¿Cómo funciona?</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h3>1. Crea tu perfil</h3>
+                    <p>Regístrate gratis y completa tu perfil con tus habilidades e intereses</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>2. Encuentra oportunidades</h3>
+                    <p>Busca y filtra oportunidades de voluntariado que se adapten a ti</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>3. Conecta con anfitriones</h3>
+                    <p>Contacta directamente con anfitriones y coordina tu experiencia</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <h3>4. ¡Viaja y ayuda!</h3>
+                    <p>Disfruta de una experiencia única mientras contribuyes a una causa</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Organizations -->
+    <section class="popular-countries" id="organizaciones">
+        <div class="container">
+            <h2 class="section-title">Organizaciones</h2>
+            <div class="countries-grid">
+                <div class="country-card">
+                    <div class="country-flag">🏢</div>
+                    <h3>Fundación Verde</h3>
+                    <p>Medio ambiente y conservación</p>
+                    <span class="country-count">298 oportunidades</span>
+                </div>
+                <div class="country-card">
+                    <div class="country-flag">🎓</div>
+                    <h3>ONG Educación para Todos</h3>
+                    <p>Educación y desarrollo</p>
+                    <span class="country-count">245 oportunidades</span>
+                </div>
+                <div class="country-card">
+                    <div class="country-flag">❤️</div>
+                    <h3>Fundación Solidaridad</h3>
+                    <p>Apoyo social y comunitario</p>
+                    <span class="country-count">189 oportunidades</span>
+                </div>
+                <div class="country-card">
+                    <div class="country-flag">🌱</div>
+                    <h3>Asociación Ecológica</h3>
+                    <p>Sustentabilidad y ecología</p>
+                    <span class="country-count">167 oportunidades</span>
+                </div>
+                <div class="country-card">
+                    <div class="country-flag">🏥</div>
+                    <h3>Centro de Salud Comunitario</h3>
+                    <p>Salud y bienestar</p>
+                    <span class="country-count">156 oportunidades</span>
+                </div>
+            </div>
+            <div class="section-footer">
+                <a class="btn-outline" href="organizaciones/index.html">Ver todas las organizaciones</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured opportunities -->
+    <section class="featured-opportunities" id="explore">
+        <div class="container">
+            <h2 class="section-title">Oportunidades destacadas</h2>
+            <div class="opportunities-grid">
+                <div class="opportunity-card">
+                    <div class="card-content">
+                        <div class="theme-badge">Eco Friendly</div>
+                        <h3>Granja Educativa de Lonquén</h3>
+                        <p class="description">
+                            Participa en una granja educativa sostenible mientras aprendes sobre agricultura ecológica y educación ambiental.
+                        </p>
+                        <div class="organizer-badge">
+                            <i class="fas fa-home"></i>
+                            <span>Fundación Verde Urbano</span>
+                        </div>
+                        <div class="card-details">
+                            <div class="detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Lonquén, Región Metropolitana</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>15-02-2026 - 15-03-2026</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-users"></i>
+                                <span>25 cupos</span>
+                            </div>
+                        </div>
+                        <div class="card-buttons">
+                            <button class="btn-postular">Postular</button>
+                            <button class="btn-detalles">Ver detalles</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="opportunity-card">
+                    <div class="card-content">
+                        <div class="theme-badge">Educación</div>
+                        <h3>Enseñanza de inglés Puente Alto</h3>
+                        <p class="description">
+                            Enseña inglés a niños y jóvenes en comunidades locales, contribuyendo a su desarrollo educativo y abriendo oportunidades de aprendizaje.
+                        </p>
+                        <div class="organizer-badge">
+                            <i class="fas fa-home"></i>
+                            <span>Educación Sin Fronteras</span>
+                        </div>
+                        <div class="card-details">
+                            <div class="detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Puente Alto, Región Metropolitana</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>01-03-2026 - 31-05-2026</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-users"></i>
+                                <span>15 cupos</span>
+                            </div>
+                        </div>
+                        <div class="card-buttons">
+                            <button class="btn-postular">Postular</button>
+                            <button class="btn-detalles">Ver detalles</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="opportunity-card">
+                    <div class="card-content">
+                        <div class="theme-badge">Eco Friendly</div>
+                        <h3>Reforestación urbana</h3>
+                        <p class="description">
+                            Jornada de plantación y mantenimiento de áreas verdes en espacios públicos, contribuyendo a la recuperación ambiental urbana.
+                        </p>
+                        <div class="organizer-badge">
+                            <i class="fas fa-home"></i>
+                            <span>Fundación Verde Urbano</span>
+                        </div>
+                        <div class="card-details">
+                            <div class="detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Santiago, Región Metropolitana</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>10-01-2026 - 10-02-2026</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-users"></i>
+                                <span>25 cupos</span>
+                            </div>
+                        </div>
+                        <div class="card-buttons">
+                            <button class="btn-postular">Postular</button>
+                            <button class="btn-detalles">Ver detalles</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-footer">
+                <a class="btn-outline" href="visualizacion-vd/index.html">Ver todas las oportunidades</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">Lo que dicen nuestros voluntarios(as)</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Una experiencia increíble que cambió mi perspectiva del mundo. Conocí gente maravillosa y aprendí mucho sobre sostenibilidad."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>María González</h4>
+                            <span>Fundación Verde Urbano</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Enseñar inglés en Puente Alto fue la mejor decisión que he tomado. Los niños eran increíbles y la familia anfitriona me trató como a un miembro más de la familia."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Matías López</h4>
+                            <span>Educación Sin Fronteras</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"¡San Bernardo me encantó! Ser voluntario allí fue una experiencia increíble: conocí personas de distintas partes y aprendí mucho sobre trabajo en equipo y compromiso social."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Josefa Riquelme</h4>
+                            <span>Fundación Verde Urbano</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>¿Listo para tu próxima aventura internacional?</h2>
+                <p>Únete a miles de jóvenes chilenos que ya están cambiando el mundo a través del voluntariado internacional con INJUV.</p>
+                <div class="cta-buttons">
+                    <a href="inicio de sesion/login.html" class="btn-primary btn-large">Postular ahora</a>
+                    <button class="btn-outline btn-large">Conocer más</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-wrapper">
+            <!-- Barra superior -->
+            <div class="footer-top-bar">
+                <div class="footer-bar-blue"></div>
+                <div class="footer-bar-red"></div>
+            </div>
+            
+            <div class="footer-content">
+                <!-- Columna 1: Logos -->
+                <div class="footer-section footer-col1">
+                    <div class="footer-logos-container">
+                        <!-- Logo ClaveÚnica -->
+                        <div class="footer-logo-claveunica">
+                            <img src="Fotos_injuv/ClaveUnica.png" alt="ClaveÚnica" class="footer-logo-img claveunica-logo">
+                        </div>
+                        
+                        <p class="footer-admin-text">Servicio de autenticación administrado por:</p>
+                        
+                        <!-- Logo Secretaría de Gobierno Digital -->
+                        <div class="footer-logo-secretaria">
+                            <img src="Fotos_injuv/SecretariaGobiernoDigital.png" alt="Secretaría de Gobierno Digital" class="footer-logo-img secretaria-logo">
+                        </div>
+                        
+                        <p class="footer-collab-text">Con la colaboración de:</p>
+                        
+                        <!-- Logo Ministerio -->
+                        <div class="footer-logo-ministerio-small">
+                            <img src="Fotos_injuv/color_MinDesarrolloSocialYFamilia.jpg" alt="Ministerio de Desarrollo Social y Familia" class="footer-logo-img ministerio-small-logo">
+                        </div>
+                        
+                        <p class="footer-trademark">INJUV®</p>
+                    </div>
+                </div>
+                
+                <!-- Columna 2: Secciones -->
+                <div class="footer-section footer-col2">
+                    <h4>Secciones</h4>
+                    <ul>
+                        <li><a href="noticias/index.html">Noticias</a></li>
+                        <li><a href="inicio de sesion/login.html">Postular</a></li>
+                        <li><a href="#organizaciones">Instituciones públicas</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Columna 3: Ayuda a Ciudadanos -->
+                <div class="footer-section footer-col3">
+                    <h4>Ayuda a Ciudadanos</h4>
+                    <a href="#" class="contact-link" id="faq-link">Preguntas frecuentes</a>
+                    <p class="contact-info">Horario: Lu - Vi / 9:00hrs - 18:00hrs</p>
+                    <a href="tel:+56226204700" class="contact-phone">+56 2 26204700</a>
+                </div>
+                
+                <!-- Columna 4: Ayuda a Instituciones -->
+                <div class="footer-section footer-col4">
+                    <h4>Ayuda a Instituciones</h4>
+                    <p class="contact-info">Horario: Lu - Vi / 9:00hrs - 18:00hrs</p>
+                    <a href="tel:+56226204700" class="contact-phone">+56 2 26204700</a>
+                </div>
+            </div>
+            
+            <!-- Barra inferior -->
+            <div class="footer-bottom-bar">
+                <div class="footer-bar-blue"></div>
+                <div class="footer-bar-red"></div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Cargar header y configurar enlaces
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                // Extraer solo el contenido del body (el header)
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, 'text/html');
+                const headerContent = doc.querySelector('header');
+                const styles = doc.querySelector('style');
+                
+                // Insertar estilos si existen
+                if (styles) {
+                    const styleElement = document.createElement('style');
+                    styleElement.textContent = styles.textContent;
+                    document.head.appendChild(styleElement);
+                }
+                
+                // Insertar el header
+                if (headerContent) {
+                    document.getElementById('header-container').innerHTML = headerContent.outerHTML;
+                } else {
+                    // Fallback: extraer solo el contenido del body
+                    const bodyContent = doc.body.innerHTML;
+                    document.getElementById('header-container').innerHTML = bodyContent;
+                }
+                
+                // Configurar enlaces del header
+                setTimeout(() => {
+                    // Logo - va a página principal
+                    const logo = document.getElementById('logo-link');
+                    if (logo) logo.href = 'index.html';
+                    
+                    // ¿Cómo funciona? - scroll a sección
+                    const howWorks = document.getElementById('how-it-works-link');
+                    if (howWorks) {
+                        howWorks.href = '#how-it-works';
+                        howWorks.onclick = (e) => {
+                            e.preventDefault();
+                            document.getElementById('how-it-works').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        };
+                    }
+                    
+                    // Experiencias - scroll a sección
+                    const experiencias = document.getElementById('experiencias-link');
+                    if (experiencias) {
+                        experiencias.href = '#experiencias-voluntariado';
+                        experiencias.onclick = (e) => {
+                            e.preventDefault();
+                            document.getElementById('experiencias-voluntariado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        };
+                    }
+                    
+                    // Noticias - scroll a sección
+                    const noticias = document.getElementById('news-link');
+                    if (noticias) {
+                        noticias.href = '#news';
+                        noticias.onclick = (e) => {
+                            e.preventDefault();
+                            document.getElementById('news').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        };
+                    }
+                    
+                    // Login
+                    const login = document.getElementById('login-link');
+                    if (login) login.href = 'inicio de sesion/login.html';
+                    
+                    // Menú móvil toggle
+                    const menuToggle = document.getElementById('menuToggle');
+                    const mainNav = document.querySelector('.main-nav');
+                    if (menuToggle && mainNav) {
+                        menuToggle.addEventListener('click', () => {
+                            menuToggle.classList.toggle('active');
+                            mainNav.classList.toggle('active');
+                            menuToggle.setAttribute('aria-expanded', menuToggle.classList.contains('active'));
+                        });
+                        
+                        // Cerrar menú al hacer clic en un enlace
+                        const navLinks = mainNav.querySelectorAll('.nav-link');
+                        navLinks.forEach(link => {
+                            link.addEventListener('click', () => {
+                                if (window.innerWidth <= 1024) {
+                                    menuToggle.classList.remove('active');
+                                    mainNav.classList.remove('active');
+                                    menuToggle.setAttribute('aria-expanded', 'false');
+                                }
+                            });
+                        });
+                    }
+                    
+                    // Dropdowns móviles
+                    const dropdownItems = document.querySelectorAll('.nav-item.dropdown');
+                    dropdownItems.forEach(item => {
+                        const link = item.querySelector('.nav-link');
+                        if (link && window.innerWidth <= 1024) {
+                            link.addEventListener('click', (e) => {
+                                e.preventDefault();
+                                item.classList.toggle('open');
+                            });
+                        }
+                    });
+                    
+                    // Header scroll effect
+                    const header = document.getElementById('header');
+                    if (header) {
+                        window.addEventListener('scroll', () => {
+                            if (window.scrollY > 20) {
+                                header.classList.add('scrolled');
+                            } else {
+                                header.classList.remove('scrolled');
+                            }
+                        });
+                    }
+                    
+                    // Scroll automático si hay hash en la URL
+                    if (window.location.hash) {
+                        setTimeout(() => {
+                            const target = document.querySelector(window.location.hash);
+                            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 300);
+                    }
+                }, 100);
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+    <script src="script.js"></script>
+    
+    <!-- Chatbot de Preguntas Frecuentes -->
+    <div id="chatbot-container" class="chatbot-container">
+        <div class="chatbot-header">
+            <div class="chatbot-header-content">
+                <div class="chatbot-avatar">
+                    <img src="chatbot/imagenes/chatbot-icon.png" alt="Asistente INJUV" class="chatbot-avatar-img">
+                </div>
+                <div class="chatbot-info">
+                    <h3>Asistente INJUV</h3>
+                    <span class="chatbot-status">👉 Listo para ayudarte...</span>
+                </div>
+            </div>
+            <button id="chatbot-close" class="chatbot-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="chatbot-messages" class="chatbot-messages"></div>
+        <div class="chatbot-input-container">
+            <input 
+                type="text" 
+                id="chatbot-input" 
+                class="chatbot-input" 
+                placeholder="Escribe tu pregunta aquí..."
+                autocomplete="off"
+            >
+            <button type="button" id="chatbot-send" class="chatbot-send">
+                <img src="chatbot/imagenes/Chatbot-enviar.png" alt="Enviar" class="send-icon-img">
+            </button>
+        </div>
+    </div>
+    
+    <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Abrir chatbot">
+        <img src="chatbot/imagenes/chatbot-icon.png" alt="Chatbot" class="chatbot-toggle-icon">
+        <span class="chatbot-badge">?</span>
+    </button>
+    
+    <script src="Kit_Gobierno/expansion-panel-system.js"></script>
+    <script src="Kit_Gobierno/stepper-system.js"></script>
+    <script src="Kit_Gobierno/tooltip-system.js"></script>
+    <script src="Kit_Gobierno/file-input-system.js"></script>
+    <script src="Kit_Gobierno/otp-input-system.js"></script>
+    <script src="Kit_Gobierno/search-input-system.js"></script>
+    <script src="Kit_Gobierno/select-system.js"></script>
+    <script src="chatbot/chatbot.js"></script>
+    
+    <script>
+        // Configurar enlace de "Preguntas frecuentes" para abrir el chatbot
+        window.addEventListener('load', () => {
+            const faqLink = document.getElementById('faq-link');
+            
+            if (faqLink) {
+                faqLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Esperar a que el chatbot se haya inicializado
+                    setTimeout(() => {
+                        const chatbotToggle = document.getElementById('chatbot-toggle');
+                        const chatbotContainer = document.getElementById('chatbot-container');
+                        
+                        if (chatbotContainer && chatbotToggle) {
+                            // Si el chatbot está cerrado, abrirlo haciendo clic en el toggle
+                            if (!chatbotContainer.classList.contains('chatbot-open')) {
+                                chatbotToggle.click();
+                            }
+                            // Si ya está abierto, no hacer nada (solo mantenerlo abierto)
+                        }
+                    }, 300);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,778 @@
+/* ============================================
+   SISTEMA DE TIPOGRAFÍA INJUV
+   Roboto Slab para Encabezados
+   Roboto Sans para Body Text
+   ============================================ */
+
+/* Importar fuentes de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500&family=Roboto:wght@400;500;700&display=swap');
+
+/* Optimización global para renderizado de fuentes */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Variables CSS para tipografía */
+:root {
+  /* Fuentes */
+  --font-heading: 'Roboto Slab', serif;
+  --font-body: 'Roboto', sans-serif;
+  
+  /* Breakpoints */
+  --breakpoint-mobile: 768px;
+}
+
+/* ============================================
+   ENCABEZADOS - ROBOTO SLAB
+   ============================================ */
+
+/* Heading-XL - Desktop */
+.heading-xl {
+  font-family: var(--font-heading);
+  font-size: 48px; /* 3rem */
+  line-height: 1.0416666667;
+  font-weight: 400;
+  color: inherit;
+}
+
+.heading-xl + p {
+  font-size: 22px; /* 1.5rem */
+}
+
+/* Heading-XL - Mobile */
+@media (max-width: 768px) {
+  .heading-xl {
+    font-size: 32px; /* 2rem */
+    line-height: 1.0416666667;
+    font-weight: 400;
+  }
+  
+  .heading-xl + p {
+    font-size: 22px; /* 1.5rem */
+  }
+}
+
+/* Heading-L - Desktop */
+.heading-l {
+  font-family: var(--font-heading);
+  font-size: 36px; /* 2.25rem */
+  line-height: 49px; /* 3rem */
+  font-weight: 500;
+  color: inherit;
+}
+
+.heading-l + p {
+  font-size: 18px; /* 1.15rem */
+}
+
+/* Heading-L - Mobile */
+@media (max-width: 768px) {
+  .heading-l {
+    font-size: 36px; /* 2.25rem */
+    line-height: 49px; /* 3rem */
+    font-weight: 500;
+  }
+  
+  .heading-l + p {
+    font-size: 18px; /* 1.15rem */
+  }
+}
+
+/* Heading-M - Desktop */
+.heading-m {
+  font-family: var(--font-heading);
+  font-size: 31px; /* 2rem */
+  line-height: 39px; /* 2.45rem */
+  font-weight: 500;
+  color: inherit;
+}
+
+.heading-m + p {
+  font-size: 18px; /* 1.15rem */
+}
+
+/* Heading-M - Mobile */
+@media (max-width: 768px) {
+  .heading-m {
+    font-size: 31px; /* 2rem */
+    line-height: 39px; /* 2.45rem */
+    font-weight: 500;
+  }
+  
+  .heading-m + p {
+    font-size: 18px; /* 1.15rem */
+  }
+}
+
+/* Heading-S - Desktop */
+.heading-s {
+  font-family: var(--font-heading);
+  font-size: 25px; /* 1.6rem */
+  line-height: 31px; /* 2rem */
+  font-weight: 500;
+  color: inherit;
+}
+
+.heading-s + p {
+  font-size: 14px; /* 0.9rem */
+}
+
+/* Heading-S - Mobile */
+@media (max-width: 768px) {
+  .heading-s {
+    font-size: 25px; /* 1.6rem */
+    line-height: 31px; /* 2rem */
+    font-weight: 500;
+  }
+  
+  .heading-s + p {
+    font-size: 14px; /* 0.9rem */
+  }
+}
+
+/* ============================================
+   ENCABEZADOS - ROBOTO SANS
+   ============================================ */
+
+/* Heading-XL - Roboto Sans - Desktop */
+.heading-xl-sans {
+  font-family: var(--font-body);
+  font-size: 48px; /* 3rem */
+  line-height: 24px; /* 1.5rem */
+  font-weight: 700;
+  color: inherit;
+}
+
+.heading-xl-sans + p {
+  font-size: 20px; /* 1.5rem */
+}
+
+/* Heading-XL - Roboto Sans - Mobile */
+@media (max-width: 768px) {
+  .heading-xl-sans {
+    font-size: 32px; /* 2rem */
+    line-height: 24px; /* 1.5rem */
+    font-weight: 400;
+  }
+  
+  .heading-xl-sans + p {
+    font-size: 20px; /* 1.5rem */
+  }
+}
+
+/* Heading-L - Roboto Sans - Desktop */
+.heading-l-sans {
+  font-family: var(--font-body);
+  font-size: 36px; /* 2.25rem */
+  line-height: 49px; /* 3rem */
+  font-weight: 500;
+  color: inherit;
+}
+
+.heading-l-sans + p {
+  font-size: 18px; /* 1.15rem */
+}
+
+/* Heading-L - Roboto Sans - Mobile */
+@media (max-width: 768px) {
+  .heading-l-sans {
+    font-size: 24px; /* 1.5rem */
+    line-height: 49px; /* 3rem */
+    font-weight: 500;
+  }
+  
+  .heading-l-sans + p {
+    font-size: 18px; /* 1.15rem */
+  }
+}
+
+/* Heading-M - Roboto Sans - Desktop */
+.heading-m-sans {
+  font-family: var(--font-body);
+  font-size: 31px; /* 2rem */
+  line-height: 39px; /* 2.45rem */
+  font-weight: 500;
+  color: inherit;
+}
+
+.heading-m-sans + p {
+  font-size: 18px; /* 1.15rem */
+}
+
+/* Heading-M - Roboto Sans - Mobile */
+@media (max-width: 768px) {
+  .heading-m-sans {
+    font-size: 18px; /* 1.125rem */
+    line-height: 39px; /* 2.45rem */
+    font-weight: 500;
+  }
+  
+  .heading-m-sans + p {
+    font-size: 18px; /* 1.15rem */
+  }
+}
+
+/* Heading-S - Roboto Sans - Desktop */
+.heading-s-sans {
+  font-family: var(--font-body);
+  font-size: 19px; /* 1.6rem - Nota: según la imagen parece ser 19px, no 25px como en Slab */
+  line-height: 31px; /* 2rem */
+  font-weight: 500;
+  color: inherit;
+}
+
+.heading-s-sans + p {
+  font-size: 14px; /* 0.9rem */
+}
+
+/* Heading-S - Roboto Sans - Mobile */
+@media (max-width: 768px) {
+  .heading-s-sans {
+    font-size: 16px; /* 1rem */
+    line-height: 31px; /* 2rem */
+    font-weight: 500;
+  }
+  
+  .heading-s-sans + p {
+    font-size: 14px; /* 0.9rem */
+  }
+}
+
+/* ============================================
+   BODY TEXT - ROBOTO SANS
+   ============================================ */
+
+/* Body-L (Regular) - Desktop */
+.body-l {
+  font-family: var(--font-body);
+  font-size: 24px; /* 1.5rem */
+  line-height: 31px; /* 2rem */
+  font-weight: 400;
+  color: inherit;
+}
+
+.body-l + p {
+  font-size: 14px; /* 0.9rem */
+}
+
+/* Body-L (Regular) - Mobile */
+@media (max-width: 768px) {
+  .body-l {
+    font-size: 18px; /* 1.125rem */
+    line-height: 31px; /* 2rem */
+    font-weight: 500;
+  }
+  
+  .body-l + p {
+    font-size: 14px; /* 0.9rem */
+  }
+}
+
+/* Body-L (Bold) - Desktop */
+.body-l-bold {
+  font-family: var(--font-body);
+  font-size: 24px; /* 1.5rem */
+  line-height: 31px; /* 2rem */
+  font-weight: 700;
+  color: inherit;
+}
+
+.body-l-bold + p {
+  font-size: 14px; /* 0.9rem */
+}
+
+/* Body-L (Bold) - Mobile */
+@media (max-width: 768px) {
+  .body-l-bold {
+    font-size: 18px; /* 1.125rem */
+    line-height: 31px; /* 2rem */
+    font-weight: 700;
+  }
+  
+  .body-l-bold + p {
+    font-size: 14px; /* 0.9rem */
+  }
+}
+
+/* Body-M (Regular) - Desktop */
+.body-m {
+  font-family: var(--font-body);
+  font-size: 19px; /* 1.1875rem */
+  line-height: 31px; /* 2rem */
+  font-weight: 400;
+  color: inherit;
+}
+
+.body-m + p {
+  font-size: 14px; /* 0.9rem */
+}
+
+/* Body-M (Regular) - Mobile */
+@media (max-width: 768px) {
+  .body-m {
+    font-size: 16px; /* 1rem - Nota: en la imagen aparece como 1.1875rem pero parece ser 1rem */
+    line-height: 31px; /* 2rem */
+    font-weight: 400;
+  }
+  
+  .body-m + p {
+    font-size: 14px; /* 0.9rem */
+  }
+}
+
+/* Body-M (Bold) - Desktop */
+.body-m-bold {
+  font-family: var(--font-body);
+  font-size: 19px; /* 1.1875rem */
+  line-height: 31px; /* 2rem */
+  font-weight: 700;
+  color: inherit;
+}
+
+.body-m-bold + p {
+  font-size: 14px; /* 0.9rem */
+}
+
+/* Body-M (Bold) - Mobile */
+@media (max-width: 768px) {
+  .body-m-bold {
+    font-size: 16px; /* 1rem */
+    line-height: 31px; /* 2rem */
+    font-weight: 700;
+  }
+  
+  .body-m-bold + p {
+    font-size: 14px; /* 0.9rem */
+  }
+}
+
+/* Body-S (Regular) - Desktop */
+.body-s {
+  font-family: var(--font-body);
+  font-size: 16px; /* 0.875rem - aunque dice 16px, el rem es 0.875rem */
+  line-height: 31px; /* 2rem */
+  font-weight: 400;
+  color: inherit;
+}
+
+.body-s + p {
+  font-size: 14px; /* 0.9rem */
+}
+
+/* Body-S (Regular) - Mobile */
+@media (max-width: 768px) {
+  .body-s {
+    font-size: 14px; /* 0.875rem */
+    line-height: 31px; /* 2rem */
+    font-weight: 400;
+  }
+  
+  .body-s + p {
+    font-size: 14px; /* 0.9rem */
+  }
+}
+
+/* Body-S (Bold) - Desktop */
+.body-s-bold {
+  font-family: var(--font-body);
+  font-size: 16px; /* 0.875rem */
+  line-height: 31px; /* 2rem */
+  font-weight: 700;
+  color: inherit;
+}
+
+.body-s-bold + p {
+  font-size: 14px; /* 0.9rem */
+}
+
+/* Body-S (Bold) - Mobile */
+@media (max-width: 768px) {
+  .body-s-bold {
+    font-size: 14px; /* 0.875rem */
+    line-height: 31px; /* 2rem */
+    font-weight: 700;
+  }
+  
+  .body-s-bold + p {
+    font-size: 14px; /* 0.9rem */
+  }
+}
+
+/* Body-XS (Regular) - Desktop */
+.body-xs {
+  font-family: var(--font-body);
+  font-size: 14px; /* 0.875rem */
+  line-height: 31px; /* 2rem */
+  font-weight: 400;
+  color: inherit;
+}
+
+.body-xs + p {
+  font-size: 14px; /* 0.9rem */
+}
+
+/* Body-XS (Regular) - Mobile */
+@media (max-width: 768px) {
+  .body-xs {
+    font-size: 12px; /* 0.875rem */
+    line-height: 31px; /* 2rem */
+    font-weight: 400;
+  }
+  
+  .body-xs + p {
+    font-size: 14px; /* 0.9rem */
+  }
+}
+
+/* Body-XS (Bold) - Desktop */
+.body-xs-bold {
+  font-family: var(--font-body);
+  font-size: 14px; /* 0.875rem */
+  line-height: 31px; /* 2rem */
+  font-weight: 700;
+  color: inherit;
+}
+
+.body-xs-bold + p {
+  font-size: 14px; /* 0.9rem */
+}
+
+/* Body-XS (Bold) - Mobile */
+@media (max-width: 768px) {
+  .body-xs-bold {
+    font-size: 12px; /* 0.875rem */
+    line-height: 31px; /* 2rem */
+    font-weight: 700;
+  }
+  
+  .body-xs-bold + p {
+    font-size: 14px; /* 0.9rem */
+  }
+}
+
+/* ============================================
+   BODY BUTTON - ROBOTO SANS
+   ============================================ */
+
+/* Body-Button - Desktop */
+.body-button {
+  font-family: var(--font-body);
+  font-size: 19px; /* 1.1875rem */
+  line-height: 31px; /* 2rem */
+  font-weight: 500;
+  color: inherit;
+}
+
+.body-button + p {
+  font-size: 14px; /* 0.9rem */
+}
+
+/* Body-Button - Mobile */
+@media (max-width: 768px) {
+  .body-button {
+    font-size: 16px; /* 1rem */
+    line-height: 31px; /* 2rem */
+    font-weight: 500;
+  }
+  
+  .body-button + p {
+    font-size: 14px; /* 0.9rem */
+  }
+}
+
+/* Body-Button-Small - Desktop */
+.body-button-small {
+  font-family: var(--font-body);
+  font-size: 16px; /* 1.1875rem - aunque parece ser 16px según la imagen */
+  line-height: 31px; /* 2rem */
+  font-weight: 500;
+  color: inherit;
+}
+
+.body-button-small + p {
+  font-size: 14px; /* 0.9rem */
+}
+
+/* Body-Button-Small - Mobile */
+@media (max-width: 768px) {
+  .body-button-small {
+    font-size: 16px; /* 1rem */
+    line-height: 31px; /* 2rem */
+    font-weight: 500;
+  }
+  
+  .body-button-small + p {
+    font-size: 14px; /* 0.9rem */
+  }
+}
+
+/* Body-Button-Small-Bold - Desktop */
+.body-button-small-bold {
+  font-family: var(--font-body);
+  font-size: 25px; /* 1.6rem */
+  line-height: 31px; /* 2rem */
+  font-weight: 500;
+  color: inherit;
+}
+
+.body-button-small-bold + p {
+  font-size: 14px; /* 0.9rem */
+}
+
+/* ============================================
+   BODY LINK - ROBOTO SANS
+   ============================================ */
+
+/* Body-Link - Desktop */
+.body-link {
+  font-family: var(--font-body);
+  font-size: 19px; /* 1.1875rem */
+  line-height: 31px; /* 2rem */
+  font-weight: 500;
+  color: inherit;
+  text-decoration: none;
+}
+
+.body-link:hover {
+  text-decoration: underline;
+}
+
+.body-link + p {
+  font-size: 14px; /* 0.9rem */
+}
+
+/* Body-Link - Mobile */
+@media (max-width: 768px) {
+  .body-link {
+    font-size: 16px; /* 1rem */
+    line-height: 31px; /* 2rem */
+    font-weight: 500;
+  }
+  
+  .body-link + p {
+    font-size: 14px; /* 0.9rem */
+  }
+}
+
+/* Body-Link-Bold - Desktop */
+.body-link-bold {
+  font-family: var(--font-body);
+  font-size: 19px; /* 1.1875rem */
+  line-height: 31px; /* 2rem */
+  font-weight: 500;
+  color: inherit;
+  text-decoration: none;
+}
+
+.body-link-bold:hover {
+  text-decoration: underline;
+}
+
+.body-link-bold + p {
+  font-size: 14px; /* 0.9rem */
+}
+
+/* Body-Link-Bold - Mobile */
+@media (max-width: 768px) {
+  .body-link-bold {
+    font-size: 25px; /* 1.6rem */
+    line-height: 31px; /* 2rem */
+    font-weight: 500;
+  }
+  
+  .body-link-bold + p {
+    font-size: 14px; /* 0.9rem */
+  }
+}
+
+/* Body-Link-Small (Regular) - Desktop */
+.body-link-small {
+  font-family: var(--font-body);
+  font-size: 16px; /* 1rem */
+  line-height: 31px; /* 2rem */
+  font-weight: 400;
+  color: inherit;
+  text-decoration: none;
+}
+
+.body-link-small:hover {
+  text-decoration: underline;
+}
+
+.body-link-small + p {
+  font-size: 14px; /* 0.9rem */
+}
+
+/* Body-Link-Small (Regular) - Mobile */
+@media (max-width: 768px) {
+  .body-link-small {
+    font-size: 14px; /* 1rem */
+    line-height: 31px; /* 2rem */
+    font-weight: 400;
+  }
+  
+  .body-link-small + p {
+    font-size: 14px; /* 0.9rem */
+  }
+}
+
+/* Body-Link-Small (Bold) - Desktop */
+.body-link-small-bold {
+  font-family: var(--font-body);
+  font-size: 16px; /* 1rem */
+  line-height: 31px; /* 2rem */
+  font-weight: 700;
+  color: inherit;
+  text-decoration: none;
+}
+
+.body-link-small-bold:hover {
+  text-decoration: underline;
+}
+
+.body-link-small-bold + p {
+  font-size: 14px; /* 0.9rem */
+}
+
+/* Body-Link-Small (Bold) - Mobile */
+@media (max-width: 768px) {
+  .body-link-small-bold {
+    font-size: 14px; /* 1rem */
+    line-height: 31px; /* 2rem */
+    font-weight: 700;
+  }
+  
+  .body-link-small-bold + p {
+    font-size: 14px; /* 0.9rem */
+  }
+}
+
+/* ============================================
+   APLICACIÓN GLOBAL
+   ============================================ */
+
+/* Aplicar fuente base Roboto Sans para todo el body */
+body {
+  font-family: var(--font-body);
+  font-size: 16px; /* 1rem - mínimo recomendado para accesibilidad */
+  line-height: 1.5;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Aplicar Roboto Slab a todos los h1-h6 por defecto */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 1.2;
+  color: inherit;
+  margin: 0;
+}
+
+/* Tamaños específicos para headings por defecto */
+h1 {
+  font-size: 48px; /* 3rem - Heading-XL */
+  line-height: 1.0416666667;
+}
+
+h2 {
+  font-size: 36px; /* 2.25rem - Heading-L */
+  line-height: 1.3611; /* 49px / 36px */
+  font-weight: 500;
+}
+
+h3 {
+  font-size: 31px; /* 2rem - Heading-M */
+  line-height: 1.258; /* 39px / 31px */
+  font-weight: 500;
+}
+
+h4 {
+  font-size: 25px; /* 1.6rem - Heading-S */
+  line-height: 1.24; /* 31px / 25px */
+  font-weight: 500;
+}
+
+h5, h6 {
+  font-size: 19px; /* 1.1875rem */
+  line-height: 1.6315; /* 31px / 19px */
+  font-weight: 500;
+}
+
+/* Responsive para headings */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 32px; /* 2rem */
+    line-height: 1.0416666667;
+  }
+  
+  h2 {
+    font-size: 36px; /* 2.25rem - se mantiene */
+    line-height: 1.3611;
+  }
+  
+  h3 {
+    font-size: 31px; /* 2rem - se mantiene */
+    line-height: 1.258;
+  }
+  
+  h4 {
+    font-size: 25px; /* 1.6rem - se mantiene */
+    line-height: 1.24;
+  }
+  
+  h5, h6 {
+    font-size: 16px; /* 1rem */
+    line-height: 1.9375; /* 31px / 16px */
+  }
+}
+
+/* Párrafos por defecto */
+p {
+  font-family: var(--font-body);
+  font-size: 16px; /* 1rem - mínimo recomendado para accesibilidad */
+  line-height: 1.5;
+  color: inherit;
+  margin: 0;
+}
+
+/* Links por defecto */
+a {
+  font-family: var(--font-body);
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+/* ============================================
+   ACCESIBILIDAD
+   ============================================ */
+
+/* Según las especificaciones WCAG 2.2:
+   - Mínimo 16px (1rem) para párrafos
+   - Ningún texto debe ser más pequeño que 12px
+   - Evitar fuentes tipográficas de display */
+
+/* Asegurar que ningún texto en párrafos sea menor a 16px */
+p {
+  font-size: clamp(16px, 1rem, 24px);
+}
+
+/* Excepción para elementos específicos que necesitan ser más pequeños */
+small, .small-text {
+  font-size: 12px !important;
+  line-height: 1.5;
+}
+
+/* Asegurar accesibilidad en elementos de texto común */
+body, main, section, article, div, span, a {
+  font-size: clamp(14px, 1rem, 48px);
+}
+
+/* Asegurar contraste mínimo */
+body, p, span, div, a {
+  color: #333; /* Color base oscuro para buen contraste */
+}
+

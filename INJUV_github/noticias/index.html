@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todas las Noticias - INJUV</title>
+    <link rel="stylesheet" href="../Kit_Gobierno/typography.css">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../chatbot/styles_bot.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="noticias-page">
+    <!-- Header -->
+    <div id="header-container"></div>
+
+    <script>
+        // Cargar header inmediatamente
+        (function() {
+            fetch('../header.html')
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.text();
+            })
+            .then(data => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, 'text/html');
+                const headerContent = doc.querySelector('header');
+                const styles = doc.querySelector('style');
+                
+                if (styles) {
+                    const styleElement = document.createElement('style');
+                    styleElement.textContent = styles.textContent;
+                    document.head.appendChild(styleElement);
+                }
+                
+                const container = document.getElementById('header-container');
+                if (container && headerContent) {
+                    container.innerHTML = headerContent.outerHTML;
+                } else if (container) {
+                    container.innerHTML = doc.body.innerHTML;
+                }
+                
+                // Configurar enlaces después de un breve delay
+                setTimeout(() => {
+                    const logo = document.getElementById('logo-link');
+                    if (logo) logo.href = '../index.html';
+                    
+                    const howWorks = document.getElementById('how-it-works-link');
+                    if (howWorks) howWorks.href = '../index.html#how-it-works';
+                    
+                    const experiencias = document.getElementById('experiencias-link');
+                    if (experiencias) experiencias.href = '../index.html#experiencias-voluntariado';
+                    
+                    const noticias = document.getElementById('news-link');
+                    if (noticias) noticias.href = 'index.html';
+                    
+                    const login = document.getElementById('login-link');
+                    if (login) login.href = '../inicio de sesion/login.html';
+                    
+                    const menuToggle = document.getElementById('menuToggle');
+                    const mainNav = document.querySelector('.main-nav');
+                    if (menuToggle && mainNav) {
+                        menuToggle.addEventListener('click', () => {
+                            menuToggle.classList.toggle('active');
+                            mainNav.classList.toggle('active');
+                            menuToggle.setAttribute('aria-expanded', menuToggle.classList.contains('active'));
+                        });
+                        
+                        const navLinks = mainNav.querySelectorAll('.nav-link');
+                        navLinks.forEach(link => {
+                            link.addEventListener('click', () => {
+                                if (window.innerWidth <= 1024) {
+                                    menuToggle.classList.remove('active');
+                                    mainNav.classList.remove('active');
+                                    menuToggle.setAttribute('aria-expanded', 'false');
+                                }
+                            });
+                        });
+                    }
+                    
+                    const dropdownItems = document.querySelectorAll('.nav-item.dropdown');
+                    dropdownItems.forEach(item => {
+                        const link = item.querySelector('.nav-link');
+                        if (link && window.innerWidth <= 1024) {
+                            link.addEventListener('click', (e) => {
+                                e.preventDefault();
+                                item.classList.toggle('open');
+                            });
+                        }
+                    });
+                    
+                    const header = document.getElementById('header');
+                    if (header) {
+                        window.addEventListener('scroll', () => {
+                            if (window.scrollY > 20) {
+                                header.classList.add('scrolled');
+                            } else {
+                                header.classList.remove('scrolled');
+                            }
+                        });
+                    }
+                }, 50);
+            })
+            .catch(error => {
+                console.error('Error cargando header:', error);
+                // Mostrar mensaje de error si es necesario
+            });
+        })();
+    </script>
+
+    <main style="padding-bottom: 80px; margin-bottom: 40px;">
+    <!-- Hero Section para Noticias -->
+    <section class="hero hero-news">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Noticias
+                    <span class="highlight">INJUV</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Mantente informado sobre las últimas noticias, eventos y actividades de voluntariado
+                </p>
+            </div>
+            <div class="hero-news-back-link">
+                <a href="../index.html" class="view-all">
+                    <i class="fas fa-arrow-left"></i> Volver al inicio
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news-section" id="news">
+        <div class="container">
+            <div class="section-header">
+                <h2>Todas las Noticias</h2>
+            </div>
+            
+            <div class="news-grid">
+                <article class="news-card">
+                    <div class="news-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="news-categories">
+                            <span class="category organization">INJUV</span>
+                            <span class="category">Voluntariado</span>
+                        </div>
+                    </div>
+                    <div class="news-content">
+                        <h3>INJUV lanza programa de voluntariado nacionales para jóvenes chilenos</h3>
+                        <p>Nueva iniciativa permite a jóvenes de 18 a 29 años participar en proyectos de desarrollo sostenible en más de 140 países, con apoyo institucional y certificación oficial.</p>
+                        <div class="news-meta">
+                            <span class="news-date">Lun, 15 Ene, 10:30 am.</span>
+                            <a href="#" class="read-more">Ver más</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-tree"></i>
+                        </div>
+                        <div class="news-categories">
+                            <span class="category organization">Fundación Verde</span>
+                            <span class="category">Medio Ambiente</span>
+                            <span class="category">Reforestación</span>
+                        </div>
+                    </div>
+                    <div class="news-content">
+                        <h3>Fundación Verde lanza campaña de reforestación en la Patagonia</h3>
+                        <p>Iniciativa busca plantar 10,000 árboles nativos en áreas afectadas por incendios forestales, con participación de voluntarios nacionales e internacionales.</p>
+                        <div class="news-meta">
+                            <span class="news-date">Mar, 8 Ene, 11:00 am.</span>
+                            <a href="#" class="read-more">Ver más</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="news-categories">
+                            <span class="category organization">Cruz Roja Chile</span>
+                            <span class="category">Emergencia</span>
+                            <span class="category">Ayuda Humanitaria</span>
+                        </div>
+                    </div>
+                    <div class="news-content">
+                        <h3>Cruz Roja Chile busca voluntarios para programa de ayuda en emergencias</h3>
+                        <p>Programa de capacitación para jóvenes que deseen ayudar en situaciones de emergencia y desastres naturales en todo el país.</p>
+                        <div class="news-meta">
+                            <span class="news-date">Lun, 7 Ene, 16:45 pm.</span>
+                            <a href="#" class="read-more">Ver más</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="news-categories">
+                            <span class="category organization">INJUV</span>
+                            <span class="category">Educación</span>
+                            <span class="category">Capacitación</span>
+                        </div>
+                    </div>
+                    <div class="news-content">
+                        <h3>Nuevo programa de capacitación en liderazgo juvenil</h3>
+                        <p>INJUV anuncia programa gratuito de capacitación para desarrollar habilidades de liderazgo en jóvenes entre 18 y 25 años, con certificación reconocida a nivel nacional.</p>
+                        <div class="news-meta">
+                            <span class="news-date">Vie, 3 Ene, 14:20 pm.</span>
+                            <a href="#" class="read-more">Ver más</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="news-categories">
+                            <span class="category organization">ONG Juventud Activa</span>
+                            <span class="category">Comunidad</span>
+                            <span class="category">Participación</span>
+                        </div>
+                    </div>
+                    <div class="news-content">
+                        <h3>Gran encuentro nacional de jóvenes voluntarios 2024</h3>
+                        <p>Evento masivo que reunirá a más de 5,000 jóvenes voluntarios de todo Chile para compartir experiencias y crear nuevas alianzas para el desarrollo comunitario.</p>
+                        <div class="news-meta">
+                            <span class="news-date">Mié, 2 Ene, 09:15 am.</span>
+                            <a href="#" class="read-more">Ver más</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-recycle"></i>
+                        </div>
+                        <div class="news-categories">
+                            <span class="category organization">Fundación Recicla</span>
+                            <span class="category">Sustentabilidad</span>
+                            <span class="category">Medio Ambiente</span>
+                        </div>
+                    </div>
+                    <div class="news-content">
+                        <h3>Campaña de reciclaje en colegios de Santiago</h3>
+                        <p>Iniciativa educativa que busca crear conciencia sobre el reciclaje en estudiantes de enseñanza básica y media, con talleres prácticos y competencias interescolares.</p>
+                        <div class="news-meta">
+                            <span class="news-date">Lun, 1 Ene, 12:00 pm.</span>
+                            <a href="#" class="read-more">Ver más</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="news-card news-hidden">
+                    <div class="news-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <div class="news-categories">
+                            <span class="category organization">Fundación Solidaridad</span>
+                            <span class="category">Apoyo Social</span>
+                            <span class="category">Comunidad</span>
+                        </div>
+                    </div>
+                    <div class="news-content">
+                        <h3>Programa de apoyo escolar en barrios vulnerables</h3>
+                        <p>Voluntarios universitarios brindan apoyo educativo gratuito a niños y niñas de barrios vulnerables, mejorando su rendimiento académico y oportunidades futuras.</p>
+                        <div class="news-meta">
+                            <span class="news-date">Dom, 31 Dic, 10:30 am.</span>
+                            <a href="#" class="read-more">Ver más</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="news-card news-hidden">
+                    <div class="news-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                        <div class="news-categories">
+                            <span class="category organization">INJUV</span>
+                            <span class="category">Eventos</span>
+                            <span class="category">Cultura</span>
+                        </div>
+                    </div>
+                    <div class="news-content">
+                        <h3>Festival juvenil de música y arte 2024</h3>
+                        <p>Evento cultural que celebra el talento joven con presentaciones musicales, exposiciones de arte y talleres creativos. Entrada gratuita para todos los jóvenes.</p>
+                        <div class="news-meta">
+                            <span class="news-date">Sáb, 30 Dic, 16:00 pm.</span>
+                            <a href="#" class="read-more">Ver más</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="news-card news-hidden">
+                    <div class="news-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-running"></i>
+                        </div>
+                        <div class="news-categories">
+                            <span class="category organization">Deporte para Todos</span>
+                            <span class="category">Deporte</span>
+                            <span class="category">Salud</span>
+                        </div>
+                    </div>
+                    <div class="news-content">
+                        <h3>Maratón solidaria a beneficio de niños en situación vulnerable</h3>
+                        <p>Carrera de 5K y 10K que recauda fondos para programas de alimentación y educación de niños en situación vulnerable. Participación abierta a toda la comunidad.</p>
+                        <div class="news-meta">
+                            <span class="news-date">Vie, 29 Dic, 08:00 am.</span>
+                            <a href="#" class="read-more">Ver más</a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+            
+            <div class="news-load-more-container">
+                <button id="load-more-news" class="load-more-news-btn">
+                    <span class="btn-text">Ver más noticias</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- Chatbot de Preguntas Frecuentes -->
+    <div id="chatbot-container" class="chatbot-container">
+        <div class="chatbot-header">
+            <div class="chatbot-header-content">
+                <div class="chatbot-avatar">
+                    <img src="../chatbot/imagenes/chatbot-icon.png" alt="Asistente INJUV" class="chatbot-avatar-img">
+                </div>
+                <div class="chatbot-info">
+                    <h3>Asistente INJUV</h3>
+                    <span class="chatbot-status">👉 Listo para ayudarte...</span>
+                </div>
+            </div>
+            <button id="chatbot-close" class="chatbot-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="chatbot-messages" class="chatbot-messages"></div>
+        <div class="chatbot-input-container">
+            <input 
+                type="text" 
+                id="chatbot-input" 
+                class="chatbot-input" 
+                placeholder="Escribe tu pregunta aquí..."
+                autocomplete="off"
+            >
+            <button type="button" id="chatbot-send" class="chatbot-send">
+                <img src="../chatbot/imagenes/Chatbot-enviar.png" alt="Enviar" class="send-icon-img">
+            </button>
+        </div>
+    </div>
+    
+    <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Abrir chatbot">
+        <img src="../chatbot/imagenes/chatbot-icon.png" alt="Chatbot" class="chatbot-toggle-icon">
+        <span class="chatbot-badge">?</span>
+    </button>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-wrapper">
+            <!-- Barra superior -->
+            <div class="footer-top-bar">
+                <div class="footer-bar-blue"></div>
+                <div class="footer-bar-red"></div>
+            </div>
+            
+            <div class="footer-content">
+                <!-- Columna 1: Logos -->
+                <div class="footer-section footer-col1">
+                    <div class="footer-logos-container">
+                        <!-- Logo ClaveÚnica -->
+                        <div class="footer-logo-claveunica">
+                            <img src="../Fotos_injuv/ClaveUnica.png" alt="ClaveÚnica" class="footer-logo-img claveunica-logo">
+                        </div>
+                        
+                        <p class="footer-admin-text">Servicio de autenticación administrado por:</p>
+                        
+                        <!-- Logo Secretaría de Gobierno Digital -->
+                        <div class="footer-logo-secretaria">
+                            <img src="../Fotos_injuv/SecretariaGobiernoDigital.png" alt="Secretaría de Gobierno Digital" class="footer-logo-img secretaria-logo">
+                        </div>
+                        
+                        <p class="footer-collab-text">Con la colaboración de:</p>
+                        
+                        <!-- Logo Ministerio -->
+                        <div class="footer-logo-ministerio-small">
+                            <img src="../Fotos_injuv/color_MinDesarrolloSocialYFamilia.jpg" alt="Ministerio de Desarrollo Social y Familia" class="footer-logo-img ministerio-small-logo">
+                        </div>
+                        
+                        <p class="footer-trademark">INJUV®</p>
+                    </div>
+                </div>
+                
+                <!-- Columna 2: Secciones -->
+                <div class="footer-section footer-col2">
+                    <h4>Secciones</h4>
+                    <ul>
+                        <li><a href="index.html">Noticias</a></li>
+                        <li><a href="../inicio de sesion/login.html">Postular</a></li>
+                        <li><a href="../index.html#organizaciones">Instituciones públicas</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Columna 3: Ayuda a Ciudadanos -->
+                <div class="footer-section footer-col3">
+                    <h4>Ayuda a Ciudadanos</h4>
+                    <a href="#" class="contact-link" id="faq-link">Preguntas frecuentes</a>
+                    <p class="contact-info">Horario: Lu - Vi / 9:00hrs - 18:00hrs</p>
+                    <a href="tel:+56226204700" class="contact-phone">+56 2 26204700</a>
+                </div>
+                
+                <!-- Columna 4: Ayuda a Instituciones -->
+                <div class="footer-section footer-col4">
+                    <h4>Ayuda a Instituciones</h4>
+                    <p class="contact-info">Horario: Lu - Vi / 9:00hrs - 18:00hrs</p>
+                    <a href="tel:+56226204700" class="contact-phone">+56 2 26204700</a>
+                </div>
+            </div>
+            
+            <!-- Barra inferior -->
+            <div class="footer-bottom-bar">
+                <div class="footer-bar-blue"></div>
+                <div class="footer-bar-red"></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../chatbot/chatbot.js"></script>
+    
+    <script>
+
+        // Funcionalidad para mostrar/ocultar noticias con animación suave
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadMoreBtn = document.getElementById('load-more-news');
+            const newsGrid = document.querySelector('.news-grid');
+
+            // Verificar que los elementos existan antes de continuar
+            if (!loadMoreBtn || !newsGrid) {
+                return;
+            }
+
+            const allNews = newsGrid.querySelectorAll('.news-card');
+            const hiddenNews = Array.from(allNews).filter(news => news.classList.contains('news-hidden'));
+            const btnText = loadMoreBtn.querySelector('.btn-text');
+            const btnIcon = loadMoreBtn.querySelector('.fa-chevron-down');
+            let isExpanded = false;
+
+            // Verificar que btnText y btnIcon existan
+            if (!btnText || !btnIcon) {
+                return;
+            }
+
+            // Ocultar el botón si no hay noticias ocultas
+            if (hiddenNews.length === 0) {
+                if (loadMoreBtn.parentElement) {
+                    loadMoreBtn.parentElement.style.display = 'none';
+                }
+                return;
+            }
+
+            loadMoreBtn.addEventListener('click', function() {
+                if (!isExpanded) {
+                    // Mostrar noticias
+                    hiddenNews.forEach((news, index) => {
+                        setTimeout(() => {
+                            news.classList.remove('news-hidden');
+                        }, index * 50); // Pequeño delay escalonado para efecto cascada
+                    });
+
+                    isExpanded = true;
+                    btnText.textContent = 'Ver menos noticias';
+                    btnIcon.classList.remove('fa-chevron-down');
+                    btnIcon.classList.add('fa-chevron-up');
+                } else {
+                    // Ocultar noticias
+                    hiddenNews.forEach((news, index) => {
+                        setTimeout(() => {
+                            news.classList.add('news-hidden');
+                        }, index * 30); // Delay escalonado más rápido al ocultar
+                    });
+
+                    isExpanded = false;
+                    btnText.textContent = 'Ver más noticias';
+                    btnIcon.classList.remove('fa-chevron-up');
+                    btnIcon.classList.add('fa-chevron-down');
+                }
+            });
+        });
+
+        // Configurar enlace de "Preguntas frecuentes" para abrir el chatbot
+        window.addEventListener('load', () => {
+            const faqLink = document.getElementById('faq-link');
+            
+            if (faqLink) {
+                faqLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    setTimeout(() => {
+                        const chatbotToggle = document.getElementById('chatbot-toggle');
+                        const chatbotContainer = document.getElementById('chatbot-container');
+                        
+                        if (chatbotContainer && chatbotToggle) {
+                            if (!chatbotContainer.classList.contains('chatbot-open')) {
+                                chatbotToggle.click();
+                            }
+                        }
+                    }, 300);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Organizaciones INJUV</title>
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  
+  <!-- Typography (igual que index.html) -->
+  <link rel="stylesheet" href="../typography.css">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../chatbot/styles_bot.css">
+  
+  <style>
+    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body { margin: 0; padding-top: 90px; }
+    
+    .organizaciones-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+    }
+    
+    .organizaciones-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 36px;
+      margin-top: 24px;
+    }
+    
+    .search-sidebar {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      height: fit-content;
+    }
+    
+    .search-sidebar h2 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #1f2937;
+    }
+    
+    .search-input-wrapper {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    
+    .search-input-wrapper i {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+    }
+    
+    .search-input-wrapper input {
+      width: 100%;
+      padding: 10px 12px 10px 40px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: border-color 0.3s;
+    }
+    
+    .search-input-wrapper input:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    
+    .filter-group {
+      margin-bottom: 20px;
+    }
+    
+    .filter-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 8px;
+    }
+    
+    .filter-group select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background: white;
+      font-size: 15px;
+      color: #1f2937;
+      cursor: pointer;
+      transition: border-color 0.3s;
+    }
+    
+    .filter-group select:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    
+    .info-box {
+      margin-top: 20px;
+      padding: 12px;
+      background: #dbeafe;
+      border-radius: 12px;
+      color: #1e40af;
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+    
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 24px;
+    }
+    
+    .results-header h2 {
+      font-family: var(--font-heading);
+      font-size: 1.875rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin: 0;
+    }
+    
+    .results-count {
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+    
+    .organizations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    
+    .org-card {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      border: 1px solid #e5e7eb;
+    }
+    
+    .org-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .org-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    
+    .org-icon {
+      font-size: 2.5rem;
+    }
+    
+    .org-info {
+      flex: 1;
+    }
+    
+    .org-name {
+      font-family: var(--font-heading);
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin: 0 0 4px 0;
+    }
+    
+    .org-area {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin: 0;
+    }
+    
+    .org-location {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin-top: 12px;
+    }
+    
+    .org-location i {
+      font-size: 0.75rem;
+    }
+    
+    .org-opportunities {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 6px 12px;
+      background: #dbeafe;
+      color: #1e40af;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .org-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    
+    .btn-primary-org {
+      flex: 1;
+      padding: 10px 16px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    .btn-primary-org:hover {
+      background: #1d4ed8;
+    }
+    
+    .btn-secondary-org {
+      flex: 1;
+      padding: 10px 16px;
+      background: white;
+      color: #374151;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    .btn-secondary-org:hover {
+      background: #f9fafb;
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .loading-message {
+      text-align: center;
+      padding: 3rem;
+      color: #6b7280;
+    }
+    
+    .no-results {
+      text-align: center;
+      padding: 3rem;
+      color: #6b7280;
+    }
+    
+    .section-title {
+      font-family: var(--font-heading);
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 3rem;
+      color: #1f2937;
+    }
+    
+    @media (max-width: 968px) {
+      .organizaciones-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div id="header-container"></div>
+
+  <!-- Contenido -->
+  <main class="organizaciones-main">
+    <h1 class="section-title">Organizaciones</h1>
+    
+    <div class="organizaciones-grid">
+      <!-- Sidebar búsqueda -->
+      <aside class="search-sidebar">
+        <h2>Buscar organizaciones</h2>
+
+        <!-- Search -->
+        <div class="search-input-wrapper">
+          <i class="fas fa-search"></i>
+          <input id="searchInput" type="text" placeholder="Nombre o área de trabajo">
+        </div>
+
+        <!-- Área de trabajo -->
+        <div class="filter-group">
+          <label for="areaFilter">Área de trabajo</label>
+          <select id="areaFilter">
+            <option value="">Todas</option>
+            <!-- Se poblará dinámicamente -->
+          </select>
+        </div>
+
+        <!-- Región -->
+        <div class="filter-group">
+          <label for="regionFilter">Región</label>
+          <select id="regionFilter">
+            <option value="">Todas</option>
+            <!-- Se poblará dinámicamente -->
+          </select>
+        </div>
+
+        <div class="info-box">
+          Explora las organizaciones registradas en nuestra plataforma y descubre sus oportunidades de voluntariado.
+        </div>
+      </aside>
+
+      <!-- Listado -->
+      <section>
+        <div class="results-header">
+          <h2>Organizaciones disponibles</h2>
+          <span id="resultCount" class="results-count">Cargando...</span>
+        </div>
+
+        <!-- Grid de tarjetas -->
+        <div id="organizationCards" class="organizations-grid">
+          <div class="loading-message">
+            <p>Cargando organizaciones...</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Modal para detalles -->
+  <div id="modalDetalles" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 50; align-items: center; justify-content: center; padding: 16px;">
+    <div style="background: white; border-radius: 16px; max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 24px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+        <h3 id="modalTitulo" style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: #1f2937; margin: 0;"></h3>
+        <button onclick="cerrarModal()" style="background: none; border: none; color: #9ca3af; cursor: pointer; font-size: 1.5rem; padding: 0; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div id="modalContenido" style="color: #6b7280; line-height: 1.6;"></div>
+      <div style="display: flex; gap: 12px; margin-top: 24px;">
+        <button onclick="verOportunidadesDesdeModal()" class="btn-primary-org">
+          Ver oportunidades
+        </button>
+        <button onclick="cerrarModal()" class="btn-secondary-org">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE_URL = 'https://injuv.onrender.com/api';
+    let todasLasOrganizaciones = [];
+    let organizacionActual = '';
+
+    // Cargar organizaciones desde el backend
+    async function cargarOrganizaciones() {
+      try {
+        const response = await fetch(`${API_BASE_URL}/admin/organizaciones`);
+        const data = await response.json();
+        
+        if (data.success && data.organizaciones) {
+          todasLasOrganizaciones = data.organizaciones;
+          poblarFiltros();
+          mostrarOrganizaciones(todasLasOrganizaciones);
+        } else {
+          mostrarMensajeSinResultados();
+        }
+      } catch (error) {
+        console.error('Error al cargar organizaciones:', error);
+        mostrarMensajeError();
+      }
+    }
+
+    // Poblar los selectores de filtros con valores únicos
+    function poblarFiltros() {
+      const areasUnicas = [...new Set(todasLasOrganizaciones
+        .map(org => org.area_trabajo)
+        .filter(area => area && area.trim() !== ''))].sort();
+      
+      const regionesUnicas = [...new Set(todasLasOrganizaciones
+        .map(org => org.region)
+        .filter(region => region && region.trim() !== ''))].sort();
+
+      const areaFilter = document.getElementById('areaFilter');
+      const regionFilter = document.getElementById('regionFilter');
+
+      // Poblar áreas
+      areasUnicas.forEach(area => {
+        const option = document.createElement('option');
+        option.value = area;
+        option.textContent = area;
+        areaFilter.appendChild(option);
+      });
+
+      // Poblar regiones
+      regionesUnicas.forEach(region => {
+        const option = document.createElement('option');
+        option.value = region;
+        option.textContent = region;
+        regionFilter.appendChild(option);
+      });
+    }
+
+    // Mostrar organizaciones
+    function mostrarOrganizaciones(organizaciones) {
+      const container = document.getElementById('organizationCards');
+      const resultCount = document.getElementById('resultCount');
+      
+      if (!container) return;
+      
+      if (organizaciones.length === 0) {
+        mostrarMensajeSinResultados();
+        resultCount.textContent = '0 resultados';
+        return;
+      }
+      
+      container.innerHTML = '';
+      resultCount.textContent = `${organizaciones.length} resultado${organizaciones.length !== 1 ? 's' : ''}`;
+      
+      organizaciones.forEach((org, index) => {
+        const card = document.createElement('article');
+        card.className = 'org-card fade-in';
+        card.style.animationDelay = `${index * 0.05}s`;
+        card.setAttribute('data-name', (org.nombre || '').toLowerCase());
+        card.setAttribute('data-area', org.area_trabajo || '');
+        card.setAttribute('data-region', org.region || '');
+        
+        const numOportunidades = org.num_oportunidades || 0;
+        const areaTrabajo = org.area_trabajo || 'Sin área especificada';
+        const region = org.region || 'Sin región especificada';
+        
+        card.innerHTML = `
+          <div class="org-card-header">
+            <div class="org-icon">🏢</div>
+            <div class="org-info">
+              <h3 class="org-name">${org.nombre || 'Organización'}</h3>
+              <p class="org-area">${areaTrabajo}</p>
+            </div>
+          </div>
+          <div class="org-location">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>${region}</span>
+          </div>
+          <span class="org-opportunities">
+            <i class="fas fa-handshake"></i> ${numOportunidades} oportunidad${numOportunidades !== 1 ? 'es' : ''}
+          </span>
+          <div class="org-actions">
+            <button class="btn-primary-org" onclick="verOportunidades(${org.id}, '${(org.nombre || '').replace(/'/g, "\\'")}')">Ver oportunidades</button>
+            <button class="btn-secondary-org" onclick="verDetalles(${org.id})">Ver detalles</button>
+          </div>
+        `;
+        
+        container.appendChild(card);
+      });
+    }
+
+    // Filtrar organizaciones
+    function filtrarOrganizaciones() {
+      const busqueda = document.getElementById('searchInput').value.toLowerCase().trim();
+      const area = document.getElementById('areaFilter').value;
+      const region = document.getElementById('regionFilter').value;
+      
+      let organizacionesFiltradas = todasLasOrganizaciones.filter(org => {
+        const nombre = (org.nombre || '').toLowerCase();
+        const areaTrabajo = (org.area_trabajo || '').toLowerCase();
+        
+        const coincideBusqueda = busqueda === '' || 
+          nombre.includes(busqueda) || 
+          areaTrabajo.includes(busqueda);
+        
+        const coincideArea = area === '' || org.area_trabajo === area;
+        const coincideRegion = region === '' || org.region === region;
+        
+        return coincideBusqueda && coincideArea && coincideRegion;
+      });
+      
+      mostrarOrganizaciones(organizacionesFiltradas);
+    }
+
+    function verOportunidades(organizacionId, nombreOrg) {
+      const redirectPath = `../visualizacion-vd/index.html?organizacion_id=${organizacionId}`;
+      if (typeof window.redirectTo === 'function') {
+        window.redirectTo(redirectPath);
+      } else {
+        window.location.href = redirectPath;
+      }
+    }
+
+    function verOportunidadesDesdeModal() {
+      if (organizacionActual) {
+        const org = todasLasOrganizaciones.find(o => o.id === organizacionActual);
+        if (org) {
+          verOportunidades(org.id, org.nombre);
+        }
+      }
+    }
+
+    async function verDetalles(organizacionId) {
+      const org = todasLasOrganizaciones.find(o => o.id === organizacionId);
+      if (!org) return;
+      
+      organizacionActual = organizacionId;
+      
+      const modalTitulo = document.getElementById('modalTitulo');
+      const modalContenido = document.getElementById('modalContenido');
+      const modal = document.getElementById('modalDetalles');
+      
+      if (!modalTitulo || !modalContenido || !modal) return;
+      
+      modalTitulo.textContent = org.nombre || 'Organización';
+      
+      let detallesHTML = `
+        <div style="margin-bottom: 16px;">
+          <span style="display: inline-block; padding: 6px 12px; border-radius: 8px; background: #dbeafe; color: #1e40af; font-size: 0.875rem; font-weight: 500; margin-right: 8px;">${org.area_trabajo || 'Sin área'}</span>
+          <span style="display: inline-block; padding: 6px 12px; border-radius: 8px; background: #f3f4f6; color: #374151; font-size: 0.875rem; margin-right: 8px;">${org.region || 'Sin región'}</span>
+          <span style="display: inline-block; padding: 6px 12px; border-radius: 8px; background: #d1fae5; color: #065f46; font-size: 0.875rem; font-weight: 500;">
+            <i class="fas fa-handshake"></i> ${org.num_oportunidades || 0} oportunidades
+          </span>
+        </div>
+      `;
+      
+      if (org.descripcion) {
+        detallesHTML += `
+          <div style="margin-bottom: 16px;">
+            <h4 style="font-family: var(--font-heading); font-size: 1.125rem; font-weight: 600; margin-bottom: 8px; color: #1f2937;">Sobre la organización</h4>
+            <p style="line-height: 1.6;">${org.descripcion}</p>
+          </div>
+        `;
+      }
+      
+      if (org.comuna) {
+        detallesHTML += `
+          <div style="margin-bottom: 12px;">
+            <strong>Comuna:</strong> ${org.comuna}
+          </div>
+        `;
+      }
+      
+      if (org.email_contacto) {
+        detallesHTML += `
+          <div style="margin-bottom: 12px;">
+            <strong>Email:</strong> <a href="mailto:${org.email_contacto}" style="color: #2563eb; text-decoration: none;">${org.email_contacto}</a>
+          </div>
+        `;
+      }
+      
+      if (org.telefono_contacto) {
+        detallesHTML += `
+          <div style="margin-bottom: 12px;">
+            <strong>Teléfono:</strong> <a href="tel:${org.telefono_contacto}" style="color: #2563eb; text-decoration: none;">${org.telefono_contacto}</a>
+          </div>
+        `;
+      }
+      
+      modalContenido.innerHTML = detallesHTML;
+      modal.style.display = 'flex';
+    }
+
+    function cerrarModal() {
+      const modal = document.getElementById('modalDetalles');
+      if (modal) {
+        modal.style.display = 'none';
+      }
+    }
+
+    function mostrarMensajeSinResultados() {
+      const container = document.getElementById('organizationCards');
+      if (container) {
+        container.innerHTML = `
+          <div class="no-results" style="grid-column: 1 / -1;">
+            <p>No se encontraron organizaciones que coincidan con los filtros seleccionados.</p>
+          </div>
+        `;
+      }
+    }
+
+    function mostrarMensajeError() {
+      const container = document.getElementById('organizationCards');
+      if (container) {
+        container.innerHTML = `
+          <div class="no-results" style="grid-column: 1 / -1;">
+            <p>Error al cargar las organizaciones. Por favor, intenta más tarde.</p>
+          </div>
+        `;
+      }
+    }
+
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      // Cargar header
+      fetch('../header.html')
+        .then(response => response.text())
+        .then(data => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(data, 'text/html');
+          const headerContent = doc.querySelector('header');
+          const styles = doc.querySelector('style');
+          const scripts = doc.querySelectorAll('script');
+          
+          if (styles) {
+            const styleElement = document.createElement('style');
+            styleElement.textContent = styles.textContent;
+            document.head.appendChild(styleElement);
+          }
+          
+          if (headerContent) {
+            document.getElementById('header-container').innerHTML = headerContent.outerHTML;
+          } else {
+            const bodyContent = doc.body.innerHTML;
+            document.getElementById('header-container').innerHTML = bodyContent;
+          }
+
+          scripts.forEach(oldScript => {
+            const newScript = document.createElement('script');
+            if (oldScript.src) {
+              newScript.src = oldScript.src;
+            } else {
+              newScript.textContent = oldScript.textContent;
+            }
+            document.body.appendChild(newScript);
+          });
+
+          // Configurar enlaces del header
+          setTimeout(() => {
+            if (typeof window.initHeaderAuth === 'function') {
+              window.initHeaderAuth();
+            }
+
+            const logo = document.getElementById('logo-link');
+            if (logo) logo.href = '../index.html';
+            
+            const noticias = document.getElementById('news-link');
+            if (noticias) {
+              noticias.href = '../index.html#news';
+              noticias.onclick = function(e) {
+                if (window.goToNoticias) {
+                  window.goToNoticias(e);
+                } else {
+                  e.preventDefault();
+                  window.location.href = '../index.html#news';
+                }
+                return false;
+              };
+            }
+
+            const academiaNav = document.getElementById('academia-link');
+            if (academiaNav) {
+              academiaNav.href = '../index.html#academia-voluntariado';
+              academiaNav.onclick = function(e) {
+                if (window.goToAcademia) {
+                  window.goToAcademia(e);
+                } else {
+                  e.preventDefault();
+                  window.location.href = '../index.html#academia-voluntariado';
+                }
+                return false;
+              };
+            }
+
+            const bibliotecaNav = document.getElementById('biblioteca-link');
+            if (bibliotecaNav) {
+              bibliotecaNav.href = '../index.html#biblioteca-estudios';
+              bibliotecaNav.onclick = function(e) {
+                if (window.goToBiblioteca) {
+                  window.goToBiblioteca(e);
+                } else {
+                  e.preventDefault();
+                  window.location.href = '../index.html#biblioteca-estudios';
+                }
+                return false;
+              };
+            }
+            
+            const login = document.getElementById('login-link');
+            if (login) login.href = '../inicio de sesion/login.html';
+
+            const menuToggle = document.getElementById('menuToggle');
+            const mainNav = document.querySelector('.main-nav');
+            if (menuToggle && mainNav) {
+              menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                mainNav.classList.toggle('active');
+                menuToggle.setAttribute('aria-expanded', menuToggle.classList.contains('active'));
+              });
+              const navLinks = mainNav.querySelectorAll('.nav-link');
+              navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                  if (window.innerWidth <= 1024) {
+                    menuToggle.classList.remove('active');
+                    mainNav.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                  }
+                });
+              });
+            }
+
+            const dropdownItems = document.querySelectorAll('.nav-item.dropdown');
+            dropdownItems.forEach(item => {
+              if (item.querySelector('.volunteer-filter')) return;
+              const link = item.querySelector('.nav-link');
+              if (link && window.innerWidth <= 1024) {
+                link.addEventListener('click', (e) => {
+                  e.preventDefault();
+                  item.classList.toggle('open');
+                });
+              }
+            });
+
+            const header = document.getElementById('header');
+            if (header) {
+              window.addEventListener('scroll', () => {
+                if (window.scrollY > 20) {
+                  header.classList.add('scrolled');
+                } else {
+                  header.classList.remove('scrolled');
+                }
+              });
+            }
+          }, 100);
+        })
+        .catch(error => console.error('Error:', error));
+
+      // Cargar organizaciones
+      cargarOrganizaciones();
+
+      // Búsqueda en tiempo real
+      document.getElementById('searchInput').addEventListener('input', filtrarOrganizaciones);
+      document.getElementById('areaFilter').addEventListener('change', filtrarOrganizaciones);
+      document.getElementById('regionFilter').addEventListener('change', filtrarOrganizaciones);
+      
+      // Cerrar modal al hacer clic fuera
+      document.getElementById('modalDetalles').addEventListener('click', function(e) {
+        if (e.target === this) {
+          cerrarModal();
+        }
+      });
+    });
+  </script>
+
+  <!-- Footer -->
+  <footer class="footer">
+      <div class="footer-wrapper">
+          <!-- Barra superior -->
+          <div class="footer-top-bar">
+              <div class="footer-bar-blue"></div>
+              <div class="footer-bar-red"></div>
+          </div>
+          
+          <div class="footer-content">
+              <!-- Columna 1: Logos -->
+              <div class="footer-section footer-col1">
+                  <div class="footer-logos-container">
+                      <!-- Logo ClaveÚnica -->
+                      <div class="footer-logo-claveunica">
+                          <img src="../Fotos_injuv/ClaveUnica.png" alt="ClaveÚnica" class="footer-logo-img claveunica-logo">
+                      </div>
+                      
+                      <p class="footer-admin-text">Servicio de autenticación administrado por:</p>
+                      
+                      <!-- Logo Secretaría de Gobierno Digital -->
+                      <div class="footer-logo-secretaria">
+                          <img src="../Fotos_injuv/SecretariaGobiernoDigital.png" alt="Secretaría de Gobierno Digital" class="footer-logo-img secretaria-logo">
+                      </div>
+                      
+                      <p class="footer-collab-text">Con la colaboración de:</p>
+                      
+                      <!-- Logo Ministerio -->
+                      <div class="footer-logo-ministerio-small">
+                          <img src="../Fotos_injuv/color_MinDesarrolloSocialYFamilia.jpg" alt="Ministerio de Desarrollo Social y Familia" class="footer-logo-img ministerio-small-logo">
+                      </div>
+                      
+                      <p class="footer-trademark">INJUV®</p>
+                  </div>
+              </div>
+              
+              <!-- Columna 2: Secciones -->
+              <div class="footer-section footer-col2">
+                  <h4>Secciones</h4>
+                  <ul>
+                      <li><a href="../noticias/noticias.html">Noticias</a></li>
+                      <li><a href="../inicio de sesion/login.html">Postular</a></li>
+                      <li><a href="../index.html#organizaciones">Instituciones públicas</a></li>
+                      <li><a href="#">Términos y condiciones</a></li>
+                  </ul>
+              </div>
+              
+              <!-- Columna 3: Ayuda a Ciudadanos -->
+              <div class="footer-section footer-col3">
+                  <h4>Ayuda a Ciudadanos</h4>
+                  <a href="#" class="contact-link" id="faq-link">Preguntas frecuentes</a>
+                  <p class="contact-info">Horario: Lu - Vi / 9:00hrs - 18:00hrs</p>
+                  <a href="tel:+56226204700" class="contact-phone">+56 2 26204700</a>
+              </div>
+              
+              <!-- Columna 4: Ayuda a Instituciones -->
+              <div class="footer-section footer-col4">
+                  <h4>Ayuda a Instituciones</h4>
+                  <p class="contact-info">Horario: Lu - Vi / 9:00hrs - 18:00hrs</p>
+                  <a href="tel:+56226204700" class="contact-phone">+56 2 26204700</a>
+              </div>
+          </div>
+          
+          <!-- Barra inferior -->
+          <div class="footer-bottom-bar">
+              <div class="footer-bar-blue"></div>
+              <div class="footer-bar-red"></div>
+          </div>
+      </div>
+  </footer>
+
+  <!-- Chatbot de Preguntas Frecuentes -->
+  <div id="chatbot-container" class="chatbot-container">
+      <div class="chatbot-header">
+          <div class="chatbot-header-content">
+              <div class="chatbot-avatar">
+                  <img src="../chatbot/imagenes/chatbot-icon.png" alt="Asistente INJUV" class="chatbot-avatar-img">
+              </div>
+              <div class="chatbot-info">
+                  <h3>Asistente INJUV</h3>
+                  <span class="chatbot-status">👉 Listo para ayudarte...</span>
+              </div>
+          </div>
+          <button id="chatbot-close" class="chatbot-close">
+              <i class="fas fa-times"></i>
+          </button>
+      </div>
+      <div id="chatbot-messages" class="chatbot-messages"></div>
+      <div class="chatbot-input-container">
+          <input 
+              type="text" 
+              id="chatbot-input" 
+              class="chatbot-input" 
+              placeholder="Escribe tu pregunta aquí..."
+              autocomplete="off"
+          >
+          <button type="button" id="chatbot-send" class="chatbot-send">
+              <img src="../chatbot/imagenes/Chatbot-enviar.png" alt="Enviar" class="send-icon-img">
+          </button>
+      </div>
+  </div>
+  
+  <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Abrir chatbot">
+      <img src="../chatbot/imagenes/chatbot-icon.png" alt="Chatbot" class="chatbot-toggle-icon">
+      <span class="chatbot-badge">?</span>
+  </button>
+
+  <script src="../chatbot/chatbot.js"></script>
+  
+  <script>
+      // Configurar enlace de "Preguntas frecuentes" para abrir el chatbot
+      window.addEventListener('load', () => {
+          const faqLink = document.getElementById('faq-link');
+          
+          if (faqLink) {
+              faqLink.addEventListener('click', (e) => {
+                  e.preventDefault();
+                  
+                  setTimeout(() => {
+                      const chatbotToggle = document.getElementById('chatbot-toggle');
+                      const chatbotContainer = document.getElementById('chatbot-container');
+                      
+                      if (chatbotContainer && chatbotToggle) {
+                          if (!chatbotContainer.classList.contains('chatbot-open')) {
+                              chatbotToggle.click();
+                          }
+                      }
+                  }, 300);
+              });
+          }
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todas las Noticias - INJUV</title>
+    <link rel="stylesheet" href="../Kit_Gobierno/typography.css">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../chatbot/styles_bot.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="noticias-page">
+    <!-- Header -->
+    <div id="header-container"></div>
+
+    <script>
+        // Cargar header inmediatamente
+        (function() {
+            fetch('../header.html')
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.text();
+            })
+            .then(data => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, 'text/html');
+                const headerContent = doc.querySelector('header');
+                const styles = doc.querySelector('style');
+                const scripts = doc.querySelectorAll('script');
+                
+                if (styles) {
+                    const styleElement = document.createElement('style');
+                    styleElement.textContent = styles.textContent;
+                    document.head.appendChild(styleElement);
+                }
+                
+                const container = document.getElementById('header-container');
+                if (container && headerContent) {
+                    container.innerHTML = headerContent.outerHTML;
+                } else if (container) {
+                    container.innerHTML = doc.body.innerHTML;
+                }
+
+                scripts.forEach(function(oldScript) {
+                    var newScript = document.createElement('script');
+                    if (oldScript.src) {
+                        newScript.src = oldScript.src;
+                    } else {
+                        newScript.textContent = oldScript.textContent;
+                    }
+                    document.body.appendChild(newScript);
+                });
+                
+                // Configurar enlaces después de un breve delay (tras ejecutar los scripts del header)
+                setTimeout(function() {
+                    const logo = document.getElementById('logo-link');
+                    if (logo) logo.href = '../index.html';
+                    
+                    const howWorks = document.getElementById('how-it-works-link');
+                    if (howWorks) howWorks.href = '../index.html#how-it-works';
+                    
+                    const experiencias = document.getElementById('experiencias-link');
+                    if (experiencias) experiencias.href = '../index.html#experiencias-voluntariado';
+                    
+                    const noticias = document.getElementById('news-link');
+                    if (noticias) {
+                        noticias.href = '../index.html#news';
+                        noticias.onclick = function(e) {
+                            if (window.goToNoticias) {
+                                window.goToNoticias(e);
+                            } else {
+                                e.preventDefault();
+                                window.location.href = '../index.html#news';
+                            }
+                            return false;
+                        };
+                    }
+
+                    const academiaNav = document.getElementById('academia-link');
+                    if (academiaNav) {
+                        academiaNav.href = '../index.html#academia-voluntariado';
+                        academiaNav.onclick = function(e) {
+                            if (window.goToAcademia) {
+                                window.goToAcademia(e);
+                            } else {
+                                e.preventDefault();
+                                window.location.href = '../index.html#academia-voluntariado';
+                            }
+                            return false;
+                        };
+                    }
+
+                    const bibliotecaNav = document.getElementById('biblioteca-link');
+                    if (bibliotecaNav) {
+                        bibliotecaNav.href = '../index.html#biblioteca-estudios';
+                        bibliotecaNav.onclick = function(e) {
+                            if (window.goToBiblioteca) {
+                                window.goToBiblioteca(e);
+                            } else {
+                                e.preventDefault();
+                                window.location.href = '../index.html#biblioteca-estudios';
+                            }
+                            return false;
+                        };
+                    }
+                    
+                    const menuToggle = document.getElementById('menuToggle');
+                    const mainNav = document.querySelector('.main-nav');
+                    if (menuToggle && mainNav) {
+                        menuToggle.addEventListener('click', () => {
+                            menuToggle.classList.toggle('active');
+                            mainNav.classList.toggle('active');
+                            menuToggle.setAttribute('aria-expanded', menuToggle.classList.contains('active'));
+                        });
+                        
+                        const navLinks = mainNav.querySelectorAll('.nav-link');
+                        navLinks.forEach(link => {
+                            link.addEventListener('click', () => {
+                                if (window.innerWidth <= 1024) {
+                                    menuToggle.classList.remove('active');
+                                    mainNav.classList.remove('active');
+                                    menuToggle.setAttribute('aria-expanded', 'false');
+                                }
+                            });
+                        });
+                    }
+                    
+                    const dropdownItems = document.querySelectorAll('.nav-item.dropdown');
+                    dropdownItems.forEach(item => {
+                        if (item.querySelector('.volunteer-filter')) return;
+                        const link = item.querySelector('.nav-link');
+                        if (link && window.innerWidth <= 1024) {
+                            link.addEventListener('click', (e) => {
+                                e.preventDefault();
+                                item.classList.toggle('open');
+                            });
+                        }
+                    });
+                    
+                    const header = document.getElementById('header');
+                    if (header) {
+                        window.addEventListener('scroll', () => {
+                            if (window.scrollY > 20) {
+                                header.classList.add('scrolled');
+                            } else {
+                                header.classList.remove('scrolled');
+                            }
+                        });
+                    }
+
+                    if (typeof window.initHeaderAuth === 'function') {
+                        window.initHeaderAuth();
+                    }
+                    if (typeof window.updateHeaderAuth === 'function') {
+                        window.updateHeaderAuth();
+                    }
+                }, 100);
+            })
+            .catch(error => {
+                console.error('Error cargando header:', error);
+                // Mostrar mensaje de error si es necesario
+            });
+        })();
+    </script>
+
+    <main style="padding-bottom: 80px; margin-bottom: 40px;">
+    <!-- Hero Section para Noticias -->
+    <section class="hero hero-news">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Noticias
+                    <span class="highlight">INJUV</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Mantente informado sobre las últimas noticias, eventos y actividades de voluntariado
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news-section" id="news">
+        <div class="container">
+            <div class="section-header">
+                <h2>Todas las Noticias</h2>
+            </div>
+            
+            <div id="loading-news" style="text-align: center; padding: 40px; color: #666;">
+                <i class="fas fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 16px;"></i>
+                <p>Cargando noticias...</p>
+            </div>
+            
+            <div class="news-grid" id="news-grid-container" style="display: none;">
+                <!-- Las noticias se cargarán dinámicamente aquí -->
+            </div>
+            
+            <div class="news-load-more-container" id="load-more-container" style="display: none;">
+                <button id="load-more-news" class="load-more-news-btn">
+                    <span class="btn-text">Ver más noticias</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- Chatbot de Preguntas Frecuentes -->
+    <div id="chatbot-container" class="chatbot-container">
+        <div class="chatbot-header">
+            <div class="chatbot-header-content">
+                <div class="chatbot-avatar">
+                    <img src="../chatbot/imagenes/chatbot-icon.png" alt="Asistente INJUV" class="chatbot-avatar-img">
+                </div>
+                <div class="chatbot-info">
+                    <h3>Asistente INJUV</h3>
+                    <span class="chatbot-status">👉 Listo para ayudarte...</span>
+                </div>
+            </div>
+            <button id="chatbot-close" class="chatbot-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="chatbot-messages" class="chatbot-messages"></div>
+        <div class="chatbot-input-container">
+            <input 
+                type="text" 
+                id="chatbot-input" 
+                class="chatbot-input" 
+                placeholder="Escribe tu pregunta aquí..."
+                autocomplete="off"
+            >
+            <button type="button" id="chatbot-send" class="chatbot-send">
+                <img src="../chatbot/imagenes/Chatbot-enviar.png" alt="Enviar" class="send-icon-img">
+            </button>
+        </div>
+    </div>
+    
+    <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Abrir chatbot">
+        <img src="../chatbot/imagenes/chatbot-icon.png" alt="Chatbot" class="chatbot-toggle-icon">
+        <span class="chatbot-badge">?</span>
+    </button>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-wrapper">
+            <!-- Barra superior -->
+            <div class="footer-top-bar">
+                <div class="footer-bar-blue"></div>
+                <div class="footer-bar-red"></div>
+            </div>
+            
+            <div class="footer-content">
+                <!-- Columna 1: Logos -->
+                <div class="footer-section footer-col1">
+                    <div class="footer-logos-container">
+                        <!-- Logo ClaveÚnica -->
+                        <div class="footer-logo-claveunica">
+                            <img src="../Fotos_injuv/ClaveUnica.png" alt="ClaveÚnica" class="footer-logo-img claveunica-logo">
+                        </div>
+                        
+                        <p class="footer-admin-text">Servicio de autenticación administrado por:</p>
+                        
+                        <!-- Logo Secretaría de Gobierno Digital -->
+                        <div class="footer-logo-secretaria">
+                            <img src="../Fotos_injuv/SecretariaGobiernoDigital.png" alt="Secretaría de Gobierno Digital" class="footer-logo-img secretaria-logo">
+                        </div>
+                        
+                        <p class="footer-collab-text">Con la colaboración de:</p>
+                        
+                        <!-- Logo Ministerio -->
+                        <div class="footer-logo-ministerio-small">
+                            <img src="../Fotos_injuv/color_MinDesarrolloSocialYFamilia.jpg" alt="Ministerio de Desarrollo Social y Familia" class="footer-logo-img ministerio-small-logo">
+                        </div>
+                        
+                        <p class="footer-trademark">INJUV®</p>
+                    </div>
+                </div>
+                
+                <!-- Columna 2: Secciones -->
+                <div class="footer-section footer-col2">
+                    <h4>Secciones</h4>
+                    <ul>
+                        <li><a href="index.html">Noticias</a></li>
+                        <li><a href="../inicio de sesion/login.html">Postular</a></li>
+                        <li><a href="../index.html#organizaciones">Instituciones públicas</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Columna 3: Ayuda a Ciudadanos -->
+                <div class="footer-section footer-col3">
+                    <h4>Ayuda a Ciudadanos</h4>
+                    <a href="#" class="contact-link" id="faq-link">Preguntas frecuentes</a>
+                    <p class="contact-info">Horario: Lu - Vi / 9:00hrs - 18:00hrs</p>
+                    <a href="tel:+56226204700" class="contact-phone">+56 2 26204700</a>
+                </div>
+                
+                <!-- Columna 4: Ayuda a Instituciones -->
+                <div class="footer-section footer-col4">
+                    <h4>Ayuda a Instituciones</h4>
+                    <p class="contact-info">Horario: Lu - Vi / 9:00hrs - 18:00hrs</p>
+                    <a href="tel:+56226204700" class="contact-phone">+56 2 26204700</a>
+                </div>
+            </div>
+            
+            <!-- Barra inferior -->
+            <div class="footer-bottom-bar">
+                <div class="footer-bar-blue"></div>
+                <div class="footer-bar-red"></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../chatbot/chatbot.js"></script>
+    
+    <script>
+        // Configuración de la URL base del API
+        const API_BASE_URL = 'https://injuv.onrender.com/api';
+
+        // Cargar noticias desde el backend
+        async function cargarNoticias() {
+            const loadingEl = document.getElementById('loading-news');
+            const newsGrid = document.getElementById('news-grid-container');
+            const loadMoreContainer = document.getElementById('load-more-container');
+            
+            if (loadingEl) loadingEl.style.display = 'none';
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/noticias?estado=activa`);
+                
+                // Verificar si la respuesta es OK (status 200-299)
+                if (!response.ok) {
+                    console.error('Error del servidor:', response.status, response.statusText);
+                    mostrarMensajeSinNoticias(newsGrid, loadMoreContainer);
+                    return;
+                }
+                
+                // Intentar parsear JSON
+                let data;
+                try {
+                    data = await response.json();
+                } catch (jsonError) {
+                    console.error('Error al parsear JSON:', jsonError);
+                    mostrarMensajeSinNoticias(newsGrid, loadMoreContainer);
+                    return;
+                }
+                
+                if (data.success && data.noticias && data.noticias.length > 0) {
+                    if (newsGrid) {
+                        newsGrid.style.display = 'grid';
+                        renderizarNoticias(data.noticias, newsGrid);
+                        
+                        // Mostrar botón "Ver más" si hay más de 6 noticias
+                        if (data.noticias.length > 6 && loadMoreContainer) {
+                            loadMoreContainer.style.display = 'block';
+                            configurarBotonVerMas(newsGrid, loadMoreContainer);
+                        }
+                    }
+                } else {
+                    // Si no hay noticias, mostrar mensaje
+                    mostrarMensajeSinNoticias(newsGrid, loadMoreContainer);
+                }
+            } catch (error) {
+                console.error('Error al cargar noticias (backend probablemente apagado):', error);
+                // Si hay un error de red o conexión, mostrar mensaje
+                mostrarMensajeSinNoticias(newsGrid, loadMoreContainer);
+            }
+        }
+
+        // Renderizar noticias
+        function renderizarNoticias(noticias, container) {
+            const noticiasHTML = noticias.map((noticia, index) => {
+                let fecha;
+                let fechaObj = null;
+                
+                if (noticia.fecha_publicacion) {
+                    fechaObj = noticia.fecha_publicacion instanceof Date 
+                        ? noticia.fecha_publicacion 
+                        : new Date(noticia.fecha_publicacion);
+                } else if (noticia.created_at) {
+                    fechaObj = new Date(noticia.created_at);
+                }
+                
+                if (fechaObj && !isNaN(fechaObj.getTime())) {
+                    const diasSemana = ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'];
+                    const meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+                    const diaSemana = diasSemana[fechaObj.getDay()];
+                    const dia = fechaObj.getDate();
+                    const mes = meses[fechaObj.getMonth()];
+                    const horas = fechaObj.getHours().toString().padStart(2, '0');
+                    const minutos = fechaObj.getMinutes().toString().padStart(2, '0');
+                    const ampm = horas >= 12 ? 'p. m.' : 'a. m.';
+                    const horas12 = horas % 12 || 12;
+                    fecha = `${diaSemana}, ${dia} ${mes}, ${horas12}:${minutos} ${ampm}`;
+                } else {
+                    fecha = 'Fecha no disponible';
+                }
+                
+                const resumen = noticia.resumen || noticia.contenido.substring(0, 200) + '...';
+                
+                // Construir URL de imagen usando directamente lo que viene de la BD
+                let imagenURL = '';
+                const filename = noticia.imagen_filename || noticia.imagen_url || '';
+                if (filename) {
+                    imagenURL = `${API_BASE_URL}/noticias/imagen/${filename}`;
+                }
+                
+                const imagenHTML = imagenURL 
+                    ? `<img src="${imagenURL}" alt="${noticia.titulo}" class="news-image-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">`
+                    : '';
+                const placeholderHTML = `<div class="image-placeholder" ${imagenURL ? 'style="display:none;"' : ''}><i class="fas fa-newspaper"></i></div>`;
+                
+                // Mostrar solo las primeras 6, el resto con clase news-hidden
+                const hiddenClass = index >= 6 ? 'news-hidden' : '';
+                
+                return `
+                    <article class="news-card ${hiddenClass}" data-id="${noticia.id}">
+                        <div class="news-image">
+                            ${imagenHTML}
+                            ${placeholderHTML}
+                            <div class="news-categories">
+                            </div>
+                        </div>
+                        <div class="news-content">
+                            <h3>${noticia.titulo}</h3>
+                            <p>${resumen}</p>
+                            <div class="news-meta">
+                                <span class="news-date">${fecha}</span>
+                                <a href="#" class="read-more" onclick="verDetalleNoticia(${noticia.id}); return false;">Ver más</a>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+            
+            container.innerHTML = noticiasHTML;
+        }
+
+        // Configurar botón "Ver más"
+        function configurarBotonVerMas(newsGrid, loadMoreContainer) {
+            const loadMoreBtn = document.getElementById('load-more-news');
+            if (!loadMoreBtn) return;
+            
+            const allNews = newsGrid.querySelectorAll('.news-card');
+            const hiddenNews = Array.from(allNews).filter(news => news.classList.contains('news-hidden'));
+            const btnText = loadMoreBtn.querySelector('.btn-text');
+            const btnIcon = loadMoreBtn.querySelector('.fa-chevron-down');
+            let isExpanded = false;
+
+            if (hiddenNews.length === 0) {
+                loadMoreContainer.style.display = 'none';
+                return;
+            }
+
+            loadMoreBtn.addEventListener('click', function() {
+                if (!isExpanded) {
+                    hiddenNews.forEach((news, index) => {
+                        setTimeout(() => {
+                            news.classList.remove('news-hidden');
+                        }, index * 50);
+                    });
+                    isExpanded = true;
+                    if (btnText) btnText.textContent = 'Ver menos noticias';
+                    if (btnIcon) {
+                        btnIcon.classList.remove('fa-chevron-down');
+                        btnIcon.classList.add('fa-chevron-up');
+                    }
+                } else {
+                    hiddenNews.forEach((news, index) => {
+                        setTimeout(() => {
+                            news.classList.add('news-hidden');
+                        }, index * 30);
+                    });
+                    isExpanded = false;
+                    if (btnText) btnText.textContent = 'Ver más noticias';
+                    if (btnIcon) {
+                        btnIcon.classList.remove('fa-chevron-up');
+                        btnIcon.classList.add('fa-chevron-down');
+                    }
+                }
+            });
+        }
+
+        // Mostrar mensaje cuando no hay noticias disponibles
+        function mostrarMensajeSinNoticias(newsGrid, loadMoreContainer) {
+            if (!newsGrid) return;
+            
+            if (loadMoreContainer) {
+                loadMoreContainer.style.display = 'none';
+            }
+            
+            newsGrid.style.display = 'grid';
+            newsGrid.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 1rem; color: #666;">
+                    <i class="fas fa-newspaper" style="font-size: 4rem; margin-bottom: 1.5rem; opacity: 0.3;"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem; font-weight: 500; color: #333;">No hay noticias disponibles</h3>
+                    <p style="font-size: 1rem; opacity: 0.8; max-width: 500px; margin: 0 auto;">
+                        Las noticias se cargarán al momento de tener conexion con el servidor.
+                    </p>
+                </div>
+            `;
+        }
+
+        // Función para ver el detalle completo de una noticia
+        async function verDetalleNoticia(noticiaId) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/noticias/${noticiaId}`);
+                const data = await response.json();
+                
+                if (data.success && data.noticia) {
+                    mostrarModalNoticia(data.noticia);
+                } else {
+                    alert('No se pudo cargar el contenido de la noticia');
+                }
+            } catch (error) {
+                console.error('Error al cargar noticia:', error);
+                alert('Error al cargar el contenido de la noticia');
+            }
+        }
+        
+        // Función para mostrar el modal con el contenido de la noticia
+        function mostrarModalNoticia(noticia) {
+            // Crear modal si no existe
+            let modal = document.getElementById('modalNoticia');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'modalNoticia';
+                modal.className = 'news-modal';
+                modal.style.display = 'none';
+                modal.innerHTML = `
+                    <div class="news-modal-overlay" onclick="cerrarModalNoticia()"></div>
+                    <div class="news-modal-content">
+                        <div class="news-modal-header">
+                            <h2 id="modalNoticiaTitulo"></h2>
+                            <button class="news-modal-close" onclick="cerrarModalNoticia()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="news-modal-body">
+                            <div id="modalNoticiaImagen" class="news-modal-image"></div>
+                            <div id="modalNoticiaMeta" class="news-modal-meta"></div>
+                            <div id="modalNoticiaContenido" class="news-modal-text"></div>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+            }
+            
+            const titulo = document.getElementById('modalNoticiaTitulo');
+            const imagen = document.getElementById('modalNoticiaImagen');
+            const meta = document.getElementById('modalNoticiaMeta');
+            const contenido = document.getElementById('modalNoticiaContenido');
+            
+            // Formatear fecha
+            let fechaFormateada = '';
+            if (noticia.fecha_publicacion) {
+                let fechaObj;
+                if (noticia.fecha_publicacion instanceof Date) {
+                    fechaObj = noticia.fecha_publicacion;
+                } else {
+                    fechaObj = new Date(noticia.fecha_publicacion);
+                }
+                if (!isNaN(fechaObj.getTime())) {
+                    const diasSemana = ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'];
+                    const meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+                    const diaSemana = diasSemana[fechaObj.getDay()];
+                    const dia = fechaObj.getDate();
+                    const mes = meses[fechaObj.getMonth()];
+                    const horas = fechaObj.getHours().toString().padStart(2, '0');
+                    const minutos = fechaObj.getMinutes().toString().padStart(2, '0');
+                    const ampm = horas >= 12 ? 'p. m.' : 'a. m.';
+                    const horas12 = horas % 12 || 12;
+                    fechaFormateada = `${diaSemana}, ${dia} ${mes}, ${horas12}:${minutos} ${ampm}`;
+                }
+            } else if (noticia.created_at) {
+                const fechaObj = new Date(noticia.created_at);
+                if (!isNaN(fechaObj.getTime())) {
+                    const diasSemana = ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'];
+                    const meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+                    const diaSemana = diasSemana[fechaObj.getDay()];
+                    const dia = fechaObj.getDate();
+                    const mes = meses[fechaObj.getMonth()];
+                    const horas = fechaObj.getHours().toString().padStart(2, '0');
+                    const minutos = fechaObj.getMinutes().toString().padStart(2, '0');
+                    const ampm = horas >= 12 ? 'p. m.' : 'a. m.';
+                    const horas12 = horas % 12 || 12;
+                    fechaFormateada = `${diaSemana}, ${dia} ${mes}, ${horas12}:${minutos} ${ampm}`;
+                }
+            }
+            
+            // Construir URL de imagen usando directamente lo que viene de la BD
+            let imagenURL = '';
+            const filename = noticia.imagen_filename || noticia.imagen_url || '';
+            if (filename) {
+                imagenURL = `${API_BASE_URL}/noticias/imagen/${filename}`;
+            }
+            
+            // Llenar el modal
+            titulo.textContent = noticia.titulo || 'Noticia';
+            
+            if (imagenURL) {
+                imagen.innerHTML = `<img src="${imagenURL}" alt="${noticia.titulo}" class="news-modal-img">`;
+            } else {
+                imagen.innerHTML = '';
+            }
+            
+            meta.innerHTML = `
+                <div class="news-modal-author">
+                    <span class="news-modal-author-label">Por:</span>
+                    <span class="news-modal-author-name">${noticia.autor_nombre || 'INJUV'}</span>
+                </div>
+                ${fechaFormateada ? `
+                <div class="news-modal-date">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>${fechaFormateada}</span>
+                </div>
+                ` : ''}
+            `;
+            
+            // Formatear contenido con saltos de línea
+            const contenidoFormateado = (noticia.contenido || '').replace(/\n/g, '<br>');
+            contenido.innerHTML = contenidoFormateado || '<p>No hay contenido disponible.</p>';
+            
+            // Mostrar modal
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Función para cerrar el modal
+        function cerrarModalNoticia() {
+            const modal = document.getElementById('modalNoticia');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        }
+        
+        // Hacer funciones globales para que funcionen desde onclick
+        window.verDetalleNoticia = verDetalleNoticia;
+        window.cerrarModalNoticia = cerrarModalNoticia;
+        
+        // Cerrar modal con ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                cerrarModalNoticia();
+            }
+        });
+
+        // Cargar noticias al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            cargarNoticias();
+        });
+
+        // Configurar enlace de "Preguntas frecuentes" para abrir el chatbot
+        window.addEventListener('load', () => {
+            const faqLink = document.getElementById('faq-link');
+            
+            if (faqLink) {
+                faqLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    setTimeout(() => {
+                        const chatbotToggle = document.getElementById('chatbot-toggle');
+                        const chatbotContainer = document.getElementById('chatbot-container');
+                        
+                        if (chatbotContainer && chatbotToggle) {
+                            if (!chatbotContainer.classList.contains('chatbot-open')) {
+                                chatbotToggle.click();
+                            }
+                        }
+                    }, 300);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
