@@ -18,7 +18,7 @@ function reseñaEsPublicaParaMostrar(val) {
 // ==========================================================
 // ================== Configuración API ====================
 // ==========================================================
-const API_BASE_URL = 'https://injuv.onrender.com/api';
+const API_BASE_URL = window.API_BASE_URL || 'https://injuv.onrender.com/api';
 
 // Variables globales
 let organizacionData = null;

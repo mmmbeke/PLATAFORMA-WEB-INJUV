@@ -2,7 +2,7 @@
 
 // Configuración de la URL base del API
 // Usar 127.0.0.1 en lugar de localhost para evitar problemas de resolución DNS
-const API_BASE_URL = 'https://injuv.onrender.com/api';
+const API_BASE_URL = window.API_BASE_URL || 'https://injuv.onrender.com/api';
 
 document.addEventListener('DOMContentLoaded', function() {
     loadHeader();

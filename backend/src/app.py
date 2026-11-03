@@ -66,6 +66,9 @@ app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER', app.co
 db = SQLAlchemy(app)
 mail = Mail(app)
 
+# Directorio raíz del repositorio (carpetas de uploads: perfiles_usuarios, imagenes_noticias, etc.)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 
 # Modelo de prueba (opcional)
 class Usuario(db.Model):
@@ -695,7 +698,7 @@ def obtener_foto_perfil_usuario(user_id):
         usuario = Usuario.query.get(user_id)
         if not usuario or not usuario.foto_perfil:
             return jsonify({'success': False, 'error': 'Sin foto de perfil'}), 404
-        filepath = os.path.join(os.getcwd(), 'perfiles_usuarios', usuario.foto_perfil)
+        filepath = os.path.join(BASE_DIR, 'perfiles_usuarios', usuario.foto_perfil)
         if not os.path.isfile(filepath):
             return jsonify({'success': False, 'error': 'Archivo no encontrado'}), 404
         ext = os.path.splitext(usuario.foto_perfil)[1].lower()
@@ -754,7 +757,7 @@ def subir_foto_perfil_usuario(user_id):
         file_ext = os.path.splitext(file.filename)[1].lower()
         if file_ext not in {'.png', '.jpg', '.jpeg', '.webp', '.gif'}:
             file_ext = '.png'
-        upload_dir = os.path.join(os.getcwd(), 'perfiles_usuarios')
+        upload_dir = os.path.join(BASE_DIR, 'perfiles_usuarios')
         os.makedirs(upload_dir, exist_ok=True)
         if usuario.foto_perfil:
             old_path = os.path.join(upload_dir, usuario.foto_perfil)
@@ -828,7 +831,7 @@ def eliminar_usuario(user_id):
         
         if organizacion:
             if organizacion.logo_filename:
-                logo_path = os.path.join(os.getcwd(), 'logos_organizaciones', organizacion.logo_filename)
+                logo_path = os.path.join(BASE_DIR, 'logos_organizaciones', organizacion.logo_filename)
                 if os.path.isfile(logo_path):
                     try:
                         os.remove(logo_path)
@@ -853,7 +856,7 @@ def eliminar_usuario(user_id):
             db.session.delete(postulacion)
         
         if usuario.foto_perfil:
-            foto_path = os.path.join(os.getcwd(), 'perfiles_usuarios', usuario.foto_perfil)
+            foto_path = os.path.join(BASE_DIR, 'perfiles_usuarios', usuario.foto_perfil)
             if os.path.isfile(foto_path):
                 try:
                     os.remove(foto_path)
@@ -1042,7 +1045,7 @@ def obtener_logo_organizacion(organizacion_id):
         organizacion = Organizacion.query.get(organizacion_id)
         if not organizacion or not organizacion.logo_filename:
             return jsonify({'success': False, 'error': 'Sin logo'}), 404
-        filepath = os.path.join(os.getcwd(), 'logos_organizaciones', organizacion.logo_filename)
+        filepath = os.path.join(BASE_DIR, 'logos_organizaciones', organizacion.logo_filename)
         if not os.path.isfile(filepath):
             return jsonify({'success': False, 'error': 'Archivo no encontrado'}), 404
         ext = os.path.splitext(organizacion.logo_filename)[1].lower()
@@ -1101,7 +1104,7 @@ def subir_logo_organizacion(organizacion_id):
         file_ext = os.path.splitext(file.filename)[1].lower()
         if file_ext not in {'.png', '.jpg', '.jpeg', '.webp', '.gif'}:
             file_ext = '.png'
-        upload_dir = os.path.join(os.getcwd(), 'logos_organizaciones')
+        upload_dir = os.path.join(BASE_DIR, 'logos_organizaciones')
         os.makedirs(upload_dir, exist_ok=True)
         if organizacion.logo_filename:
             old_path = os.path.join(upload_dir, organizacion.logo_filename)
@@ -1346,7 +1349,7 @@ def subir_certificacion_organizacion(organizacion_id):
             }), 400
         
         # Crear directorio de certificaciones de organizaciones si no existe
-        certificaciones_dir = os.path.join(os.getcwd(), 'certificaciones_organizaciones')
+        certificaciones_dir = os.path.join(BASE_DIR, 'certificaciones_organizaciones')
         if not os.path.exists(certificaciones_dir):
             os.makedirs(certificaciones_dir)
         
@@ -1404,7 +1407,7 @@ def descargar_certificacion_organizacion(filename):
         description: "Error interno del servidor"
     """
     try:
-        filepath = os.path.join(os.getcwd(), 'certificaciones_organizaciones', filename)
+        filepath = os.path.join(BASE_DIR, 'certificaciones_organizaciones', filename)
         if os.path.exists(filepath):
             return send_file(filepath, as_attachment=True)
         else:
@@ -2740,7 +2743,7 @@ def subir_imagen_noticia():
             }), 400
         
         # Crear directorio de imágenes de noticias si no existe
-        imagenes_dir = os.path.join(os.getcwd(), 'imagenes_noticias')
+        imagenes_dir = os.path.join(BASE_DIR, 'imagenes_noticias')
         if not os.path.exists(imagenes_dir):
             os.makedirs(imagenes_dir)
         
@@ -2798,7 +2801,7 @@ def obtener_imagen_noticia(filename):
         description: "Error interno del servidor"
     """
     try:
-        filepath = os.path.join(os.getcwd(), 'imagenes_noticias', filename)
+        filepath = os.path.join(BASE_DIR, 'imagenes_noticias', filename)
         if os.path.exists(filepath):
             return send_file(filepath, as_attachment=False)
         else:
@@ -2985,7 +2988,7 @@ def actualizar_noticia(noticia_id):
                 if noticia.imagen_noticia:
                     try:
                         import os
-                        filepath = os.path.join(os.getcwd(), 'imagenes_noticias', noticia.imagen_noticia)
+                        filepath = os.path.join(BASE_DIR, 'imagenes_noticias', noticia.imagen_noticia)
                         if os.path.exists(filepath):
                             os.remove(filepath)
                             print(f"DEBUG: Archivo eliminado: {filepath}")
@@ -6083,8 +6086,8 @@ def _subir_documento_repositorio(seccion, request):
     max_size_mb = 500 if seccion == 'academia' else 25
     if size > max_size:
         return None, f'Tamaño máximo {max_size_mb}MB'
-    folder = 'repositorio_biblioteca' if seccion == 'biblioteca' else 'repositorio_academia'
-    base_dir = os.path.join(os.getcwd(), folder)
+    folder = 'documentos_biblioteca' if seccion == 'biblioteca' else 'repositorio_academia'
+    base_dir = os.path.join(BASE_DIR, folder)
     if not os.path.exists(base_dir):
         os.makedirs(base_dir)
     safe_name = secure_filename(f"{seccion}_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{os.urandom(4).hex()}{ext}")
@@ -6245,8 +6248,8 @@ def descargar_repositorio_documento(seccion, doc_id):
             doc = AcademiaDocumento.query.get(doc_id)
         if not doc:
             return jsonify({'success': False, 'error': 'Documento no encontrado'}), 404
-        folder = 'repositorio_biblioteca' if seccion == 'biblioteca' else 'repositorio_academia'
-        filepath = os.path.join(os.getcwd(), folder, doc.archivo_filename)
+        folder = 'documentos_biblioteca' if seccion == 'biblioteca' else 'repositorio_academia'
+        filepath = os.path.join(BASE_DIR, folder, doc.archivo_filename)
         if not os.path.exists(filepath):
             return jsonify({'success': False, 'error': 'Archivo no encontrado en disco'}), 404
         return send_file(filepath, as_attachment=True, download_name=doc.nombre_archivo or doc.archivo_filename)
@@ -6283,7 +6286,7 @@ def eliminar_biblioteca_documento(doc_id):
         doc = BibliotecaDocumento.query.get(doc_id)
         if not doc:
             return jsonify({'success': False, 'error': 'Documento no encontrado'}), 404
-        filepath = os.path.join(os.getcwd(), 'repositorio_biblioteca', doc.archivo_filename)
+        filepath = os.path.join(BASE_DIR, 'documentos_biblioteca', doc.archivo_filename)
         if os.path.exists(filepath):
             try:
                 os.remove(filepath)
@@ -6326,7 +6329,7 @@ def eliminar_academia_documento(doc_id):
         doc = AcademiaDocumento.query.get(doc_id)
         if not doc:
             return jsonify({'success': False, 'error': 'Documento no encontrado'}), 404
-        filepath = os.path.join(os.getcwd(), 'repositorio_academia', doc.archivo_filename)
+        filepath = os.path.join(BASE_DIR, 'repositorio_academia', doc.archivo_filename)
         if os.path.exists(filepath):
             try:
                 os.remove(filepath)
@@ -6536,7 +6539,7 @@ def actualizar_academia_documento_organizacion(org_id, doc_id):
                 return jsonify({'success': False, 'error': err}), 400
             filename_new, mime_new, size_new = payload
             # Borrar archivo antiguo
-            old_path = os.path.join(os.getcwd(), 'repositorio_academia', doc.archivo_filename)
+            old_path = os.path.join(BASE_DIR, 'repositorio_academia', doc.archivo_filename)
             if os.path.exists(old_path):
                 try:
                     os.remove(old_path)
@@ -6585,7 +6588,7 @@ def eliminar_academia_documento_organizacion(org_id, doc_id):
         doc = AcademiaDocumento.query.filter_by(id=doc_id, organizacion_id=org_id).first()
         if not doc:
             return jsonify({'success': False, 'error': 'Documento no encontrado'}), 404
-        filepath = os.path.join(os.getcwd(), 'repositorio_academia', doc.archivo_filename)
+        filepath = os.path.join(BASE_DIR, 'repositorio_academia', doc.archivo_filename)
         if os.path.exists(filepath):
             try:
                 os.remove(filepath)
@@ -7154,7 +7157,7 @@ def subir_certificado_voluntario(postulacion_id):
         
         # Crear directorio de certificados si no existe
         import os
-        certificados_dir = os.path.join(os.getcwd(), 'certificados_voluntarios')
+        certificados_dir = os.path.join(BASE_DIR, 'certificados_voluntarios')
         if not os.path.exists(certificados_dir):
             os.makedirs(certificados_dir)
         

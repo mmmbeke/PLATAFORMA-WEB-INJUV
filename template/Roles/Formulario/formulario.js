@@ -1,5 +1,5 @@
 // Configuración de la API
-const API_BASE_URL = 'https://injuv.onrender.com/api';
+const API_BASE_URL = window.API_BASE_URL || 'https://injuv.onrender.com/api';
 
 // Base de datos de regiones, provincias (ciudades) y comunas de Chile
 const ubicacionesChile = {

@@ -273,6 +273,10 @@
   </header>
   
   <script>
+    // Prefijo base: '/template' cuando el sitio se sirve con la raíz en el repo (Live Server),
+    // '' cuando template/ es la raíz del sitio (Vercel u otro hosting estático)
+    var INJUV_TEMPLATE_PREFIX = window.location.pathname.startsWith('/template/') ? '/template' : '';
+
     // Función para obtener la ruta base según la ubicación actual
     function getBasePath() {
       const currentPath = window.location.pathname;
@@ -585,7 +589,7 @@
       }
       
       // Construir ruta absoluta al perfil de usuario
-      const profileUrl = baseUrl + '/template/Roles/Perfil_usuario/index.html';
+      const profileUrl = baseUrl + INJUV_TEMPLATE_PREFIX + '/Roles/Perfil_usuario/index.html';
       
       console.log('=== Redirección a Mi Perfil ===');
       console.log('Ruta actual:', currentPath);
@@ -619,7 +623,7 @@
       }
       
       // Construir ruta absoluta al perfil de organización
-      const organizacionUrl = baseUrl + '/template/Roles/Perfil_organizacion/index.html';
+      const organizacionUrl = baseUrl + INJUV_TEMPLATE_PREFIX + '/Roles/Perfil_organizacion/index.html';
       
       console.log('=== Redirección a Mi Organización ===');
       console.log('Ruta actual:', currentPath);
@@ -671,10 +675,10 @@
       
       if (userRol === 'admin') {
         // Panel de administración - siempre usar ruta absoluta
-        panelUrl = baseUrl + '/template/Roles/Admin/admin-modern.html';
+        panelUrl = baseUrl + INJUV_TEMPLATE_PREFIX + '/Roles/Admin/admin-modern.html';
       } else if (userRol === 'organizacion') {
         // Dashboard de organización - siempre usar ruta absoluta
-        panelUrl = baseUrl + '/template/Roles/Perfil_organizacion/dashboard.html';
+        panelUrl = baseUrl + INJUV_TEMPLATE_PREFIX + '/Roles/Perfil_organizacion/dashboard.html';
       } else {
         // Usuario normal - no tiene panel, redirigir al perfil
         window.goToProfile(event);
@@ -715,19 +719,19 @@
         // Determinar la ruta base
         if (currentPath.includes('/Roles/')) {
           // Estamos en una carpeta de Roles (Admin, Perfil_usuario, Perfil_organizacion, etc.)
-          loginUrl = currentUrl + '/template/inicio de sesion/login.html';
+          loginUrl = currentUrl + INJUV_TEMPLATE_PREFIX + '/inicio de sesion/login.html';
         } else if (currentPath.includes('/template/')) {
           // Estamos dentro de template
           if (currentPath.includes('/inicio de sesion/')) {
             // Ya estamos en inicio de sesion, no hacer nada o recargar
-            loginUrl = currentUrl + '/template/inicio de sesion/login.html';
+            loginUrl = currentUrl + INJUV_TEMPLATE_PREFIX + '/inicio de sesion/login.html';
           } else {
             // Estamos en otra parte de template
-            loginUrl = currentUrl + '/template/inicio de sesion/login.html';
+            loginUrl = currentUrl + INJUV_TEMPLATE_PREFIX + '/inicio de sesion/login.html';
           }
         } else {
           // Estamos en la raíz
-          loginUrl = currentUrl + '/template/inicio de sesion/login.html';
+          loginUrl = currentUrl + INJUV_TEMPLATE_PREFIX + '/inicio de sesion/login.html';
         }
         
         console.log('Redirigiendo al login:', loginUrl);
@@ -930,13 +934,13 @@
       // Determinar la ruta base
       if (currentPath.includes('/Roles/')) {
         // Estamos en una carpeta de Roles (Admin, Perfil_usuario, Perfil_organizacion, etc.)
-        loginUrl = currentUrl + '/template/inicio de sesion/login.html';
+        loginUrl = currentUrl + INJUV_TEMPLATE_PREFIX + '/inicio de sesion/login.html';
       } else if (currentPath.includes('/template/')) {
         // Estamos dentro de template
-        loginUrl = currentUrl + '/template/inicio de sesion/login.html';
+        loginUrl = currentUrl + INJUV_TEMPLATE_PREFIX + '/inicio de sesion/login.html';
       } else {
         // Estamos en la raíz
-        loginUrl = currentUrl + '/template/inicio de sesion/login.html';
+        loginUrl = currentUrl + INJUV_TEMPLATE_PREFIX + '/inicio de sesion/login.html';
       }
       
       console.log('Cerrando sesión y redirigiendo al login:', loginUrl);
@@ -966,7 +970,7 @@
         function getLoginUrl() {
           // Usar ruta absoluta para evitar problemas con espacios en nombres de carpetas
           const origin = window.location.origin;
-          return origin + '/template/inicio de sesion/login.html';
+          return origin + INJUV_TEMPLATE_PREFIX + '/inicio de sesion/login.html';
         }
         
         const loginUrl = getLoginUrl();
@@ -992,7 +996,7 @@
         } else if (currentPath.includes('template')) {
           profileLink.href = 'Roles/Perfil_usuario/index.html';
         } else {
-          profileLink.href = 'template/Roles/Perfil_usuario/index.html';
+          profileLink.href = INJUV_TEMPLATE_PREFIX + '/Roles/Perfil_usuario/index.html';
         }
       }
       
@@ -1008,7 +1012,7 @@
             } else if (currentPath.includes('template')) {
               panelLink.href = 'Roles/Admin/admin-modern.html';
             } else {
-              panelLink.href = 'template/Roles/Admin/admin-modern.html';
+              panelLink.href = INJUV_TEMPLATE_PREFIX + '/Roles/Admin/admin-modern.html';
             }
           } else if (userInfo.rol === 'organizacion') {
             // "Mi panel" siempre debe ir al dashboard, no al perfil (index.html)
@@ -1017,7 +1021,7 @@
             } else if (currentPath.includes('template')) {
               panelLink.href = 'Roles/Perfil_organizacion/dashboard.html';
             } else {
-              panelLink.href = 'template/Roles/Perfil_organizacion/dashboard.html';
+              panelLink.href = INJUV_TEMPLATE_PREFIX + '/Roles/Perfil_organizacion/dashboard.html';
             }
           }
         }

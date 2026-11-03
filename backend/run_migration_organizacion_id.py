@@ -6,8 +6,10 @@ Ejecutar desde la carpeta del proyecto con el venv activado:
 import os
 import sys
 
-# URI por defecto (coincide con app.py); puede sobreescribirse con DATABASE_URI
-URI = os.environ.get('DATABASE_URI', 'postgresql://postgres:fran0405@localhost/INJUV')
+# La URI de la base de datos se toma exclusivamente de variables de entorno
+URI = os.environ.get('DATABASE_URL') or os.environ.get('DATABASE_URI')
+if not URI:
+    raise SystemExit("Error: define la variable de entorno DATABASE_URL (o DATABASE_URI) antes de ejecutar este script.")
 
 from sqlalchemy import text, create_engine
 

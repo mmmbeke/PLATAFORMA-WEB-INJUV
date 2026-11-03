@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todas las Noticias - INJUV</title>
-    <link rel="stylesheet" href="../Kit_Gobierno/typography.css">
+    <link rel="stylesheet" href="../typography.css">
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="../chatbot/styles_bot.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="../config.js"></script>
 </head>
 <body class="noticias-page">
     <!-- Header -->
@@ -281,7 +282,7 @@
                 <div class="footer-section footer-col2">
                     <h4>Secciones</h4>
                     <ul>
-                        <li><a href="index.html">Noticias</a></li>
+                        <li><a href="noticias.html">Noticias</a></li>
                         <li><a href="../inicio de sesion/login.html">Postular</a></li>
                         <li><a href="../index.html#organizaciones">Instituciones públicas</a></li>
                         <li><a href="#">Términos y condiciones</a></li>
@@ -316,7 +317,7 @@
     
     <script>
         // Configuración de la URL base del API
-        const API_BASE_URL = 'https://injuv.onrender.com/api';
+        const API_BASE_URL = window.API_BASE_URL || 'https://injuv.onrender.com/api';
 
         // Cargar noticias desde el backend
         async function cargarNoticias() {

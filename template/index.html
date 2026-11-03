@@ -23,6 +23,7 @@
         .testimonial-content .stars i.far.fa-star { color: #d1d5db; }
         .testimonial-content .stars i.fas.fa-star-half-stroke { color: #fbbf24; }
     </style>
+    <script src="config.js"></script>
 </head>
 <body>
    
@@ -609,7 +610,7 @@
     
     <!-- Script para cargar oportunidades destacadas -->
     <script>
-        const API_BASE_URL = 'https://injuv.onrender.com/api';
+        const API_BASE_URL = window.API_BASE_URL || 'https://injuv.onrender.com/api';
         let postulacionesUsuarioHome = [];
 
         async function cargarPostulacionesUsuarioHome() {

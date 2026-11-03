@@ -1,6 +1,6 @@
 // ====================== Dashboard Organización - JavaScript ======================
 
-const API_BASE_URL = 'https://injuv.onrender.com/api';
+const API_BASE_URL = window.API_BASE_URL || 'https://injuv.onrender.com/api';
 
 /** Coincide con backend: null/undefined = pública por defecto */
 function reseñaEsPublicaParaMostrar(val) {
@@ -171,7 +171,7 @@ function createBasicHeader() {
             <div style="max-width: 1400px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between;">
                 <div class="logo">
                     <a href="../../index.html" style="text-decoration: none;">
-                        <img src="../../Kit_Gobierno/Logo_INJUV.png" alt="INJUV" style="height: 60px;">
+                        <img src="https://www.injuv.gob.cl/sites/default/files/logo_injuv_2021_portal.png?v=3" alt="INJUV" style="height: 60px;">
                     </a>
                 </div>
                 <nav style="flex: 1; display: flex; justify-content: center; gap: 1rem;">
