@@ -468,7 +468,7 @@ function loadPlatformSettings() {
 
 // Funciones de Acción
 async function saveUser(userData, role) {
-    const API_BASE_URL = window.API_BASE_URL || 'https://injuv.onrender.com/api';
+    const API_BASE_URL = window.API_BASE_URL || 'https://plataforma-web-injuv.onrender.com/api';
     
     try {
         console.log('Guardando usuario:', userData);

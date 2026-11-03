@@ -1,6 +1,6 @@
 // ====================== Dashboard Organización - JavaScript ======================
 
-const API_BASE_URL = window.API_BASE_URL || 'https://injuv.onrender.com/api';
+const API_BASE_URL = window.API_BASE_URL || 'https://plataforma-web-injuv.onrender.com/api';
 
 /** Coincide con backend: null/undefined = pública por defecto */
 function reseñaEsPublicaParaMostrar(val) {

@@ -1,7 +1,7 @@
 // ====================== assets/app.js (limpio) ======================
 
 // ---------- Constantes ----------
-const API_BASE_URL = window.API_BASE_URL || 'https://injuv.onrender.com/api';
+const API_BASE_URL = window.API_BASE_URL || 'https://plataforma-web-injuv.onrender.com/api';
 
 // Base de datos de regiones, provincias (ciudades) y comunas de Chile
 const ubicacionesChile = {
@@ -1931,7 +1931,7 @@ function showEditOptions() {
       const originalText = deleteAccountBtn.innerHTML;
       deleteAccountBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Eliminando cuenta...';
       
-      const response = await fetch(`https://injuv.onrender.com/api/usuarios/${userId}`, {
+      const response = await fetch(`https://plataforma-web-injuv.onrender.com/api/usuarios/${userId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'

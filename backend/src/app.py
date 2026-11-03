@@ -37,9 +37,17 @@ swagger = Swagger(app, template={
 })
 
 # Configuración de la base de datos
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-if not app.config['SQLALCHEMY_DATABASE_URI']:
+_db_url = os.environ.get('DATABASE_URL')
+if not _db_url:
     raise ValueError("La variable de entorno DATABASE_URL no está configurada")
+# Normalizar el esquema para usar siempre psycopg2 (instalado vía psycopg2-binary):
+# - Render entrega 'postgres://', que SQLAlchemy 2.x rechaza
+# - SQLAlchemy 2.1+ interpreta 'postgresql://' como psycopg3 (no instalado)
+if _db_url.startswith('postgres://'):
+    _db_url = _db_url.replace('postgres://', 'postgresql+psycopg2://', 1)
+elif _db_url.startswith('postgresql://'):
+    _db_url = _db_url.replace('postgresql://', 'postgresql+psycopg2://', 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = _db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Opciones de pool seguras para entornos cloud (Render/Neon)
