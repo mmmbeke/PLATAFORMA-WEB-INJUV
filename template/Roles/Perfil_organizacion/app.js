@@ -679,10 +679,8 @@ function mostrarMensajeSinOrganizacion() {
   
   if (currentPath.includes('/Roles/Perfil_organizacion/')) {
     formularioUrl = '../Formulario/index.html';
-  } else if (currentPath.includes('/template/')) {
-    formularioUrl = 'Roles/Formulario/index.html';
   } else {
-    formularioUrl = 'template/Roles/Formulario/index.html';
+    formularioUrl = 'Roles/Formulario/index.html';
   }
   
   mensajeContainer.innerHTML = `

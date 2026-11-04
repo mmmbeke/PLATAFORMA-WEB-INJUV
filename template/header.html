@@ -273,9 +273,10 @@
   </header>
   
   <script>
-    // Prefijo base: '/template' cuando el sitio se sirve con la raíz en el repo (Live Server),
-    // '' cuando template/ es la raíz del sitio (Vercel u otro hosting estático)
-    var INJUV_TEMPLATE_PREFIX = window.location.pathname.startsWith('/template/') ? '/template' : '';
+    // Prefijo base: '/template' (o '<subpath>/template') cuando el sitio se sirve
+    // con la raíz en el repo (Live Server, GitHub Pages), '' cuando template/ es la raíz
+    var _tplMatch = window.location.pathname.match(/^(.*\/template)(?=\/|$)/);
+    var INJUV_TEMPLATE_PREFIX = _tplMatch ? _tplMatch[1] : '';
 
     // Función para obtener la ruta base según la ubicación actual
     function getBasePath() {
@@ -299,10 +300,10 @@
                  currentPath.includes('biblioteca') ||
                  currentPath.includes('inicio de sesion')) {
         return '../';
-      } else if (currentPath.includes('/template/')) {
-        return '';
       } else {
-        return 'template/';
+        // Raíz del sitio (index en '/'): tanto con template/ como raíz (Vercel)
+        // como bajo /template/ (Live Server) la base relativa correcta es ''
+        return '';
       }
     }
     
@@ -993,8 +994,6 @@
         const currentPath = window.location.pathname;
         if (currentPath.includes('Perfil_usuario')) {
           profileLink.href = 'index.html';
-        } else if (currentPath.includes('template')) {
-          profileLink.href = 'Roles/Perfil_usuario/index.html';
         } else {
           profileLink.href = INJUV_TEMPLATE_PREFIX + '/Roles/Perfil_usuario/index.html';
         }
@@ -1009,8 +1008,6 @@
           if (userInfo.rol === 'admin') {
             if (currentPath.includes('Admin')) {
               panelLink.href = 'admin-modern.html';
-            } else if (currentPath.includes('template')) {
-              panelLink.href = 'Roles/Admin/admin-modern.html';
             } else {
               panelLink.href = INJUV_TEMPLATE_PREFIX + '/Roles/Admin/admin-modern.html';
             }
@@ -1018,8 +1015,6 @@
             // "Mi panel" siempre debe ir al dashboard, no al perfil (index.html)
             if (currentPath.includes('Perfil_organizacion')) {
               panelLink.href = 'dashboard.html';
-            } else if (currentPath.includes('template')) {
-              panelLink.href = 'Roles/Perfil_organizacion/dashboard.html';
             } else {
               panelLink.href = INJUV_TEMPLATE_PREFIX + '/Roles/Perfil_organizacion/dashboard.html';
             }

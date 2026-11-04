@@ -107,7 +107,7 @@ async function loadHeader() {
         const possiblePaths = [
             '../../header.html',
             '../header.html',
-            '/template/header.html',
+            '/header.html',
             'header.html'
         ];
         

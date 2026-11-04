@@ -2669,7 +2669,10 @@ window.verPerfilOrganizacion = function(organizacionId) {
   const baseUrl = window.location.origin;
   
   // Construir la URL de manera explícita y segura
-  const profileUrl = baseUrl + '/template/Roles/Perfil_organizacion/index.html?organizacion_id=' + orgId;
+  // Prefijo: '/template' si el sitio se sirve con raíz en el repo, '' si template/ es la raíz
+  const tplMatch = window.location.pathname.match(/^(.*\/template)(?=\/|$)/);
+  const templatePrefix = tplMatch ? tplMatch[1] : '';
+  const profileUrl = baseUrl + templatePrefix + '/Roles/Perfil_organizacion/index.html?organizacion_id=' + orgId;
   
   console.log('=== Redirección a Perfil de Organización ===');
   console.log('Ruta actual:', window.location.pathname);
