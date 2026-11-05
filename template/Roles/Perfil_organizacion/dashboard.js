@@ -174,7 +174,7 @@ function createBasicHeader() {
                         <img src="https://www.injuv.gob.cl/sites/default/files/logo_injuv_2021_portal.png?v=3" alt="INJUV" style="height: 60px;">
                     </a>
                 </div>
-                <nav style="flex: 1; display: flex; justify-content: center; gap: 1rem;">
+                <nav style="flex: 1; display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
                     <a href="../../index.html" style="padding: 0.5rem 1rem; color: #333; text-decoration: none; font-weight: 500;">Inicio</a>
                     <a href="../../index.html#how-it-works" style="padding: 0.5rem 1rem; color: #333; text-decoration: none; font-weight: 500;">Cómo funciona</a>
                     <a href="../../index.html#news" style="padding: 0.5rem 1rem; color: #333; text-decoration: none; font-weight: 500;">Noticias</a>
