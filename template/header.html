@@ -279,18 +279,23 @@
     var INJUV_TEMPLATE_PREFIX = _tplMatch ? _tplMatch[1] : '';
 
     // Toggle del menú móvil: bind directo con stopPropagation para que ningún
-    // otro listener (script.js delegado u otros) re-togglee el estado.
+    // otro listener re-togglee; se aplica a TODAS las instancias por si el
+    // header quedó inyectado duplicado en el DOM.
     (function() {
-      var btn = document.getElementById('menuToggle');
-      var nav = document.querySelector('.main-nav');
-      if (!btn || !nav || btn.dataset.bound) return;
-      btn.dataset.bound = '1';
-      btn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var open = !nav.classList.contains('active');
-        nav.classList.toggle('active', open);
-        btn.classList.toggle('active', open);
-        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      var btns = document.querySelectorAll('.menu-toggle');
+      var navs = document.querySelectorAll('.main-nav');
+      btns.forEach(function(btn) {
+        if (btn.dataset.bound) return;
+        btn.dataset.bound = '1';
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var open = !navs[0].classList.contains('active');
+          navs.forEach(function(n) { n.classList.toggle('active', open); });
+          btns.forEach(function(b) {
+            b.classList.toggle('active', open);
+            b.setAttribute('aria-expanded', open ? 'true' : 'false');
+          });
+        });
       });
     })();
 
