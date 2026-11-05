@@ -278,6 +278,22 @@
     var _tplMatch = window.location.pathname.match(/^(.*\/template)(?=\/|$)/);
     var INJUV_TEMPLATE_PREFIX = _tplMatch ? _tplMatch[1] : '';
 
+    // Toggle del menú móvil: bind directo con stopPropagation para que ningún
+    // otro listener (script.js delegado u otros) re-togglee el estado.
+    (function() {
+      var btn = document.getElementById('menuToggle');
+      var nav = document.querySelector('.main-nav');
+      if (!btn || !nav || btn.dataset.bound) return;
+      btn.dataset.bound = '1';
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = !nav.classList.contains('active');
+        nav.classList.toggle('active', open);
+        btn.classList.toggle('active', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    })();
+
     // Función para obtener la ruta base según la ubicación actual
     function getBasePath() {
       const currentPath = window.location.pathname;
