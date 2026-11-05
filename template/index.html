@@ -548,42 +548,9 @@
                     const login = document.getElementById('login-link');
                     if (login) login.href = 'inicio de sesion/login.html';
                     
-                    // Menú móvil toggle
-                    const menuToggle = document.getElementById('menuToggle');
-                    const mainNav = document.querySelector('.main-nav');
-                    if (menuToggle && mainNav) {
-                        menuToggle.addEventListener('click', () => {
-                            menuToggle.classList.toggle('active');
-                            mainNav.classList.toggle('active');
-                            menuToggle.setAttribute('aria-expanded', menuToggle.classList.contains('active'));
-                        });
-                        
-                        // Cerrar menú al hacer clic en un enlace
-                        const navLinks = mainNav.querySelectorAll('.nav-link');
-                        navLinks.forEach(link => {
-                            link.addEventListener('click', () => {
-                                if (window.innerWidth <= 1024) {
-                                    menuToggle.classList.remove('active');
-                                    mainNav.classList.remove('active');
-                                    menuToggle.setAttribute('aria-expanded', 'false');
-                                }
-                            });
-                        });
-                    }
-                    
-                    // Dropdowns móviles
-                    const dropdownItems = document.querySelectorAll('.nav-item.dropdown');
-                    dropdownItems.forEach(item => {
-                        if (item.querySelector('.volunteer-filter')) return;
-                        const link = item.querySelector('.nav-link');
-                        if (link && window.innerWidth <= 1024) {
-                            link.addEventListener('click', (e) => {
-                                e.preventDefault();
-                                item.classList.toggle('open');
-                            });
-                        }
-                    });
-                    
+                    // NOTA: el toggle del menú móvil y los dropdowns los maneja
+                    // script.js con listeners delegados (evita doble-toggle).
+
                     // Header scroll effect
                     const header = document.getElementById('header');
                     if (header) {
